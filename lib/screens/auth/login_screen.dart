@@ -1,6 +1,7 @@
 import 'package:finance_tracker/widgets/custom_radio.dart';
 import 'package:finance_tracker/widgets/custom_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_tracker/providers/auth_provider.dart';
 import 'package:finance_tracker/widgets/custom_input.dart';
@@ -32,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => isLoading = false);
 
     if (success) {
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      context.go('/home');
     } else {
       ScaffoldMessenger.of(
         context,
