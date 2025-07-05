@@ -13,4 +13,11 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
     return result;
   }
+
+  Future<bool> register(String email, String password, String tel) async {
+    final result = await _authService.register(email, password, tel);
+    _isLoggedIn = result;
+    notifyListeners();
+    return result;
+  }
 }

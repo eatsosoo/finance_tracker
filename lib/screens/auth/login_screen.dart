@@ -1,3 +1,5 @@
+import 'package:finance_tracker/widgets/custom_radio.dart';
+import 'package:finance_tracker/widgets/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_tracker/providers/auth_provider.dart';
@@ -16,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isEnabled = true;
   bool isLoading = false;
 
   void _handleLogin() async {
@@ -58,10 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Login',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -71,16 +74,29 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: 20),
             CustomInput(
-              label: 'Email',
+              hintText: 'Email',
               controller: emailController,
-              prefixIcon: const Icon(Icons.email, size: 18),
+              prefixIcon: const Icon(Icons.email, size: 20),
             ),
             const SizedBox(height: 12),
             CustomInput(
-              label: 'Password',
+              hintText: 'Password',
               controller: passwordController,
               obscureText: true,
-              prefixIcon: const Icon(Icons.lock, size: 18),
+              prefixIcon: const Icon(Icons.lock, size: 20),
+            ),
+            // Reminder login
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                SizedBox(width: 14,),
+                Text("Reminder me nextime", style: TextStyle(fontSize: 12),),
+                Spacer(),
+                CustomSwitch(
+                  value: isEnabled,
+                  onChanged: (val) => setState(() => isEnabled = val),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             isLoading
@@ -105,7 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: const Text(
                     'Sign Up',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],

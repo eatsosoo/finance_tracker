@@ -1,9 +1,14 @@
+import 'package:finance_tracker/screens/auth/login_screen.dart';
+import 'package:finance_tracker/widgets/custom_radio.dart';
+import 'package:finance_tracker/widgets/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_tracker/providers/auth_provider.dart';
 import 'package:finance_tracker/widgets/custom_input.dart';
 import 'package:finance_tracker/widgets/custom_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:finance_tracker/screens/auth/register_screen.dart';
+import 'package:flutter/services.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,15 +19,18 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
+  final telController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isEnabled = true;
   bool isLoading = false;
 
-  void _handleLogin() async {
+  void _handleRegister() async {
     setState(() => isLoading = true);
 
-    final success = await context.read<AuthProvider>().login(
+    final success = await context.read<AuthProvider>().register(
       emailController.text.trim(),
       passwordController.text.trim(),
+      telController.text.trim(),
     );
 
     setState(() => isLoading = false);
@@ -39,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
+      appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -57,39 +65,62 @@ class _RegisterScreenState extends State<RegisterScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Register',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Please register to login',
+                'Please Sign Up to continue',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 20),
             CustomInput(
-              label: 'Email',
+              hintText: 'Email',
               controller: emailController,
-              prefixIcon: const Icon(Icons.email, size: 18),
+              prefixIcon: const Icon(Icons.email_outlined, size: 20),
             ),
             const SizedBox(height: 12),
             CustomInput(
-              label: 'Password',
+              hintText: 'Tel',
+              controller: telController,
+              prefixIcon: const Icon(Icons.phone_outlined, size: 20),
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(10),
+              ],
+            ),
+            const SizedBox(height: 12),
+            CustomInput(
+              hintText: 'Password',
               controller: passwordController,
               obscureText: true,
-              prefixIcon: const Icon(Icons.lock, size: 18),
+              prefixIcon: const Icon(Icons.lock_outline, size: 20),
+            ),
+            // Reminder login
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                SizedBox(width: 14,),
+                Text("Reminder me nextime", style: TextStyle(fontSize: 12),),
+                Spacer(),
+                CustomSwitch(
+                  value: isEnabled,
+                  onChanged: (val) => setState(() => isEnabled = val),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             isLoading
                 ? const CircularProgressIndicator()
-                : CustomButton(text: 'Sign Up', onPressed: _handleLogin),
+                : CustomButton(text: 'Sign Up', onPressed: _handleRegister),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Don't have an account?",
+                  "Already have account?",
                   style: TextStyle(fontSize: 12),
                 ),
                 TextButton(
@@ -98,13 +129,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
+                        builder: (context) => const LoginScreen(),
                       ),
                     );
                   },
                   child: const Text(
                     'Sign In',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],

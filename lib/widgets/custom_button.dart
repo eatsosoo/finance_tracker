@@ -9,11 +9,16 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: 44,
       width: double.infinity,
-      child: ElevatedButton(onPressed: onPressed, child: Text(text), style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-      ),),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(text, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+        ),
+      ),
     );
   }
 }
