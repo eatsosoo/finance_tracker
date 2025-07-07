@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'screens/auth/login_screen.dart';
 // import 'screens/dashboard/dashboard_screen.dart'; // tạo sau
-import 'router.dart';
+import 'routes/router.dart';
 
 void main() {
   runApp(
