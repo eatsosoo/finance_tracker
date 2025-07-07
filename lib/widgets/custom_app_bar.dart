@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -14,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     String? subtitle,
     this.rightWidget,
     this.avatarUrl,
-  }): subtitle = subtitle ?? getFormattedDate();
+  }) : subtitle = subtitle ?? getFormattedDate();
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +50,76 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
               const Spacer(),
-              // Right-side widget (avatar, notification, etc.)
+
+              // Right-side widget (notification button + avatar)
               if (rightWidget != null) rightWidget!,
+
+              // Notification button (circle)
+              // Notification button (with badge)
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: GestureDetector(
+                  onTap: () {
+                    context.go('/notifications');
+                  },
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      // Nút hình tròn nền xám
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 8,
+                              offset: Offset(0, 3)
+                            )
+                          ]
+                        ),
+                        child: const Icon(
+                          Iconsax.notification5,
+                          color: Colors.black,
+                          size: 24,
+                        ),
+                      ),
+
+                      // Badge đỏ ở góc phải
+                      Positioned(
+                        right: -2,
+                        top: -2,
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          constraints: const BoxConstraints(
+                            minWidth: 16,
+                            minHeight: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                            // border: Border.all(color: Colors.white, width: 1.5),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '3', // <-- Số thông báo chưa đọc
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Avatar
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -61,10 +131,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ],
                 ),
-                child: const CircleAvatar(
-                  radius: 22,
-                  backgroundImage: AssetImage('assets/illustrations/cool-girl-avatar.png'),
-                ),
+                child: avatarUrl != null
+                    ? CircleAvatar(
+                        radius: 22,
+                        backgroundImage: AssetImage(
+                          avatarUrl!, // bạn có thể sửa logic để load SVG ở đây nếu muốn
+                        ),
+                      )
+                    : SvgPicture.asset(
+                        'assets/illustrations/cool-girl-avatar.svg',
+                        width: 40,
+                        height: 40,
+                      ),
               ),
             ],
           ),

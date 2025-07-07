@@ -47,6 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -79,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomInput(
               hintText: 'Email',
               controller: emailController,
-              prefixIcon: const Icon(Iconsax.message, size: 20),
+              prefixIcon: const Icon(Iconsax.sms, size: 20),
             ),
             const SizedBox(height: 12),
             CustomInput(

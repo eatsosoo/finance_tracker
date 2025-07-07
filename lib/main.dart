@@ -21,10 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Quản lý tài chính',
+      title: 'Finance Tracker Personal',
       theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
-        scaffoldBackgroundColor: Colors.white, // 👈 Nền trắng cho toàn app
+        textTheme: GoogleFonts.interTextTheme(),
+        scaffoldBackgroundColor: Colors.grey[100], // 👈 Nền trắng cho toàn app
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black87),
         useMaterial3: true,
       ),
