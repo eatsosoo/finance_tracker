@@ -1,6 +1,7 @@
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:finance_tracker/widgets/drag_handle.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -52,7 +53,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: AppBar(
         title: const Text(
           'Inbox',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         centerTitle: true,
         actions: [
@@ -63,9 +64,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ],
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        elevation: 0.5,
+        elevation: 0,
       ),
-      backgroundColor: Colors.white,
       body: ListView.separated(
         itemCount: filtered.length,
         separatorBuilder: (_, __) =>
@@ -73,55 +73,61 @@ class _NotificationScreenState extends State<NotificationScreen> {
         itemBuilder: (context, index) {
           final item = filtered[index];
           final daysAgo = timeAgo(item.date);
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 6),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.red.shade700,
-                    radius: 12,
-                    child: Icon(
-                      Icons.access_alarm,
-                      color: Colors.white,
-                      size: 14,
+          return Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 6),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.red.shade700,
+                      radius: 12,
+                      child: Icon(
+                        Icons.access_alarm,
+                        color: Colors.white,
+                        size: 14,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black),
-                          children: [
-                            TextSpan(text: 'You have a reminder in '),
-                            TextSpan(
-                              text: item.title,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(color: Colors.black),
+                            children: [
+                              TextSpan(text: 'You have a reminder in '),
+                              TextSpan(
+                                text: item.title,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Due date',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                      Text('@${item.dueDate}', style: TextStyle(fontSize: 13)),
-                    ],
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Due date',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                        Text(
+                          '@${item.dueDate}',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  '${daysAgo}',
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
-                ),
-              ],
+                  const SizedBox(width: 12),
+                  Text(
+                    '${daysAgo}',
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -133,6 +139,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useRootNavigator: true,
       backgroundColor: Colors.grey[100],
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -143,6 +150,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              buildDragHandle(),
               // Tiêu đề "Filter"
               const Padding(
                 padding: EdgeInsets.only(bottom: 12),
@@ -168,7 +176,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         setState(() => filter = 'all');
                         Navigator.pop(context);
                       },
-                      trailing: filter == 'all' ? const Icon(Icons.check) : null,
+                      trailing: filter == 'all'
+                          ? const Icon(Icons.check)
+                          : null,
                     ),
                     Divider(height: 1, color: Colors.grey[100]),
                     ListTile(
@@ -181,7 +191,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         setState(() => filter = 'unread');
                         Navigator.pop(context);
                       },
-                      trailing: filter == 'unread' ? const Icon(Icons.check) : null,
+                      trailing: filter == 'unread'
+                          ? const Icon(Icons.check)
+                          : null,
                     ),
                     Divider(height: 1, color: Colors.grey[100]),
                     ListTile(
@@ -191,12 +203,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         setState(() => filter = 'read');
                         Navigator.pop(context);
                       },
-                      trailing: filter == 'read' ? const Icon(Icons.check) : null,
+                      trailing: filter == 'read'
+                          ? const Icon(Icons.check)
+                          : null,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 12,)
+              SizedBox(height: 12),
             ],
           ),
         ),
