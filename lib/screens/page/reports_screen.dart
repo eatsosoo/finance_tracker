@@ -26,13 +26,13 @@ class _ReportScreenState extends State<ReportScreen>
   ];
 
   List<ChartSampleData> series = [
-      ChartSampleData(x: 'Chlorine', y: 55, text: '55%'),
-      ChartSampleData(x: 'Sodium', y: 31, text: '31%'),
-      ChartSampleData(x: 'Magnx', y: 7.7, text: '7.7%'),
-      ChartSampleData(x: 'Sulfur', y: 3.7, text: '3.7%'),
-      ChartSampleData(x: 'Calcium', y: 1.2, text: '1.2%'),
-      ChartSampleData(x: 'Others', y: 1.4, text: '1.4%'),
-    ];
+    ChartSampleData(x: 'Chlorine', y: 55, text: '55%', color: Colors.black),
+    ChartSampleData(x: 'Sodium', y: 31, text: '31%', color: Colors.black12),
+    ChartSampleData(x: 'Magnx', y: 7.7, text: '7.7%', color: Colors.black26),
+    ChartSampleData(x: 'Sulfur', y: 3.7, text: '3.7%', color: Colors.black38),
+    ChartSampleData(x: 'Calcium', y: 1.2, text: '1.2%', color: Colors.black45),
+    ChartSampleData(x: 'Others', y: 1.4, text: '1.4%', color: Colors.black54),
+  ];
 
   @override
   void initState() {
@@ -86,16 +86,24 @@ class _ReportScreenState extends State<ReportScreen>
           ),
 
           // ✅ TabBar bên dưới ScrollableButtonBar
-          TabBar(
-            controller: _tabController,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.black,
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            tabs: const [
-              Tab(text: 'Income'),
-              Tab(text: 'Outcome'),
-            ],
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: TabBar(
+              controller: _tabController,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: Colors.black,
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              tabs: const [
+                Tab(text: 'Income'),
+                Tab(text: 'Outcome'),
+              ],
+            ),
           ),
 
           // ✅ Nội dung theo từng tab
@@ -103,7 +111,7 @@ class _ReportScreenState extends State<ReportScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                DoughnutDefault(series: series, baseColor: Colors.blue,),
+                DoughnutDefault(series: series, baseColor: Colors.blue),
                 DoughnutDefault(series: series),
               ],
             ),
