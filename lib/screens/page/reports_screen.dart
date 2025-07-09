@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/scroll_button_bar.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:finance_tracker/widgets/doughnut_chart.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -10,9 +13,26 @@ class ReportScreen extends StatefulWidget {
   State<ReportScreen> createState() => _ReportScreenState();
 }
 
-class _ReportScreenState extends State<ReportScreen> with TickerProviderStateMixin {
+class _ReportScreenState extends State<ReportScreen>
+    with TickerProviderStateMixin {
   String selected = '7/2025';
   late final TabController _tabController;
+  List<_ChartData> data = [
+    _ChartData('Jan', 35),
+    _ChartData('Feb', 28),
+    _ChartData('Mar', 34),
+    _ChartData('Apr', 32),
+    _ChartData('May', 40),
+  ];
+
+  List<ChartSampleData> series = [
+      ChartSampleData(x: 'Chlorine', y: 55, text: '55%'),
+      ChartSampleData(x: 'Sodium', y: 31, text: '31%'),
+      ChartSampleData(x: 'Magnx', y: 7.7, text: '7.7%'),
+      ChartSampleData(x: 'Sulfur', y: 3.7, text: '3.7%'),
+      ChartSampleData(x: 'Calcium', y: 1.2, text: '1.2%'),
+      ChartSampleData(x: 'Others', y: 1.4, text: '1.4%'),
+    ];
 
   @override
   void initState() {
@@ -48,9 +68,18 @@ class _ReportScreenState extends State<ReportScreen> with TickerProviderStateMix
           // ✅ Scrollable Button Bar
           ScrollableButtonBar(
             labels: [
-              '1/2025', '2/2025', '3/2025', '4/2025',
-              '5/2025', '6/2025', '7/2025', '8/2025',
-              '9/2025', '10/2025', '11/2025', '12/2025'
+              '1/2025',
+              '2/2025',
+              '3/2025',
+              '4/2025',
+              '5/2025',
+              '6/2025',
+              '7/2025',
+              '8/2025',
+              '9/2025',
+              '10/2025',
+              '11/2025',
+              '12/2025',
             ],
             selected: selected,
             onPressed: (label) => setState(() => selected = label),
@@ -74,12 +103,22 @@ class _ReportScreenState extends State<ReportScreen> with TickerProviderStateMix
             child: TabBarView(
               controller: _tabController,
               children: [
-                Center(
-                  child: Text('Income for $selected'),
+                SfCircularChart(
+                  // Chart title
+                  // Enable legend
+                  legend: Legend(isVisible: true),
+                  // Enable tooltip
+                  tooltipBehavior: TooltipBehavior(enable: true),
+                  series: <CircularSeries<_ChartData, String>>[
+                    DoughnutSeries<_ChartData, String>(
+                      dataSource: data,
+                      xValueMapper: (_ChartData data, _) => data.year,
+                      yValueMapper: (_ChartData data, _) => data.sales,
+                      name: 'Gold',
+                    ),
+                  ],
                 ),
-                Center(
-                  child: Text('Outcome for $selected'),
-                ),
+                DoughnutDefault(series: series,),
               ],
             ),
           ),
@@ -87,4 +126,11 @@ class _ReportScreenState extends State<ReportScreen> with TickerProviderStateMix
       ),
     );
   }
+}
+
+class _ChartData {
+  _ChartData(this.year, this.sales);
+
+  final String year;
+  final double sales;
 }
