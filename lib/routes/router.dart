@@ -12,7 +12,7 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
     ShellRoute(
-      builder: (context, state, child) => MainLayout(),
+      builder: (context, state, child) => MainLayout(child: child),
       routes: [
         GoRoute(
           path: '/home',

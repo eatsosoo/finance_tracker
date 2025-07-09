@@ -6,30 +6,25 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
-class MainLayout extends StatefulWidget {
-  const MainLayout({super.key});
-
-  @override
-  State<MainLayout> createState() => _MainLayoutState();
-}
-
-class _MainLayoutState extends State<MainLayout> {
-  int _currentIndex = 0;
-  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-
-  final List<Widget> _screens = [
-    HomeScreen(),
-    SecondScreen(),
-    NotificationScreen(),
-  ];
+class MainLayout extends StatelessWidget {
+  final Widget child;
+  const MainLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
+    final uri = GoRouterState.of(context).uri.toString(); // ✅ Lấy từ GoRouterState
+
+    int currentIndex = 0;
+    if (uri.contains('second')) {
+      currentIndex = 1;
+    } else if (uri.contains('notifications')) {
+      currentIndex = 2;
+    }
+
     return Scaffold(
-      body: _screens[_currentIndex],
+      body: child,
       bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        index: _currentIndex,
+        index: currentIndex,
         height: 65.0,
         items: const <Widget>[
           Icon(Iconsax.home_25, size: 18, color: Colors.white),
@@ -42,12 +37,22 @@ class _MainLayoutState extends State<MainLayout> {
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 600),
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          switch (index) {
+            case 0:
+              context.go('/home');
+              break;
+            case 1:
+              context.go('/second');
+              break;
+            case 2:
+              context.go('/notifications');
+              break;
+          }
         },
         letIndexChange: (index) => true,
       ),
     );
   }
 }
+
+
