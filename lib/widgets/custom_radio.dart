@@ -10,7 +10,7 @@ class CustomRadio<T> extends StatelessWidget {
   final Color inactiveColor;
 
   const CustomRadio({
-    Key? key,
+    super.key,
     required this.value,
     required this.groupValue,
     required this.onChanged,
@@ -18,7 +18,7 @@ class CustomRadio<T> extends StatelessWidget {
     this.size = 24,
     this.activeColor = Colors.blue,
     this.inactiveColor = Colors.grey,
-  }) : super(key: key);
+  });
 
   bool get _isSelected => value == groupValue;
 

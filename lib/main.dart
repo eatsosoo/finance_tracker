@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Finance Tracker Personal',
       theme: ThemeData(
         textTheme: GoogleFonts.interTextTheme(),
-        scaffoldBackgroundColor: Colors.white, // 👈 Nền trắng cho toàn app
+        scaffoldBackgroundColor: Colors.grey[100], // 👈 Nền trắng cho toàn app
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black87),
         useMaterial3: true,
       ),

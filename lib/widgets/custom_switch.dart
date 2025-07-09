@@ -9,14 +9,14 @@ class CustomSwitch extends StatelessWidget {
   final Color inactiveColor;
 
   const CustomSwitch({
-    Key? key,
+    super.key,
     required this.value,
     required this.onChanged,
     this.width = 40,
     this.height = 16,
     this.activeColor = Colors.black,
     this.inactiveColor = Colors.grey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

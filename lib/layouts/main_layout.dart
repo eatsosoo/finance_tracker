@@ -26,14 +26,14 @@ class MainLayout extends StatelessWidget {
       bottomNavigationBar: CurvedNavigationBar(
         index: currentIndex,
         height: 65.0,
-        items: const <Widget>[
-          Icon(Iconsax.home_25, size: 18, color: Colors.white),
-          Icon(Iconsax.setting, size: 18, color: Colors.white),
-          Icon(Iconsax.notification5, size: 18, color: Colors.white),
+        items: <Widget>[
+          Icon(Iconsax.home_25, size: currentIndex == 0 ? 26 : 18, color: Colors.white),
+          Icon(Iconsax.document_favorite5, size: currentIndex == 1 ? 26 : 18, color: Colors.white),
+          Icon(Iconsax.notification5, size: currentIndex == 2 ? 26 : 18, color: Colors.white),
         ],
         color: Colors.black,
         buttonBackgroundColor: Colors.black,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 600),
         onTap: (index) {

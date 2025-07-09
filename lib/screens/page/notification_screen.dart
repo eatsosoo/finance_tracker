@@ -2,6 +2,7 @@ import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/drag_handle.dart';
+import 'package:go_router/go_router.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -65,6 +66,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            context.go('/home');
+          },
+          icon: Icon(Iconsax.arrow_left_2),
+        ),
       ),
       body: ListView.separated(
         itemCount: filtered.length,
@@ -123,7 +130,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    '${daysAgo}',
+                    daysAgo,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],
@@ -166,46 +173,28 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      leading: const Icon(Icons.email_outlined),
-                      title: const Text(
-                        'Unread and read',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      onTap: () {
-                        setState(() => filter = 'all');
-                        Navigator.pop(context);
-                      },
-                      trailing: filter == 'all'
-                          ? const Icon(Icons.check)
-                          : null,
+                    _buildFilterOption(
+                      context,
+                      icon: Icons.email_outlined,
+                      title: 'Unread and read',
+                      value: 'all',
+                      currentFilter: filter,
                     ),
                     Divider(height: 1, color: Colors.grey[100]),
-                    ListTile(
-                      leading: const Icon(Icons.mark_email_unread_outlined),
-                      title: const Text(
-                        'Unread',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      onTap: () {
-                        setState(() => filter = 'unread');
-                        Navigator.pop(context);
-                      },
-                      trailing: filter == 'unread'
-                          ? const Icon(Icons.check)
-                          : null,
+                    _buildFilterOption(
+                      context,
+                      icon: Icons.mark_email_unread_outlined,
+                      title: 'Unread',
+                      value: 'unread',
+                      currentFilter: filter,
                     ),
                     Divider(height: 1, color: Colors.grey[100]),
-                    ListTile(
-                      leading: const Icon(Icons.mark_email_read_outlined),
-                      title: const Text('Read', style: TextStyle(fontSize: 14)),
-                      onTap: () {
-                        setState(() => filter = 'read');
-                        Navigator.pop(context);
-                      },
-                      trailing: filter == 'read'
-                          ? const Icon(Icons.check)
-                          : null,
+                    _buildFilterOption(
+                      context,
+                      icon: Icons.mark_email_read_outlined,
+                      title: 'Read',
+                      value: 'read',
+                      currentFilter: filter,
                     ),
                   ],
                 ),
@@ -215,6 +204,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildFilterOption(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String value,
+    required String currentFilter,
+  }) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title, style: const TextStyle(fontSize: 14)),
+      onTap: () {
+        setState(() => filter = value);
+        Navigator.pop(context);
+      },
+      trailing: currentFilter == value ? const Icon(Icons.check) : null,
     );
   }
 }
