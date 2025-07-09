@@ -25,20 +25,34 @@ class ScrollableButtonBar extends StatelessWidget {
           final isSelected = label == selected;
           return Padding(
             padding: const EdgeInsets.only(right: 8),
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // 👈 padding nhỏ
-                minimumSize: Size.zero, // 👈 bỏ hạn chế chiều cao/tối thiểu
-                backgroundColor: isSelected ? Colors.black : Colors.white,
-                foregroundColor: isSelected ? Colors.white : Colors.black,
-                side: BorderSide(color: Colors.grey.shade300),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                 textStyle: const TextStyle(fontSize: 12),
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.04),
+                    blurRadius: 8,
+                    offset: Offset(0, 3),
+                  ),
+                ],
               ),
-              onPressed: () => onPressed(label),
-              child: Text(label),
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ), // 👈 padding nhỏ
+                  minimumSize: Size.zero, // 👈 bỏ hạn chế chiều cao/tối thiểu
+                  backgroundColor: isSelected ? Colors.black : Colors.white,
+                  foregroundColor: isSelected ? Colors.white : Colors.black,
+                  side: BorderSide(color: isSelected ? Colors.black : Colors.white, width: 0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  textStyle: const TextStyle(fontSize: 12),
+                ),
+                onPressed: () => onPressed(label),
+                child: Text(label),
+              ),
             ),
           );
         }).toList(),

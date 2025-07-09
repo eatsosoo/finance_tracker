@@ -34,22 +34,20 @@ class _DoughnutDefaultState extends State<DoughnutDefault> {
   late TooltipBehavior _tooltip;
   late List<ChartSampleData> _chartData;
   late int _explodeIndex;
-  late List<String> _colors;
+  late List<Color> _colors;
 
   @override
   void initState() {
     super.initState();
     _explodeIndex = 0;
     _tooltip = TooltipBehavior(enable: true, format: 'point.x : point.y%');
-    _colors = generateHexColors(baseColor: widget.baseColor, count: widget.series.length);
+    _colors = generateColors(baseColor: widget.baseColor, count: widget.series.length);
     _chartData = List.generate(widget.series.length, (i) {
       return ChartSampleData(
         x: widget.series[i].x,
         y: widget.series[i].y,
         text: widget.series[i].text,
-        color: Color(
-          int.parse(_colors[i].substring(1), radix: 16) + 0xFF000000,
-        ),
+        color: _colors[i],
       );
     });
   }

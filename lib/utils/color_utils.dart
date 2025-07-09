@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
-List<String> generateHexColors({
+List<Color> generateColors({
   required Color baseColor,
   int count = 10,
 }) {
   final hsl = HSLColor.fromColor(baseColor);
-  final List<String> hexColors = [];
 
-  for (int i = 0; i < count; i++) {
-    // Create lightness from 0.35 to 0.85 
+  return List.generate(count, (i) {
     final lightness = 0.35 + (i / (count - 1)) * 0.5;
-    final modified = hsl.withLightness(lightness.clamp(0.0, 1.0));
-    final color = modified.toColor();
 
-    // Convert to HEX
-    final hex = '#${color.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}';
-    hexColors.add(hex);
-  }
-
-  return hexColors;
+    return HSLColor.fromAHSL(
+      1.0,
+      hsl.hue,
+      hsl.saturation == 0 ? 1.0 : hsl.saturation, // ép saturation nếu là 0
+      lightness.clamp(0.0, 1.0),
+    ).toColor();
+  });
 }

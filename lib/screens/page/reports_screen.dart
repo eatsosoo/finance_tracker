@@ -103,22 +103,8 @@ class _ReportScreenState extends State<ReportScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
-                SfCircularChart(
-                  // Chart title
-                  // Enable legend
-                  legend: Legend(isVisible: true),
-                  // Enable tooltip
-                  tooltipBehavior: TooltipBehavior(enable: true),
-                  series: <CircularSeries<_ChartData, String>>[
-                    DoughnutSeries<_ChartData, String>(
-                      dataSource: data,
-                      xValueMapper: (_ChartData data, _) => data.year,
-                      yValueMapper: (_ChartData data, _) => data.sales,
-                      name: 'Gold',
-                    ),
-                  ],
-                ),
-                DoughnutDefault(series: series,),
+                DoughnutDefault(series: series, baseColor: Colors.blue,),
+                DoughnutDefault(series: series),
               ],
             ),
           ),
