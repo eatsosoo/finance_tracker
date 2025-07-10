@@ -34,6 +34,14 @@ class _ReportScreenState extends State<ReportScreen>
     ChartSampleData(x: 'Others', y: 1.4, text: '1.4%', color: Colors.black54),
   ];
 
+  List<IncomItem> incomList = [
+    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
+    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
+    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
+    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
+    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -55,12 +63,12 @@ class _ReportScreenState extends State<ReportScreen>
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
           onPressed: () => context.go('/home'),
@@ -91,11 +99,24 @@ class _ReportScreenState extends State<ReportScreen>
 
           // ✅ TabBar container
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            margin: const EdgeInsets.only(
+              bottom: 0,
+              top: 8,
+              left: 16,
+              right: 16,
+            ),
+            padding: const EdgeInsets.only(
+              bottom: 8,
+              top: 4,
+              left: 4,
+              right: 4,
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(14),
+                topRight: Radius.circular(14),
+              ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.05),
@@ -112,16 +133,36 @@ class _ReportScreenState extends State<ReportScreen>
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
-              dividerColor: Colors.white,
-              indicator: const UnderlineTabIndicator(
-                borderSide: BorderSide(width: 2.0, color: Colors.black),
-                insets: EdgeInsets.symmetric(
-                  horizontal: 16,
-                ), // indicator ngắn gọn
+              dividerHeight: 0,
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicator: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              indicatorPadding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 6,
               ),
               tabs: const [
-                Tab(text: 'Income'),
-                Tab(text: 'Outcome'),
+                Tab(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text('Income'),
+                  ),
+                ),
+                Tab(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text('Outcome'),
+                  ),
+                ),
               ],
             ),
           ),
@@ -129,11 +170,19 @@ class _ReportScreenState extends State<ReportScreen>
           // ✅ Nội dung theo từng tab
           Expanded(
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.only(
+                top: 0,
+                right: 16,
+                left: 16,
+                bottom: 0,
+              ),
+              padding: const EdgeInsets.all(0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                // borderRadius: BorderRadius.only(
+                //   bottomLeft: Radius.circular(8),
+                //   bottomRight: Radius.circular(8),
+                // ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
@@ -145,14 +194,83 @@ class _ReportScreenState extends State<ReportScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  DoughnutDefault(series: series, baseColor: Colors.blue),
-                  DoughnutDefault(series: series),
+                  // ✅ Tab 1 có scroll nếu content dài
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // 🎯 Biểu đồ cố định chiều cao
+                        SizedBox(
+                          height: 300,
+                          child: DoughnutDefault(
+                            series: series,
+                            baseColor: Colors.blue,
+                          ),
+                        ),
+                        _listItems(context, incomList),
+                      ],
+                    ),
+                  ),
+                  DoughnutDefault(series: series, baseColor: Colors.purple),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _listItems(BuildContext context, List<IncomItem> list) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        final item = list[index];
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.black12,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.02),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(item.tag, style: const TextStyle(color: Colors.grey)),
+                    Text(
+                      '${item.amount}₫',
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  item.date,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -162,4 +280,13 @@ class _ChartData {
 
   final String year;
   final double sales;
+}
+
+class IncomItem {
+  final String title;
+  final String tag;
+  final double amount;
+  final String date;
+
+  IncomItem(this.title, this.tag, this.amount, this.date);
 }
