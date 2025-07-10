@@ -1,0 +1,362 @@
+{
+    "2025-01": {
+        "incomList": [
+            {
+                "title": "Lương tháng 1",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-01-01"
+            },
+            {
+                "title": "Lì xì",
+                "tag": "Bonus",
+                "amount": 3000000,
+                "date": "2025-01-15"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Ăn sáng",
+                "tag": "Food",
+                "amount": 30000,
+                "date": "2025-01-02"
+            },
+            {
+                "title": "Taxi",
+                "tag": "Transport",
+                "amount": 50000,
+                "date": "2025-01-02"
+            }
+        ]
+    },
+    "2025-02": {
+        "incomList": [
+            {
+                "title": "Lương tháng 2",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-02-01"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Mua sách",
+                "tag": "Education",
+                "amount": 200000,
+                "date": "2025-02-05"
+            },
+            {
+                "title": "Trà sữa",
+                "tag": "Drink",
+                "amount": 45000,
+                "date": "2025-02-10"
+            }
+        ]
+    },
+    "2025-03": {
+        "incomList": [
+            {
+                "title": "Lương tháng 3",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-03-01"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Đi ăn",
+                "tag": "Food",
+                "amount": 120000,
+                "date": "2025-03-06"
+            },
+            {
+                "title": "Đi Grab",
+                "tag": "Transport",
+                "amount": 40000,
+                "date": "2025-03-08"
+            }
+        ]
+    },
+    "2025-04": {
+        "incomList": [
+            {
+                "title": "Lương tháng 4",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-04-01"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Mua áo sơ mi",
+                "tag": "Shopping",
+                "amount": 350000,
+                "date": "2025-04-10"
+            },
+            {
+                "title": "Uống cafe",
+                "tag": "Drink",
+                "amount": 50000,
+                "date": "2025-04-11"
+            }
+        ]
+    },
+    "2025-05": {
+        "incomList": [
+            {
+                "title": "Lương tháng 5",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-05-01"
+            },
+            {
+                "title": "Thưởng hiệu suất",
+                "tag": "Bonus",
+                "amount": 1000000,
+                "date": "2025-05-15"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Ăn trưa",
+                "tag": "Food",
+                "amount": 60000,
+                "date": "2025-05-02"
+            },
+            {
+                "title": "Mua tai nghe",
+                "tag": "Shopping",
+                "amount": 600000,
+                "date": "2025-05-05"
+            }
+        ]
+    },
+    "2025-06": {
+        "incomList": [
+            {
+                "title": "Lương tháng 6",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-06-01"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Đi Grab",
+                "tag": "Transport",
+                "amount": 30000,
+                "date": "2025-06-03"
+            },
+            {
+                "title": "Sinh nhật bạn",
+                "tag": "Gift",
+                "amount": 500000,
+                "date": "2025-06-10"
+            }
+        ]
+    },
+    "2025-07": {
+        "incomList": [
+            {
+                "title": "Lương tháng 7",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-07-01"
+            },
+            {
+                "title": "Lương thưởng",
+                "tag": "Bonus",
+                "amount": 2000000,
+                "date": "2025-07-05"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Ăn sáng",
+                "tag": "Food",
+                "amount": 25000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Xe buýt",
+                "tag": "Transport",
+                "amount": 7000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Mua áo thun",
+                "tag": "Shopping",
+                "amount": 150000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Trà sữa",
+                "tag": "Drink",
+                "amount": 45000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Ăn trưa",
+                "tag": "Food",
+                "amount": 40000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Grab",
+                "tag": "Transport",
+                "amount": 30000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Mua sách",
+                "tag": "Shopping",
+                "amount": 120000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Nước suối",
+                "tag": "Drink",
+                "amount": 10000,
+                "date": "2025-07-08"
+            },
+            {
+                "title": "Ăn tối",
+                "tag": "Food",
+                "amount": 60000,
+                "date": "2025-07-08"
+            }
+        ]
+    },
+    "2025-08": {
+        "incomList": [
+            {
+                "title": "Lương tháng 8",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-08-01"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Mua chuột máy tính",
+                "tag": "Shopping",
+                "amount": 250000,
+                "date": "2025-08-04"
+            },
+            {
+                "title": "Trà đào",
+                "tag": "Drink",
+                "amount": 45000,
+                "date": "2025-08-05"
+            }
+        ]
+    },
+    "2025-09": {
+        "incomList": [
+            {
+                "title": "Lương tháng 9",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-09-01"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Ăn trưa",
+                "tag": "Food",
+                "amount": 50000,
+                "date": "2025-09-01"
+            },
+            {
+                "title": "Xe ôm",
+                "tag": "Transport",
+                "amount": 25000,
+                "date": "2025-09-02"
+            }
+        ]
+    },
+    "2025-10": {
+        "incomList": [
+            {
+                "title": "Lương tháng 10",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-10-01"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Mua sách",
+                "tag": "Education",
+                "amount": 150000,
+                "date": "2025-10-10"
+            },
+            {
+                "title": "Cà phê",
+                "tag": "Drink",
+                "amount": 40000,
+                "date": "2025-10-12"
+            }
+        ]
+    },
+    "2025-11": {
+        "incomList": [
+            {
+                "title": "Lương tháng 11",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-11-01"
+            },
+            {
+                "title": "Dự án freelance",
+                "tag": "Freelance",
+                "amount": 4000000,
+                "date": "2025-11-20"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Đi ăn",
+                "tag": "Food",
+                "amount": 120000,
+                "date": "2025-11-21"
+            },
+            {
+                "title": "Mua USB",
+                "tag": "Shopping",
+                "amount": 150000,
+                "date": "2025-11-22"
+            }
+        ]
+    },
+    "2025-12": {
+        "incomList": [
+            {
+                "title": "Lương tháng 12",
+                "tag": "Salary",
+                "amount": 8000000,
+                "date": "2025-12-01"
+            },
+            {
+                "title": "Thưởng Tết",
+                "tag": "Bonus",
+                "amount": 5000000,
+                "date": "2025-12-25"
+            }
+        ],
+        "outcomList": [
+            {
+                "title": "Đi du lịch",
+                "tag": "Travel",
+                "amount": 2000000,
+                "date": "2025-12-24"
+            },
+            {
+                "title": "Mua đồ Tết",
+                "tag": "Shopping",
+                "amount": 1000000,
+                "date": "2025-12-28"
+            }
+        ]
+    }
+}

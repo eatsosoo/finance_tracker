@@ -1,3 +1,6 @@
+import 'package:finance_tracker/constants/colors.dart';
+import 'package:finance_tracker/utils/color_utils.dart';
+import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
@@ -17,30 +20,48 @@ class _ReportScreenState extends State<ReportScreen>
     with TickerProviderStateMixin {
   String selected = '7/2025';
   late final TabController _tabController;
-  List<_ChartData> data = [
-    _ChartData('Jan', 35),
-    _ChartData('Feb', 28),
-    _ChartData('Mar', 34),
-    _ChartData('Apr', 32),
-    _ChartData('May', 40),
-  ];
-
-  List<ChartSampleData> series = [
-    ChartSampleData(x: 'Chlorine', y: 55, text: '55%', color: Colors.black),
-    ChartSampleData(x: 'Sodium', y: 31, text: '31%', color: Colors.black12),
-    ChartSampleData(x: 'Magnx', y: 7.7, text: '7.7%', color: Colors.black26),
-    ChartSampleData(x: 'Sulfur', y: 3.7, text: '3.7%', color: Colors.black38),
-    ChartSampleData(x: 'Calcium', y: 1.2, text: '1.2%', color: Colors.black45),
-    ChartSampleData(x: 'Others', y: 1.4, text: '1.4%', color: Colors.black54),
-  ];
 
   List<IncomItem> incomList = [
-    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
-    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
-    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
-    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
-    IncomItem('Test 1', 'TAG', 10000, '2025-07-10'),
+    IncomItem('Lương tháng 7', 'Salary', 8000000, '2025-07-01'),
+    IncomItem('Lương thưởng', 'Bonus', 2000000, '2025-07-05'),
   ];
+
+  List<IncomItem> outcomList = [
+    IncomItem('Ăn sáng', 'Food', 25000, '2025-07-08'),
+    IncomItem('Xe buýt', 'Transport', 7000, '2025-07-08'),
+    IncomItem('Mua áo thun', 'Shopping', 150000, '2025-07-08'),
+    IncomItem('Trà sữa', 'Drink', 45000, '2025-07-08'),
+    IncomItem('Ăn trưa', 'Food', 40000, '2025-07-08'),
+    IncomItem('Grab', 'Transport', 30000, '2025-07-08'),
+    IncomItem('Mua sách', 'Shopping', 120000, '2025-07-08'),
+    IncomItem('Nước suối', 'Drink', 10000, '2025-07-08'),
+    IncomItem('Ăn tối', 'Food', 60000, '2025-07-08'),
+  ];
+
+  List<ChartSampleData> generateChartData(List<IncomItem> list) {
+    final Map<String, double> grouped = {};
+
+    for (var item in list) {
+      grouped[item.tag] = (grouped[item.tag] ?? 0) + item.amount.toDouble();
+    }
+
+    final total = grouped.values.fold(0.0, (sum, val) => sum + val);
+  
+    final result = grouped.entries.map((e) {
+      final percent = (e.value / total) * 100;
+      final tagHex = tagColors[e.key] ?? '#000000';
+      final tagColor = hexToColor(tagHex);
+
+      return ChartSampleData(
+        tag: e.key,
+        amount: double.parse(percent.toStringAsFixed(1)),
+        text: '${percent.toStringAsFixed(1)}%',
+        color: tagColor
+      );
+    }).toList();
+
+    return result;
+  }
 
   @override
   void initState() {
@@ -137,7 +158,7 @@ class _ReportScreenState extends State<ReportScreen>
               indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
@@ -202,7 +223,7 @@ class _ReportScreenState extends State<ReportScreen>
                         SizedBox(
                           height: 300,
                           child: DoughnutDefault(
-                            series: series,
+                            series: generateChartData(incomList),
                             baseColor: Colors.blue,
                           ),
                         ),
@@ -210,7 +231,20 @@ class _ReportScreenState extends State<ReportScreen>
                       ],
                     ),
                   ),
-                  DoughnutDefault(series: series, baseColor: Colors.purple),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // 🎯 Biểu đồ cố định chiều cao
+                        SizedBox(
+                          height: 300,
+                          child: DoughnutDefault(
+                            series: generateChartData(outcomList),
+                          ),
+                        ),
+                        _listItems(context, outcomList),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -227,19 +261,23 @@ class _ReportScreenState extends State<ReportScreen>
       itemCount: list.length,
       itemBuilder: (context, index) {
         final item = list[index];
+        final tagHex = tagColors[item.tag] ?? '#000000';
+        final tagColor = hexToColor(tagHex);
+
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 0),
           child: Container(
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.black12,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.02),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
+                  color: Colors.black.withOpacity(0.08), // ✅ dùng màu xám mờ
+                  blurRadius: 12, // ✅ bóng mượt
+                  spreadRadius: 1, // ✅ lan nhẹ ra
+                  offset: const Offset(0, 4), // ✅ bóng hướng xuống
                 ),
               ],
             ),
@@ -254,10 +292,30 @@ class _ReportScreenState extends State<ReportScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(item.tag, style: const TextStyle(color: Colors.grey)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: tagColor.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        item.tag,
+                        style: TextStyle(
+                          color: tagColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                     Text(
-                      '${item.amount}₫',
-                      style: const TextStyle(fontWeight: FontWeight.w500),
+                      formatCurrency(item.amount),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
                     ),
                   ],
                 ),

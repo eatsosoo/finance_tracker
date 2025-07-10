@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartSampleData {
-  final String x;
-  final double y;
+  final String tag;
+  final double amount;
   final String text;
   final Color? color;
 
   ChartSampleData({
-    required this.x,
-    required this.y,
+    required this.tag,
+    required this.amount,
     required this.text,
     this.color,
   });
@@ -44,10 +44,10 @@ class _DoughnutDefaultState extends State<DoughnutDefault> {
     _colors = generateColors(baseColor: widget.baseColor, count: widget.series.length);
     _chartData = List.generate(widget.series.length, (i) {
       return ChartSampleData(
-        x: widget.series[i].x,
-        y: widget.series[i].y,
+        tag: widget.series[i].tag,
+        amount: widget.series[i].amount,
         text: widget.series[i].text,
-        color: _colors[i],
+        color: widget.series[i].color,
       );
     });
   }
@@ -76,8 +76,8 @@ class _DoughnutDefaultState extends State<DoughnutDefault> {
     return <DoughnutSeries<ChartSampleData, String>>[
       DoughnutSeries<ChartSampleData, String>(
         dataSource: _chartData,
-        xValueMapper: (ChartSampleData data, _) => data.x,
-        yValueMapper: (ChartSampleData data, _) => data.y,
+        xValueMapper: (ChartSampleData data, _) => data.tag,
+        yValueMapper: (ChartSampleData data, _) => data.amount,
         dataLabelMapper: (ChartSampleData data, _) => data.text,
         pointColorMapper: (ChartSampleData data, _) => data.color,
         dataLabelSettings: const DataLabelSettings(isVisible: true),

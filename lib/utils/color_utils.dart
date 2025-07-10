@@ -17,3 +17,11 @@ List<Color> generateColors({
     ).toColor();
   });
 }
+
+Color hexToColor(String hex) {
+  hex = hex.replaceAll('#', '');
+  if (hex.length == 6) {
+    hex = 'FF$hex'; // Thêm alpha nếu chưa có
+  }
+  return Color(int.parse(hex, radix: 16));
+}
