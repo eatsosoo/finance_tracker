@@ -3,7 +3,7 @@ import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
-class ScrollableButtonBar extends StatelessWidget {
+class ScrollableButtonBar extends StatefulWidget {
   final List<String> labels;
   final void Function(String) onPressed;
   final String? selected;
@@ -16,46 +16,106 @@ class ScrollableButtonBar extends StatelessWidget {
   });
 
   @override
+  State<ScrollableButtonBar> createState() => _ScrollableButtonBarState();
+}
+
+class _ScrollableButtonBarState extends State<ScrollableButtonBar> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final selectedIndex = widget.labels.indexOf(widget.selected ?? '');
+      if (selectedIndex != -1) {
+        _scrollToCenter(selectedIndex);
+      }
+    });
+  }
+
+  // @override
+  // void didUpdateWidget(covariant ScrollableButtonBar oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+
+  //   final selectedIndex = widget.labels.indexOf(widget.selected ?? '');
+  //   if (selectedIndex != -1 && oldWidget.selected != widget.selected) {
+  //     WidgetsBinding.instance.addPostFrameCallback((_) {
+  //       _scrollToCenter(selectedIndex);
+  //     });
+  //   }
+  // }
+
+  void _scrollToCenter(int index) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    const buttonWidth = 90; // ⬅️ tùy chỉnh theo độ rộng nút
+    final offset =
+        (index * (buttonWidth + 8)) - (screenWidth / 2) + (buttonWidth / 2);
+
+    _scrollController.animateTo(
+      offset.clamp(0.0, _scrollController.position.maxScrollExtent),
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: Row(
-        children: labels.map((label) {
-          final isSelected = label == selected;
+    return SizedBox(
+      height: 48, // ⬅️ chiều cao nút + padding
+      child: ListView.builder(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        itemCount: widget.labels.length,
+        itemBuilder: (context, index) {
+          final label = widget.labels[index];
+          final isSelected = label == widget.selected;
+
           return Padding(
             padding: const EdgeInsets.only(right: 8),
             child: Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
-                    blurRadius: 8,
-                    offset: Offset(0, 3),
+                    color: Colors.black.withOpacity(isSelected ? 0.15 : 0.05),
+                    blurRadius: isSelected ? 8 : 4,
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ), // 👈 padding nhỏ
-                  minimumSize: Size.zero, // 👈 bỏ hạn chế chiều cao/tối thiểu
-                  backgroundColor: isSelected ? Colors.black : Colors.white,
-                  foregroundColor: isSelected ? Colors.white : Colors.black,
-                  side: BorderSide(color: isSelected ? Colors.black : Colors.white, width: 0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              child: Material(
+                elevation: isSelected ? 4 : 0,
+                borderRadius: BorderRadius.circular(8),
+                shadowColor: Colors.black26,
+                color: isSelected ? Colors.black : Colors.white,
+                child: InkWell(
+                  onTap: () => widget.onPressed(label),
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    width: 90, // ⬅️ nên cố định để tính toán scroll
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 8,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.w500,
+                        color: isSelected ? Colors.white : Colors.black,
+                      ),
+                    ),
                   ),
-                  textStyle: const TextStyle(fontSize: 12),
                 ),
-                onPressed: () => onPressed(label),
-                child: Text(label),
               ),
             ),
           );
-        }).toList(),
+        },
       ),
     );
   }

@@ -52,11 +52,15 @@ class _ReportScreenState extends State<ReportScreen>
       appBar: AppBar(
         title: const Text(
           'Income and outcome report',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           onPressed: () => context.go('/home'),
@@ -85,20 +89,36 @@ class _ReportScreenState extends State<ReportScreen>
             onPressed: (label) => setState(() => selected = label),
           ),
 
-          // ✅ TabBar bên dưới ScrollableButtonBar
+          // ✅ TabBar container
           Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: TabBar(
               controller: _tabController,
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.black,
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              labelStyle: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+              dividerColor: Colors.white,
+              indicator: const UnderlineTabIndicator(
+                borderSide: BorderSide(width: 2.0, color: Colors.black),
+                insets: EdgeInsets.symmetric(
+                  horizontal: 16,
+                ), // indicator ngắn gọn
+              ),
               tabs: const [
                 Tab(text: 'Income'),
                 Tab(text: 'Outcome'),
@@ -108,12 +128,27 @@ class _ReportScreenState extends State<ReportScreen>
 
           // ✅ Nội dung theo từng tab
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                DoughnutDefault(series: series, baseColor: Colors.blue),
-                DoughnutDefault(series: series),
-              ],
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  DoughnutDefault(series: series, baseColor: Colors.blue),
+                  DoughnutDefault(series: series),
+                ],
+              ),
             ),
           ),
         ],
