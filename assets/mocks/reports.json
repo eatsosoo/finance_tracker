@@ -1,6 +1,6 @@
 {
     "2025-01": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 1",
                 "tag": "Salary",
@@ -14,7 +14,7 @@
                 "date": "2025-01-15"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Ăn sáng",
                 "tag": "Food",
@@ -30,7 +30,7 @@
         ]
     },
     "2025-02": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 2",
                 "tag": "Salary",
@@ -38,7 +38,7 @@
                 "date": "2025-02-01"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Mua sách",
                 "tag": "Education",
@@ -54,7 +54,7 @@
         ]
     },
     "2025-03": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 3",
                 "tag": "Salary",
@@ -62,7 +62,7 @@
                 "date": "2025-03-01"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Đi ăn",
                 "tag": "Food",
@@ -78,7 +78,7 @@
         ]
     },
     "2025-04": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 4",
                 "tag": "Salary",
@@ -86,7 +86,7 @@
                 "date": "2025-04-01"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Mua áo sơ mi",
                 "tag": "Shopping",
@@ -102,7 +102,7 @@
         ]
     },
     "2025-05": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 5",
                 "tag": "Salary",
@@ -116,7 +116,7 @@
                 "date": "2025-05-15"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Ăn trưa",
                 "tag": "Food",
@@ -132,7 +132,7 @@
         ]
     },
     "2025-06": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 6",
                 "tag": "Salary",
@@ -140,7 +140,7 @@
                 "date": "2025-06-01"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Đi Grab",
                 "tag": "Transport",
@@ -156,7 +156,7 @@
         ]
     },
     "2025-07": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 7",
                 "tag": "Salary",
@@ -170,7 +170,7 @@
                 "date": "2025-07-05"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Ăn sáng",
                 "tag": "Food",
@@ -228,7 +228,7 @@
         ]
     },
     "2025-08": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 8",
                 "tag": "Salary",
@@ -236,7 +236,7 @@
                 "date": "2025-08-01"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Mua chuột máy tính",
                 "tag": "Shopping",
@@ -252,7 +252,7 @@
         ]
     },
     "2025-09": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 9",
                 "tag": "Salary",
@@ -260,7 +260,7 @@
                 "date": "2025-09-01"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Ăn trưa",
                 "tag": "Food",
@@ -276,7 +276,7 @@
         ]
     },
     "2025-10": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 10",
                 "tag": "Salary",
@@ -284,7 +284,7 @@
                 "date": "2025-10-01"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Mua sách",
                 "tag": "Education",
@@ -300,7 +300,7 @@
         ]
     },
     "2025-11": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 11",
                 "tag": "Salary",
@@ -314,7 +314,7 @@
                 "date": "2025-11-20"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Đi ăn",
                 "tag": "Food",
@@ -330,7 +330,7 @@
         ]
     },
     "2025-12": {
-        "incomList": [
+        "income": [
             {
                 "title": "Lương tháng 12",
                 "tag": "Salary",
@@ -344,7 +344,7 @@
                 "date": "2025-12-25"
             }
         ],
-        "outcomList": [
+        "outcome": [
             {
                 "title": "Đi du lịch",
                 "tag": "Travel",

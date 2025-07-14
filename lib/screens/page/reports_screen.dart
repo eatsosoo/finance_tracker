@@ -8,6 +8,7 @@ import 'package:finance_tracker/widgets/scroll_button_bar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:finance_tracker/widgets/doughnut_chart.dart';
+import 'dart:convert';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -18,25 +19,20 @@ class ReportScreen extends StatefulWidget {
 
 class _ReportScreenState extends State<ReportScreen>
     with TickerProviderStateMixin {
-  String selected = '7/2025';
+  String selected = '2025-07';
   late final TabController _tabController;
+  late Map<String, dynamic> mockData;
+  List<IncomItem> incomeList = [];
+  List<IncomItem> outcomeList = [];
+  List<String> labels = [];
 
-  List<IncomItem> incomList = [
-    IncomItem('Lương tháng 7', 'Salary', 8000000, '2025-07-01'),
-    IncomItem('Lương thưởng', 'Bonus', 2000000, '2025-07-05'),
-  ];
-
-  List<IncomItem> outcomList = [
-    IncomItem('Ăn sáng', 'Food', 25000, '2025-07-08'),
-    IncomItem('Xe buýt', 'Transport', 7000, '2025-07-08'),
-    IncomItem('Mua áo thun', 'Shopping', 150000, '2025-07-08'),
-    IncomItem('Trà sữa', 'Drink', 45000, '2025-07-08'),
-    IncomItem('Ăn trưa', 'Food', 40000, '2025-07-08'),
-    IncomItem('Grab', 'Transport', 30000, '2025-07-08'),
-    IncomItem('Mua sách', 'Shopping', 120000, '2025-07-08'),
-    IncomItem('Nước suối', 'Drink', 10000, '2025-07-08'),
-    IncomItem('Ăn tối', 'Food', 60000, '2025-07-08'),
-  ];
+  Future<void> loadMockData(BuildContext context) async {
+    final String response = await DefaultAssetBundle.of(
+      context,
+    ).loadString('mocks/reports.json');
+    mockData = jsonDecode(response);
+    labels = mockData.keys.toList(); // ví dụ: ['1/2025', '2/2025', ...]
+  }
 
   List<ChartSampleData> generateChartData(List<IncomItem> list) {
     final Map<String, double> grouped = {};
@@ -46,7 +42,7 @@ class _ReportScreenState extends State<ReportScreen>
     }
 
     final total = grouped.values.fold(0.0, (sum, val) => sum + val);
-  
+
     final result = grouped.entries.map((e) {
       final percent = (e.value / total) * 100;
       final tagHex = tagColors[e.key] ?? '#000000';
@@ -56,7 +52,7 @@ class _ReportScreenState extends State<ReportScreen>
         tag: e.key,
         amount: double.parse(percent.toStringAsFixed(1)),
         text: '${percent.toStringAsFixed(1)}%',
-        color: tagColor
+        color: tagColor,
       );
     }).toList();
 
@@ -67,12 +63,25 @@ class _ReportScreenState extends State<ReportScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this); // Income, Outcome
+    loadMockData(context).then((_) {
+      setState(() {
+        updateListsForMonth('2025-07'); // hoặc tháng hiện tại
+      });
+    });
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  void updateListsForMonth(String selectedMonth) {
+    final incomeJson = mockData[selectedMonth]['income'] as List<dynamic>;
+    final outcomeJson = mockData[selectedMonth]['outcome'] as List<dynamic>;
+
+    incomeList = incomeJson.map((e) => IncomItem.fromJson(e)).toList();
+    outcomeList = outcomeJson.map((e) => IncomItem.fromJson(e)).toList();
   }
 
   @override
@@ -101,21 +110,24 @@ class _ReportScreenState extends State<ReportScreen>
           // ✅ Scrollable Button Bar
           ScrollableButtonBar(
             labels: [
-              '1/2025',
-              '2/2025',
-              '3/2025',
-              '4/2025',
-              '5/2025',
-              '6/2025',
-              '7/2025',
-              '8/2025',
-              '9/2025',
-              '10/2025',
-              '11/2025',
-              '12/2025',
+              '2025-01',
+              '2025-02',
+              '2025-03',
+              '2025-04',
+              '2025-05',
+              '2025-06',
+              '2025-07',
+              '2025-08',
+              '2025-09',
+              '2025-10',
+              '2025-11',
+              '2025-12',
             ],
             selected: selected,
-            onPressed: (label) => setState(() => selected = label),
+            onPressed: (label) => setState(() {
+              selected = label;
+              updateListsForMonth(selected);
+            }),
           ),
 
           // ✅ TabBar container
@@ -223,11 +235,11 @@ class _ReportScreenState extends State<ReportScreen>
                         SizedBox(
                           height: 300,
                           child: DoughnutDefault(
-                            series: generateChartData(incomList),
+                            series: generateChartData(incomeList),
                             baseColor: Colors.blue,
                           ),
                         ),
-                        _listItems(context, incomList),
+                        _listItems(context, incomeList),
                       ],
                     ),
                   ),
@@ -238,10 +250,10 @@ class _ReportScreenState extends State<ReportScreen>
                         SizedBox(
                           height: 300,
                           child: DoughnutDefault(
-                            series: generateChartData(outcomList),
+                            series: generateChartData(outcomeList),
                           ),
                         ),
-                        _listItems(context, outcomList),
+                        _listItems(context, outcomeList),
                       ],
                     ),
                   ),
@@ -347,4 +359,13 @@ class IncomItem {
   final String date;
 
   IncomItem(this.title, this.tag, this.amount, this.date);
+
+  factory IncomItem.fromJson(Map<String, dynamic> json) {
+    return IncomItem(
+      json['title'] as String,
+      json['tag'] as String,
+      json['amount'] as double,
+      json['date'] as String,
+    );
+  }
 }
