@@ -107,7 +107,7 @@ class _ReportScreenState extends State<ReportScreen>
       //     icon: const Icon(Iconsax.arrow_left_2),
       //   ),
       // ),
-      appBar: CustomAppBar(title: 'Welcome'),
+      appBar: CustomAppBar(title: 'Reports'),
       body: Column(
         children: [
           // ✅ Scrollable Button Bar

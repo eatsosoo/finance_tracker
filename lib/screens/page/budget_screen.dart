@@ -21,25 +21,26 @@ class _BudgetScreenState extends State<BudgetScreen> {
 
   List<String> labels = ['Jan', 'Feb', 'Mar'];
   String selectedMonth = 'Jan';
-
+  int? selectedIndex;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Welcome'),
+      appBar: CustomAppBar(title: 'Budgets'),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 🔘 Tiêu đề & chọn tháng
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Monthly Budget',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  // const Text(
+                  //   'Monthly Budget',
+                  //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  // ),
                   DropdownButton<String>(
                     value: selectedMonth,
                     items: labels.map((month) {
@@ -111,7 +112,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                             value: percent > 1 ? 1 : percent,
                             backgroundColor: Colors.grey[200],
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              over ? Colors.red : Colors.blue,
+                              over ? Colors.red : Colors.black12,
                             ),
                             minHeight: 8,
                           ),
