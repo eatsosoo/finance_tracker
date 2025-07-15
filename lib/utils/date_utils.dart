@@ -21,3 +21,8 @@ String timeAgo(DateTime date) {
 
   return timeAgo;
 }
+
+String formatDateToMonthDay(String dateStr) {
+  final date = DateTime.parse(dateStr);
+  return DateFormat('MMMM dd').format(date); // Kết quả: July 08
+}

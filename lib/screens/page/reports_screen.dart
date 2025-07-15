@@ -1,6 +1,8 @@
 import 'package:finance_tracker/constants/colors.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
+import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
+import 'package:finance_tracker/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
@@ -87,24 +89,25 @@ class _ReportScreenState extends State<ReportScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Income and outcome report',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => context.go('/home'),
-          icon: const Icon(Iconsax.arrow_left_2),
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     'Income and outcome report',
+      //     style: TextStyle(
+      //       fontWeight: FontWeight.bold,
+      //       fontSize: 14,
+      //       color: Colors.black,
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      //   backgroundColor: Colors.white,
+      //   foregroundColor: Colors.black,
+      //   elevation: 0,
+      //   leading: IconButton(
+      //     onPressed: () => context.go('/home'),
+      //     icon: const Icon(Iconsax.arrow_left_2),
+      //   ),
+      // ),
+      appBar: CustomAppBar(title: 'Welcome'),
       body: Column(
         children: [
           // ✅ Scrollable Button Bar
@@ -193,7 +196,7 @@ class _ReportScreenState extends State<ReportScreen>
                 Tab(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Outcome'),
+                    child: Text('Expenses'),
                   ),
                 ),
               ],
@@ -207,7 +210,7 @@ class _ReportScreenState extends State<ReportScreen>
                 top: 0,
                 right: 16,
                 left: 16,
-                bottom: 0,
+                bottom: 16,
               ),
               padding: const EdgeInsets.all(0),
               decoration: BoxDecoration(
@@ -280,7 +283,7 @@ class _ReportScreenState extends State<ReportScreen>
           padding: const EdgeInsets.symmetric(vertical: 0),
           child: Container(
             padding: const EdgeInsets.all(12),
-            margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -296,45 +299,56 @@ class _ReportScreenState extends State<ReportScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  item.title,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: tagColor.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        item.tag,
-                        style: TextStyle(
-                          color: tagColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      ),
+                        const SizedBox(height: 2),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: tagColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            item.tag,
+                            style: TextStyle(
+                              color: tagColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      formatCurrency(item.amount),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          formatCurrency(item.amount),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          formatDateToMonthDay(item.date),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  item.date,
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ],
             ),

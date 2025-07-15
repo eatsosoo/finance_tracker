@@ -1,6 +1,8 @@
 import 'package:finance_tracker/layouts/main_layout.dart';
 import 'package:finance_tracker/screens/auth/login_screen.dart';
 import 'package:finance_tracker/screens/home_screen.dart';
+import 'package:finance_tracker/screens/page/account_screen.dart';
+import 'package:finance_tracker/screens/page/budget_screen.dart';
 import 'package:finance_tracker/screens/page/new_page_screen.dart';
 import 'package:finance_tracker/screens/page/notification_screen.dart';
 import 'package:finance_tracker/screens/page/reports_screen.dart';
@@ -13,7 +15,6 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
     GoRoute(path: '/new', builder: (context, state) => const NewItemScreen()),
-    GoRoute(path: '/reports', builder: (context, state) => const ReportScreen()),
     GoRoute(
       path: '/notifications',
       builder: (context, state) => const NotificationScreen(),
@@ -29,6 +30,18 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           path: '/second',
           builder: (context, state) => const SecondScreen(),
+        ),
+        GoRoute(
+          path: '/budget',
+          builder: (context, state) => const BudgetScreen(),
+        ),
+        GoRoute(
+          path: '/account',
+          builder: (context, state) => const AccountScreen(),
+        ),
+        GoRoute(
+          path: '/reports',
+          builder: (context, state) => const ReportScreen(),
         ),
       ],
     ),

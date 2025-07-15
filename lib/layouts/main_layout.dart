@@ -15,21 +15,27 @@ class MainLayout extends StatelessWidget {
     final uri = GoRouterState.of(context).uri.toString(); // ✅ Lấy từ GoRouterState
 
     int currentIndex = 0;
-    if (uri.contains('second')) {
+    if (uri.contains('budget')) {
       currentIndex = 1;
-    } else if (uri.contains('notifications')) {
+    } else if (uri.contains('second')) {
       currentIndex = 2;
+    } else if (uri.contains('account')) {
+      currentIndex = 3;
+    } else if (uri.contains('reports')) {
+      currentIndex = 4;
     }
 
     return Scaffold(
       body: child,
       bottomNavigationBar: CurvedNavigationBar(
         index: currentIndex,
-        height: 65.0,
+        height: 60.0,
         items: <Widget>[
           Icon(Iconsax.home_25, size: currentIndex == 0 ? 26 : 18, color: Colors.white),
-          Icon(Iconsax.document_favorite5, size: currentIndex == 1 ? 26 : 18, color: Colors.white),
-          Icon(Iconsax.notification5, size: currentIndex == 2 ? 26 : 18, color: Colors.white),
+          Icon(Iconsax.wallet_1, size: currentIndex == 1 ? 26 : 18, color: Colors.white),
+          Icon(Iconsax.add5, size: currentIndex == 2 ? 26 : 18, color: Colors.white),
+          Icon(Iconsax.card, size: currentIndex == 3 ? 26 : 18, color: Colors.white),
+          Icon(Iconsax.document_favorite5, size: currentIndex == 4 ? 26 : 18, color: Colors.white),
         ],
         color: Colors.black,
         buttonBackgroundColor: Colors.black,
@@ -42,10 +48,16 @@ class MainLayout extends StatelessWidget {
               context.go('/home');
               break;
             case 1:
-              context.go('/second');
+              context.go('/budget');
               break;
             case 2:
-              context.go('/notifications');
+              context.go('/second');
+              break;
+            case 3:
+              context.go('/account');
+              break;
+            case 4:
+              context.go('/reports');
               break;
           }
         },
