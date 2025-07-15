@@ -236,7 +236,7 @@ class _ReportScreenState extends State<ReportScreen>
                           height: 300,
                           child: DoughnutDefault(
                             series: generateChartData(incomeList),
-                            baseColor: Colors.blue,
+                            baseColor: Colors.black,
                           ),
                         ),
                         _listItems(context, incomeList),
