@@ -3,6 +3,7 @@ import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:finance_tracker/widgets/budget_item_card.dart';
 
 class BudgetScreen extends StatefulWidget {
   const BudgetScreen({super.key});
@@ -13,16 +14,93 @@ class BudgetScreen extends StatefulWidget {
 
 class _BudgetScreenState extends State<BudgetScreen> {
   List<BudgetItem> budgetList = [
-    BudgetItem('Food', 1200000, 2000000),
-    BudgetItem('Transport', 450000, 500000),
-    BudgetItem('Shopping', 1600000, 1500000),
-    BudgetItem('Drink', 300000, 500000),
+    BudgetItem(
+      tag: 'Food',
+      spent: 1200000,
+      limit: 2000000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Transport',
+      spent: 450000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Shopping',
+      spent: 1600000,
+      limit: 1500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Drink',
+      spent: 300000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Drink',
+      spent: 300000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Drink',
+      spent: 300000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Drink',
+      spent: 300000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Drink',
+      spent: 300000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Drink',
+      spent: 300000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
+    BudgetItem(
+      tag: 'Drink',
+      spent: 300000,
+      limit: 500000,
+      isExpanded: false,
+      icon:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
+    ),
   ];
 
   List<String> labels = ['Jan', 'Feb', 'Mar'];
   String selectedMonth = 'Jan';
-  int? selectedIndex;
-  
+  int? expandedIndex;
+  int overspentCount = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,108 +110,99 @@ class _BudgetScreenState extends State<BudgetScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 🔘 Tiêu đề & chọn tháng
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       // const Text(
+            //       //   'Monthly Budget',
+            //       //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            //       // ),
+            //       DropdownButton<String>(
+            //         value: selectedMonth,
+            //         items: labels.map((month) {
+            //           return DropdownMenuItem(value: month, child: Text(month));
+            //         }).toList(),
+            //         onChanged: (value) {
+            //           setState(() {
+            //             selectedMonth = value!;
+            //             // Gọi updateBudget()
+            //           });
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            const SizedBox(height: 8),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.redAccent.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(6),
+              ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // const Text(
-                  //   'Monthly Budget',
-                  //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  // ),
-                  DropdownButton<String>(
-                    value: selectedMonth,
-                    items: labels.map((month) {
-                      return DropdownMenuItem(value: month, child: Text(month));
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedMonth = value!;
-                        // Gọi updateBudget()
-                      });
-                    },
+                  Expanded(
+                    child: Text(
+                      'You have overspent $overspentCount ${overspentCount > 1 ? 'times' : 'time'}',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12
+                      ),
+                    ),
                   ),
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      '$overspentCount',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.keyboard_arrow_right, color: Colors.black),
                 ],
               ),
             ),
-
-            const SizedBox(height: 8),
-
             // 🔘 Danh sách ngân sách từng danh mục
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: budgetList.length,
                 itemBuilder: (context, index) {
                   final item = budgetList[index];
-                  final percent = item.spent / item.limit;
-                  final over = percent > 1;
-
                   return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
-                          blurRadius: 6,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 0,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              item.tag,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '${formatCurrency(item.spent)} / ${formatCurrency(item.limit)}',
-                              style: TextStyle(
-                                color: over ? Colors.red : Colors.grey[700],
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
-                          child: LinearProgressIndicator(
-                            value: percent > 1 ? 1 : percent,
-                            backgroundColor: Colors.grey[200],
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              over ? Colors.red : Colors.black12,
-                            ),
-                            minHeight: 8,
-                          ),
-                        ),
-                      ],
+                    child: BudgetItemCard(
+                      item: item,
+                      isExpanded: expandedIndex == index,
+                      onTap: () {
+                        setState(() {
+                          expandedIndex = expandedIndex == index ? null : index;
+                        });
+                      },
                     ),
                   );
                 },
               ),
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
     );
   }
-}
-
-class BudgetItem {
-  final String tag;
-  final int spent;
-  final int limit;
-
-  BudgetItem(this.tag, this.spent, this.limit);
 }
