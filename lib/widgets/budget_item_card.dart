@@ -1,3 +1,4 @@
+import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -103,7 +104,7 @@ class BudgetItemCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Còn lại: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())} đ',
+                        'Còn lại: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
                         style: TextStyle(
                           fontSize: 12,
                           color: remain < 0 ? Colors.red : Colors.grey[600],
@@ -135,7 +136,7 @@ class BudgetItemCard extends StatelessWidget {
 
                 children: [
                   TextSpan(
-                    text: '${formatCurrency(item.spent)}đ',
+                    text: formatCurrency(item.spent),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: over ? Colors.red : Colors.black54,
@@ -143,7 +144,7 @@ class BudgetItemCard extends StatelessWidget {
                   ),
                   const TextSpan(text: ' / '),
                   TextSpan(
-                    text: '${formatCurrency(item.limit)}đ',
+                    text: formatCurrency(item.limit),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -208,14 +209,5 @@ class BudgetItemCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String formatCurrency(double amount) {
-    return amount
-        .toStringAsFixed(0)
-        .replaceAllMapped(
-          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-          (Match m) => '${m[1]}.',
-        );
   }
 }

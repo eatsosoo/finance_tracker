@@ -1,5 +1,6 @@
 // home_screen.dart
 import 'package:finance_tracker/utils/number_utils.dart';
+import 'package:finance_tracker/widgets/budget_summary_card.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -109,33 +110,19 @@ class _BudgetScreenState extends State<BudgetScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🔘 Tiêu đề & chọn tháng
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       // const Text(
-            //       //   'Monthly Budget',
-            //       //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            //       // ),
-            //       DropdownButton<String>(
-            //         value: selectedMonth,
-            //         items: labels.map((month) {
-            //           return DropdownMenuItem(value: month, child: Text(month));
-            //         }).toList(),
-            //         onChanged: (value) {
-            //           setState(() {
-            //             selectedMonth = value!;
-            //             // Gọi updateBudget()
-            //           });
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            BudgetSummaryCard(
+              selectedMonth: 'Month 7 2025',
+              onSelectMonth: () {
+                // TODO: mở modal chọn tháng
+              },
+              onEdit: () {
+                // TODO: xử lý sửa
+              },
+              totalAmount: 30000000,
+              totalAllocated: 30000000,
+            ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -151,7 +138,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
-                        fontSize: 12
+                        fontSize: 12,
                       ),
                     ),
                   ),
