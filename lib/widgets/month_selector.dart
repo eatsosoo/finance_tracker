@@ -16,9 +16,9 @@ class MonthSelector extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(6),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black),
+          border: Border.all(color: Colors.black12),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(
@@ -26,7 +26,7 @@ class MonthSelector extends StatelessWidget {
           children: [
             Text(
               selectedMonth,
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
             const SizedBox(width: 4),
             const Icon(Icons.keyboard_arrow_down, size: 18),

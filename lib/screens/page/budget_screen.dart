@@ -105,8 +105,8 @@ class _BudgetScreenState extends State<BudgetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Budgets'),
-      body: Center(
+      appBar: CustomAppBar(title: 'Budgets', backgroundColor: Colors.white,),
+      body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -123,6 +123,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
             ),
 
             const SizedBox(height: 20),
+            // Notify overspent
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

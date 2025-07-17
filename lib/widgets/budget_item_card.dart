@@ -48,14 +48,15 @@ class BudgetItemCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          border: isExpanded
-              ? Border(
-                  top: BorderSide(color: borderColor, width: 1),
-                  left: BorderSide(color: borderColor, width: 1),
-                  right: BorderSide(color: borderColor, width: 1),
-                  bottom: BorderSide(color: borderColor, width: over ? 6 : 1),
-                )
-              : null,
+          border: Border(
+            top: BorderSide(color: borderColor, width: 1),
+            left: BorderSide(color: borderColor, width: 1),
+            right: BorderSide(color: borderColor, width: 1),
+            bottom: BorderSide(
+              color: borderColor,
+              width: isExpanded ? (over ? 6 : 1) : 1,
+            ),
+          ),
           boxShadow: [
             BoxShadow(
               color: isExpanded
@@ -68,146 +69,161 @@ class BudgetItemCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: item.icon,
-                  width: 40,
-                  height: 40,
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      // border: Border.all(color: Colors.black12),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item.tag,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        'Còn lại: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: remain < 0 ? Colors.red : Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                Icon(
-                  isExpanded
-                      ? Icons.arrow_drop_up_rounded
-                      : Icons.arrow_drop_down_rounded,
-                  size: 30,
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Spent
-            Text.rich(
-              TextSpan(
-                text: 'Spent: ',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-
-                children: [
-                  TextSpan(
-                    text: formatCurrency(item.spent),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: over ? Colors.red : Colors.black54,
-                    ),
-                  ),
-                  const TextSpan(text: ' / '),
-                  TextSpan(
-                    text: formatCurrency(item.limit),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-              style: const TextStyle(fontSize: 13),
-            ),
-
-            const SizedBox(height: 6),
-
-            // Progress bar
-            Stack(
-              children: [
-                Container(
-                  height: 8,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.grey[200],
-                  ),
-                ),
-                FractionallySizedBox(
-                  widthFactor: percent,
-                  child: Container(
-                    height: 8,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: Colors.black12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            // Expand content
-            if (isExpanded) ...[
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildContent(remain, item.tag, isExpanded),
               const SizedBox(height: 16),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.square, color: Colors.grey[200], size: 14),
-                      SizedBox(width: 6),
-                      Text('Amount assigned', style: TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                  SizedBox(width: 12),
-                  Row(
-                    children: [
-                      Icon(Icons.square, color: Colors.black12, size: 14),
-                      SizedBox(width: 6),
-                      Text('Amount spent', style: TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Divider(height: 16, color: Colors.grey[200]),
+              _buildSpent(over, item.spent, item.limit),
+              const SizedBox(height: 6),
+              _buildStack(percent, over),
+              if (isExpanded) ...[
+                const SizedBox(height: 16),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.square, color: Colors.grey[200], size: 14),
+                        const SizedBox(width: 6),
+                        const Text(
+                          'Amount assigned',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 12),
+                    Row(
+                      children: [
+                        Icon(Icons.square, color: Colors.black12, size: 14),
+                        const SizedBox(width: 6),
+                        const Text(
+                          'Amount spent',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Divider(height: 16, color: Colors.grey[200]),
+              ],
             ],
-          ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildContent(double remain, String tag, bool isExpanded) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // CachedNetworkImage(
+        //   imageUrl: item.icon,
+        //   width: 40,
+        //   height: 40,
+        //   imageBuilder: (context, imageProvider) => Container(
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(10),
+        //       // border: Border.all(color: Colors.black12),
+        //       color: Colors.white,
+        //       image: DecorationImage(
+        //         image: imageProvider,
+        //         fit: BoxFit.cover,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // Icon(Iconsax.activity),
+        // const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                tag,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                'Còn lại: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: remain < 0 ? Colors.red : Colors.grey[600],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        Icon(
+          isExpanded
+              ? Icons.arrow_drop_up_rounded
+              : Icons.arrow_drop_down_rounded,
+          size: 30,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSpent(bool over, double spent, double limit) {
+    return Text.rich(
+      TextSpan(
+        text: 'Spent: ',
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+
+        children: [
+          TextSpan(
+            text: formatCurrency(spent),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: over ? Colors.red : Colors.black54,
+            ),
+          ),
+          const TextSpan(text: ' / '),
+          TextSpan(
+            text: formatCurrency(limit),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+      style: const TextStyle(fontSize: 13),
+    );
+  }
+
+  Widget _buildStack(double percent, bool over) {
+    return Stack(
+      children: [
+        Container(
+          height: 8,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: Colors.grey[200],
+          ),
+        ),
+        FractionallySizedBox(
+          widthFactor: percent,
+          child: Container(
+            height: 8,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: over ? Colors.redAccent.withOpacity(0.5) : Colors.black12,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
