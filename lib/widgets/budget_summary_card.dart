@@ -24,6 +24,7 @@ class BudgetSummaryCard extends StatefulWidget {
 
 class _BudgetSummaryCardState extends State<BudgetSummaryCard> {
   bool isExpanded = true;
+  String selected = 'Jul 2025';
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +64,27 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard> {
                     });
                   },
                 ),
-                MonthSelector(
-                  selectedMonth: widget.selectedMonth,
-                  onTap: widget.onSelectMonth,
+                OverlayMonthSelector(
+                  selectedMonth: selected,
+                  onChanged: (newMonth) {
+                    setState(() {
+                      selected = newMonth;
+                    });
+                  },
+
+                  options: [
+                    'Jan 2025',
+                    'Feb 2025',
+                    'Mar 2025',
+                    'Apr 2025',
+                    'May 2025',
+                    'Jun 2025',
+                    'Jul 2025',
+                    'Aug 2025',
+                    'Sep 2025',
+                    'Oct 2025',
+                    'Nov 2025',
+                  ],
                 ),
                 IconButton(
                   icon: const Icon(Icons.edit, size: 18),

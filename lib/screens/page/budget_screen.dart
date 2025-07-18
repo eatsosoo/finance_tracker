@@ -26,7 +26,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
     ),
     BudgetItem(
       tag: 'Transport',
-      spent: 450000,
+      spent: 550000,
       limit: 500000,
       isExpanded: false,
       icon:
@@ -49,7 +49,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
     ),
     BudgetItem(
-      tag: 'Drink',
+      tag: 'Healthcare',
       spent: 300000,
       limit: 500000,
       isExpanded: false,
@@ -57,7 +57,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
     ),
     BudgetItem(
-      tag: 'Drink',
+      tag: 'Game',
       spent: 300000,
       limit: 500000,
       isExpanded: false,
@@ -65,7 +65,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdrASvzMu1DZPSilrpKIRO1nU59KHD0VTlw&s',
     ),
     BudgetItem(
-      tag: 'Drink',
+      tag: 'Rent',
       spent: 300000,
       limit: 500000,
       isExpanded: false,
@@ -101,7 +101,15 @@ class _BudgetScreenState extends State<BudgetScreen> {
   List<String> labels = ['Jan', 'Feb', 'Mar'];
   String selectedMonth = 'Jan';
   int? expandedIndex;
-  int overspentCount = 1;
+  int _overspentCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _overspentCount = budgetList.where((budget) {
+      return (budget.limit - budget.spent) < 0;
+    }).length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +144,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'You have overspent $overspentCount ${overspentCount > 1 ? 'times' : 'time'}',
+                      'You have overspent $_overspentCount ${_overspentCount > 1 ? 'times' : 'time'}',
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
@@ -151,7 +159,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                       shape: BoxShape.circle,
                     ),
                     child: Text(
-                      '$overspentCount',
+                      '$_overspentCount',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -189,7 +197,6 @@ class _BudgetScreenState extends State<BudgetScreen> {
               ),
             ),
             const SizedBox(height: 16),
-           
           ],
         ),
       ),
