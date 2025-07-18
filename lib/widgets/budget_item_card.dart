@@ -1,4 +1,5 @@
 import 'package:finance_tracker/utils/number_utils.dart';
+import 'package:finance_tracker/widgets/advanced_expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -40,79 +41,75 @@ class BudgetItemCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.only(top: 12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border(
-            top: BorderSide(color: borderColor, width: 1),
-            left: BorderSide(color: borderColor, width: 1),
-            right: BorderSide(color: borderColor, width: 1),
-            bottom: BorderSide(
-              color: borderColor,
-              width: isExpanded ? (over ? 6 : 1) : 1,
-            ),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: isExpanded
-                  ? (over
-                        ? Colors.red.withOpacity(0.2)
-                        : Colors.black.withOpacity(0.05))
-                  : Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 3),
-            ),
-          ],
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: _buildBoxDecoration(isExpanded, over, borderColor),
+        child: AdvancedExpandable(
+          headerBuilder: (isExpanded) =>
+              _buildHeaderContent(remain, item, isExpanded, over, percent),
+          expandedContent: _buildExpandedContent(over),
         ),
-        child: AnimatedSize(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildContent(remain, item.tag, isExpanded),
-              const SizedBox(height: 16),
-              _buildSpent(over, item.spent, item.limit),
-              const SizedBox(height: 6),
-              _buildStack(percent, over),
-              if (isExpanded) ...[
-                const SizedBox(height: 16),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.square, color: Colors.grey[200], size: 14),
-                        const SizedBox(width: 6),
-                        const Text(
-                          'Amount assigned',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 12),
-                    Row(
-                      children: [
-                        Icon(Icons.square, color: Colors.black12, size: 14),
-                        const SizedBox(width: 6),
-                        const Text(
-                          'Amount spent',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Divider(height: 16, color: Colors.grey[200]),
-              ],
-            ],
-          ),
+      ),
+    );
+  }
+
+  BoxDecoration _buildBoxDecoration(
+    bool open,
+    bool over,
+    Color borderColor,
+  ) {
+    final double bottomBorderWidth = open ? (over ? 6 : 1) : 1;
+    final shadowColor = open
+        ? (over ? Colors.red.withOpacity(0.2) : Colors.black.withOpacity(0.05))
+        : Colors.black.withOpacity(0.05);
+
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border(
+        top: BorderSide(color: borderColor, width: 1),
+        left: BorderSide(color: borderColor, width: 1),
+        right: BorderSide(color: borderColor, width: 1),
+        bottom: BorderSide(color: borderColor, width: bottomBorderWidth),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: shadowColor,
+          blurRadius: 8,
+          offset: const Offset(0, 3),
         ),
+      ],
+    );
+  }
+
+  Widget _buildHeaderContent(
+    double remain,
+    BudgetItem item,
+    bool isExpanded,
+    bool over,
+    double percent,
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildContent(remain, item.tag, isExpanded),
+          const SizedBox(height: 12),
+          _buildSpent(over, item.spent, item.limit),
+          const SizedBox(height: 6),
+          _buildStack(percent, over),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExpandedContent(bool over) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [_buildExpandedDetails(over)],
       ),
     );
   }
@@ -223,6 +220,45 @@ class BudgetItemCard extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildExpandedDetails(bool over) {
+    return Column(
+      key: const ValueKey(
+        'expanded',
+      ), // cần key để AnimatedSwitcher hoạt động đúng
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            Row(
+              children: [
+                Icon(Icons.square, color: Colors.grey[200], size: 14),
+                const SizedBox(width: 6),
+                const Text('Amount assigned', style: TextStyle(fontSize: 12)),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(Icons.square, color: Colors.black12, size: 14),
+                const SizedBox(width: 6),
+                const Text('Amount spent', style: TextStyle(fontSize: 12)),
+              ],
+            ),
+            if(over) Row(
+              children: [
+                Icon(Icons.square, color: Colors.red.withOpacity(0.2), size: 14),
+                const SizedBox(width: 6),
+                const Text('Overspent', style: TextStyle(fontSize: 12)),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Divider(height: 16, color: Colors.grey[200]),
+        const SizedBox(height: 10),
       ],
     );
   }

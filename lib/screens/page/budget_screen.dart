@@ -5,6 +5,7 @@ import 'package:finance_tracker/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:finance_tracker/widgets/budget_item_card.dart';
+import 'package:finance_tracker/widgets/advanced_expandable.dart';
 
 class BudgetScreen extends StatefulWidget {
   const BudgetScreen({super.key});
@@ -105,7 +106,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Budgets', backgroundColor: Colors.white,),
+      appBar: CustomAppBar(title: 'Budgets', backgroundColor: Colors.white),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +129,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
-                color: Colors.redAccent.withOpacity(0.5),
+                color: Color.fromRGBO(255, 59, 48, 0.7),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Row(
@@ -188,6 +189,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
               ),
             ),
             const SizedBox(height: 16),
+           
           ],
         ),
       ),
