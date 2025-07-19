@@ -86,7 +86,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
             icon: AnimatedRotation(
               duration: const Duration(milliseconds: 200),
               turns: isExpanded ? 0.5 : 0,
-              child: const Icon(Iconsax.arrow_up, size: 18,),
+              child: const Icon(Iconsax.arrow_up_2, size: 18,),
             ),
             onPressed: () {
               _toggleExpanded();

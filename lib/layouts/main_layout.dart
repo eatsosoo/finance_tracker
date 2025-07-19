@@ -1,6 +1,6 @@
 import 'package:finance_tracker/screens/home_screen.dart';
 import 'package:finance_tracker/screens/page/notification_screen.dart';
-import 'package:finance_tracker/screens/page/second_screen.dart';
+import 'package:finance_tracker/screens/page/add_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
@@ -17,7 +17,7 @@ class MainLayout extends StatelessWidget {
     int currentIndex = 0;
     if (uri.contains('budget')) {
       currentIndex = 1;
-    } else if (uri.contains('second')) {
+    } else if (uri.contains('new_transaction')) {
       currentIndex = 2;
     } else if (uri.contains('account')) {
       currentIndex = 3;
@@ -51,7 +51,7 @@ class MainLayout extends StatelessWidget {
               context.go('/budget');
               break;
             case 2:
-              context.go('/second');
+              context.go('/new_transaction');
               break;
             case 3:
               context.go('/account');

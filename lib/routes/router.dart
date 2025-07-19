@@ -6,7 +6,7 @@ import 'package:finance_tracker/screens/page/budget_screen.dart';
 import 'package:finance_tracker/screens/page/new_page_screen.dart';
 import 'package:finance_tracker/screens/page/notification_screen.dart';
 import 'package:finance_tracker/screens/page/reports_screen.dart';
-import 'package:finance_tracker/screens/page/second_screen.dart';
+import 'package:finance_tracker/screens/page/add_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +15,10 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
     GoRoute(path: '/new', builder: (context, state) => const NewItemScreen()),
+    GoRoute(
+      path: '/new_transaction',
+      builder: (context, state) => const AddTransactionScreen(),
+    ),
     GoRoute(
       path: '/notifications',
       builder: (context, state) => const NotificationScreen(),
@@ -27,10 +31,7 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) =>
               const HomeScreen(), // Sửa thành DashboardScreen sau
         ),
-        GoRoute(
-          path: '/second',
-          builder: (context, state) => const SecondScreen(),
-        ),
+
         GoRoute(
           path: '/budget',
           builder: (context, state) => const BudgetScreen(),
