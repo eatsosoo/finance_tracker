@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:finance_tracker/widgets/budget_item_card.dart';
 import 'package:finance_tracker/widgets/advanced_expandable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BudgetScreen extends StatefulWidget {
   const BudgetScreen({super.key});
@@ -98,7 +99,6 @@ class _BudgetScreenState extends State<BudgetScreen> {
     ),
   ];
 
-  List<String> labels = ['Jan', 'Feb', 'Mar'];
   String selectedMonth = 'Jan';
   int? expandedIndex;
   int _overspentCount = 0;
@@ -142,6 +142,12 @@ class _BudgetScreenState extends State<BudgetScreen> {
               ),
               child: Row(
                 children: [
+                  SvgPicture.asset(
+                    'assets/illustrations/undraw-warning.svg',
+                    width: 40,
+                    height: 40,
+                  ),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'You have overspent $_overspentCount ${_overspentCount > 1 ? 'times' : 'time'}',

@@ -151,7 +151,7 @@ class BudgetItemCard extends StatelessWidget {
         AnimatedRotation(
           turns: isExpanded ? 0.5 : 0.0, // 0.5 vòng = 180 độ (arrow hướng lên)
           duration: const Duration(milliseconds: 300),
-          child: Icon(Icons.arrow_drop_down_rounded, size: 30),
+          child: Icon(Icons.arrow_drop_up_rounded, size: 30),
         ),
       ],
     );
