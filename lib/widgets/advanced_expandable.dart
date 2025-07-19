@@ -5,6 +5,7 @@ class AdvancedExpandable extends StatefulWidget {
   final Widget expandedContent;
   final Widget? collapsedContent;
   final bool initiallyExpanded;
+  final bool hideCallapse;
   final Duration animationDuration;
   final Curve animationCurve;
   final EdgeInsetsGeometry contentPadding;
@@ -15,6 +16,7 @@ class AdvancedExpandable extends StatefulWidget {
     required this.expandedContent,
     this.collapsedContent,
     this.initiallyExpanded = false,
+    this.hideCallapse = false,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.easeInOut,
     this.contentPadding = EdgeInsets.zero,
@@ -69,11 +71,7 @@ class _AdvancedExpandableState extends State<AdvancedExpandable>
           borderRadius: BorderRadius.all(Radius.circular(8)),
           child: widget.headerBuilder(_isExpanded),
         ),
-        
-        // Optional collapsed content
-        if (!_isExpanded && widget.collapsedContent != null)
-          widget.collapsedContent!,
-        
+
         // Animated expanded content
         SizeTransition(
           sizeFactor: _animation,
@@ -82,6 +80,11 @@ class _AdvancedExpandableState extends State<AdvancedExpandable>
             child: widget.expandedContent,
           ),
         ),
+
+        // Optional collapsed content
+        if (!widget.hideCallapse && widget.collapsedContent != null)
+          // if (!_isExpanded && widget.collapsedContent != null)
+            widget.collapsedContent!,
       ],
     );
   }

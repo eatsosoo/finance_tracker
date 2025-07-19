@@ -137,7 +137,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(255, 59, 48, 0.7),
+                color: Color(0xFFFEE4E2),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Row(

@@ -48,20 +48,14 @@ class BudgetItemCard extends StatelessWidget {
           headerBuilder: (isExpanded) =>
               _buildHeaderContent(remain, item, isExpanded, over, percent),
           expandedContent: _buildExpandedContent(over),
+          collapsedContent: over ? _buildCollapseContent() : null,
         ),
       ),
     );
   }
 
-  BoxDecoration _buildBoxDecoration(
-    bool open,
-    bool over,
-    Color borderColor,
-  ) {
+  BoxDecoration _buildBoxDecoration(bool open, bool over, Color borderColor) {
     final double bottomBorderWidth = open ? (over ? 6 : 1) : 1;
-    final shadowColor = open
-        ? (over ? Colors.red.withOpacity(0.2) : Colors.black.withOpacity(0.05))
-        : Colors.black.withOpacity(0.05);
 
     return BoxDecoration(
       color: Colors.white,
@@ -70,11 +64,11 @@ class BudgetItemCard extends StatelessWidget {
         top: BorderSide(color: borderColor, width: 1),
         left: BorderSide(color: borderColor, width: 1),
         right: BorderSide(color: borderColor, width: 1),
-        bottom: BorderSide(color: borderColor, width: bottomBorderWidth),
+        bottom: BorderSide(color: borderColor, width: 1),
       ),
       boxShadow: [
         BoxShadow(
-          color: shadowColor,
+          color: Colors.black.withOpacity(0.05),
           blurRadius: 8,
           offset: const Offset(0, 3),
         ),
@@ -150,10 +144,7 @@ class BudgetItemCard extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 'Còn lại: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: remain < 0 ? Colors.red : Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -216,7 +207,7 @@ class BudgetItemCard extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: over ? Colors.redAccent.withOpacity(0.5) : Colors.black12,
+              color: over ? Colors.red.shade100 : Colors.black12,
             ),
           ),
         ),
@@ -247,19 +238,54 @@ class BudgetItemCard extends StatelessWidget {
                 const Text('Amount spent', style: TextStyle(fontSize: 12)),
               ],
             ),
-            if(over) Row(
-              children: [
-                Icon(Icons.square, color: Colors.red.withOpacity(0.2), size: 14),
-                const SizedBox(width: 6),
-                const Text('Overspent', style: TextStyle(fontSize: 12)),
-              ],
-            ),
+            if (over)
+              Row(
+                children: [
+                  Icon(Icons.square, color: Colors.red.shade100, size: 14),
+                  const SizedBox(width: 6),
+                  const Text('Overspent', style: TextStyle(fontSize: 12)),
+                ],
+              ),
           ],
         ),
         const SizedBox(height: 4),
         Divider(height: 16, color: Colors.grey[200]),
         const SizedBox(height: 10),
       ],
+    );
+  }
+
+  Widget _buildCollapseContent() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.red.shade700,
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'You have one overspent',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            'Edit',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              decoration: TextDecoration.underline,
+              decorationColor: Colors.white,
+              decorationThickness: 2,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
