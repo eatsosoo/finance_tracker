@@ -55,8 +55,6 @@ class BudgetItemCard extends StatelessWidget {
   }
 
   BoxDecoration _buildBoxDecoration(bool open, bool over, Color borderColor) {
-    final double bottomBorderWidth = open ? (over ? 6 : 1) : 1;
-
     return BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
@@ -88,7 +86,7 @@ class BudgetItemCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildContent(remain, item.tag, isExpanded),
+          _buildInformation(remain, item.tag, isExpanded),
           const SizedBox(height: 12),
           _buildSpent(over, item.spent, item.limit),
           const SizedBox(height: 6),
@@ -108,7 +106,7 @@ class BudgetItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(double remain, String tag, bool isExpanded) {
+  Widget _buildInformation(double remain, String tag, bool isExpanded) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -143,18 +141,17 @@ class BudgetItemCard extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                'Còn lại: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
+                'Remain: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
                 style: TextStyle(fontSize: 12, color: Colors.grey[600]),
               ),
             ],
           ),
         ),
 
-        Icon(
-          isExpanded
-              ? Icons.arrow_drop_up_rounded
-              : Icons.arrow_drop_down_rounded,
-          size: 30,
+        AnimatedRotation(
+          turns: isExpanded ? 0.5 : 0.0, // 0.5 vòng = 180 độ (arrow hướng lên)
+          duration: const Duration(milliseconds: 300),
+          child: Icon(Icons.arrow_drop_down_rounded, size: 30),
         ),
       ],
     );
@@ -259,7 +256,10 @@ class BudgetItemCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.red.shade700,
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
       ),
       padding: const EdgeInsets.all(8),
       child: Row(

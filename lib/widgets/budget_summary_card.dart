@@ -1,6 +1,7 @@
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:flutter/material.dart';
 import 'month_selector.dart';
+import 'package:iconsax/iconsax.dart';
 
 class BudgetSummaryCard extends StatefulWidget {
   final String selectedMonth;
@@ -22,81 +23,101 @@ class BudgetSummaryCard extends StatefulWidget {
   State<BudgetSummaryCard> createState() => _BudgetSummaryCardState();
 }
 
-class _BudgetSummaryCardState extends State<BudgetSummaryCard> {
-  bool isExpanded = true;
+class _BudgetSummaryCardState extends State<BudgetSummaryCard>
+    with SingleTickerProviderStateMixin {
+  bool isExpanded = false;
   String selected = 'Jul 2025';
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _toggleExpanded() {
+    setState(() {
+      isExpanded = !isExpanded;
+      if (isExpanded) {
+        _controller.forward();
+      } else {
+        _controller.reverse();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 1000),
-      curve: Curves.easeInOut,
-      margin: const EdgeInsets.all(0),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
+    return Container(
+      decoration: BoxDecoration(color: Colors.white),
+      child: Column(
+        children: [
+          // 🔽 Row: arrow, month selector, edit
+          _buildExpandedHeader(),
+
+          // 🟦 Nội dung mở rộng
+          SizeTransition(
+            sizeFactor: _animation,
+            child: _buildExpandedContent(),
           ),
         ],
       ),
-      child: AnimatedSize(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        child: Column(
-          children: [
-            // 🔽 Row: arrow, month selector, edit
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: AnimatedRotation(
-                    duration: const Duration(milliseconds: 200),
-                    turns: isExpanded ? 0.5 : 0,
-                    child: const Icon(Icons.keyboard_arrow_down_rounded),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
-                  },
-                ),
-                OverlayMonthSelector(
-                  selectedMonth: selected,
-                  onChanged: (newMonth) {
-                    setState(() {
-                      selected = newMonth;
-                    });
-                  },
+    );
+  }
 
-                  options: [
-                    'Jan 2025',
-                    'Feb 2025',
-                    'Mar 2025',
-                    'Apr 2025',
-                    'May 2025',
-                    'Jun 2025',
-                    'Jul 2025',
-                    'Aug 2025',
-                    'Sep 2025',
-                    'Oct 2025',
-                    'Nov 2025',
-                  ],
-                ),
-                IconButton(
-                  icon: const Icon(Icons.edit, size: 18),
-                  onPressed: widget.onEdit,
-                ),
-              ],
+  Widget _buildExpandedHeader() {
+    return Container(
+      padding: EdgeInsets.all(12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: AnimatedRotation(
+              duration: const Duration(milliseconds: 200),
+              turns: isExpanded ? 0.5 : 0,
+              child: const Icon(Icons.keyboard_arrow_down_rounded),
             ),
-
-            // 🟦 Nội dung mở rộng
-            if (isExpanded) _buildExpandedContent(),
-          ],
-        ),
+            onPressed: () {
+              _toggleExpanded();
+            },
+          ),
+          OverlayMonthSelector(
+            selectedMonth: selected,
+            onChanged: (newMonth) {
+              setState(() {
+                selected = newMonth;
+              });
+            },
+            options: [
+              'Jan 2025',
+              'Feb 2025',
+              'Mar 2025',
+              'Apr 2025',
+              'May 2025',
+              'Jun 2025',
+              'Jul 2025',
+              'Aug 2025',
+              'Sep 2025',
+              'Oct 2025',
+              'Nov 2025',
+            ],
+          ),
+          IconButton(
+            icon: const Icon(Iconsax.edit, size: 18),
+            onPressed: widget.onEdit,
+          ),
+        ],
       ),
     );
   }
@@ -105,7 +126,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      margin: EdgeInsets.only(bottom: 4, top: 8),
+      margin: const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 0),
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(14),
