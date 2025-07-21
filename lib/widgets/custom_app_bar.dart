@@ -64,7 +64,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   padding: const EdgeInsets.only(right: 8),
                   child: GestureDetector(
                     onTap: () {
-                      context.go('/notifications');
+                      context.push('/notifications');
                     },
                     child: Stack(
                       clipBehavior: Clip.none,

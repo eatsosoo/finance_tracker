@@ -1,4 +1,5 @@
 import 'package:finance_tracker/utils/date_utils.dart';
+import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/drag_handle.dart';
@@ -68,7 +69,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            context.go('/home');
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/home');
+            }
           },
           icon: Icon(Iconsax.arrow_left_2),
         ),
@@ -143,65 +148,40 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   void _showFilterOptions() {
-    showModalBottomSheet(
+    AppBottomSheet.show(
       context: context,
-      isScrollControlled: true,
-      useRootNavigator: true,
-      backgroundColor: Colors.grey[100],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (_) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildDragHandle(),
-              // Tiêu đề "Filter"
-              const Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Text(
-                  'Filters',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  children: [
-                    _buildFilterOption(
-                      context,
-                      icon: Icons.email_outlined,
-                      title: 'Unread and read',
-                      value: 'all',
-                      currentFilter: filter,
-                    ),
-                    Divider(height: 1, color: Colors.grey[100]),
-                    _buildFilterOption(
-                      context,
-                      icon: Icons.mark_email_unread_outlined,
-                      title: 'Unread',
-                      value: 'unread',
-                      currentFilter: filter,
-                    ),
-                    Divider(height: 1, color: Colors.grey[100]),
-                    _buildFilterOption(
-                      context,
-                      icon: Icons.mark_email_read_outlined,
-                      title: 'Read',
-                      value: 'read',
-                      currentFilter: filter,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 12),
-            ],
-          ),
+      title: 'Filters',
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            _buildFilterOption(
+              context,
+              icon: Icons.email_outlined,
+              title: 'Unread and read',
+              value: 'all',
+              currentFilter: filter,
+            ),
+            Divider(height: 1, color: Colors.grey[100]),
+            _buildFilterOption(
+              context,
+              icon: Icons.mark_email_unread_outlined,
+              title: 'Unread',
+              value: 'unread',
+              currentFilter: filter,
+            ),
+            Divider(height: 1, color: Colors.grey[100]),
+            _buildFilterOption(
+              context,
+              icon: Icons.mark_email_read_outlined,
+              title: 'Read',
+              value: 'read',
+              currentFilter: filter,
+            ),
+          ],
         ),
       ),
     );
@@ -215,7 +195,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     required String currentFilter,
   }) {
     return ListTile(
-      leading: Icon(icon),
+      leading: Icon(icon, size: 18),
       title: Text(title, style: const TextStyle(fontSize: 14)),
       onTap: () {
         setState(() => filter = value);
