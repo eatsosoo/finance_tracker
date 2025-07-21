@@ -1,5 +1,9 @@
+import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:finance_tracker/widgets/custom_button.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:finance_tracker/widgets/filter_option.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -11,25 +15,118 @@ class AddTransactionScreen extends StatefulWidget {
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
   String amount = '';
   String type = 'income';
-  String? account;
-  String? category;
+  String account = '';
+  String category = '';
   DateTime date = DateTime.now();
   final TextEditingController noteController = TextEditingController();
 
-  void _selectAccount() async {
-    final selected = await showModalBottomSheet<String>(
+  final List<Map<String, dynamic>> accountOptions = [
+    {'title': 'Vietinbank', 'value': '0'},
+    {'title': 'Checking', 'value': '1'},
+  ];
+
+  final List<Map<String, dynamic>> incomeTags = [
+    {'title': 'Drink', 'value': '0'},
+    {'title': 'Education', 'value': '1'},
+    {'title': 'Food', 'value': '3'},
+    {'title': 'Transport', 'value': '4'},
+    {'title': 'Shopping', 'value': '5'},
+    {'title': 'Gift', 'value': '6'},
+    {'title': 'Healthcare', 'value': '7'},
+  ];
+
+  final List<Map<String, dynamic>> expenseTags = [
+    {'title': 'Salary', 'value': '0'},
+    {'title': 'Bonus', 'value': '1'},
+  ];
+
+  late Map<String, List<Map<String, dynamic>>> tagOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    tagOptions = {
+      'income': incomeTags,
+      'expense': expenseTags,
+    };
+  }
+
+  void _selectAccount() {
+    AppBottomSheet.show(
       context: context,
-      builder: (_) => _BottomSheetList(title: 'Chọn tài khoản', items: ['Ví', 'Ngân hàng', 'Tiền mặt']),
+      title: 'Account select',
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            ...accountOptions.map((option) {
+              final index = accountOptions.indexOf(option);
+              return Column(
+                children: [
+                  buildFilterOption(
+                    context,
+                    title: option['title'],
+                    value: option['value'],
+                    currentFilter: account,
+                    onTap: () {
+                      setState(() => account = option['title']);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  if (index !=
+                      accountOptions.length -
+                          1) // Không thêm Divider sau option cuối
+                    Divider(height: 1, color: Colors.grey[100]),
+                ],
+              );
+            }).toList(),
+          ],
+        ),
+      ),
     );
-    if (selected != null) setState(() => account = selected);
   }
 
   void _selectCategory() async {
-    final selected = await showModalBottomSheet<String>(
+    final options = tagOptions[type] ?? [];
+
+    AppBottomSheet.show(
       context: context,
-      builder: (_) => _BottomSheetList(title: 'Chọn danh mục', items: ['Ăn uống', 'Mua sắm', 'Lương']),
+      title: 'Tag select',
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            ...options.map((option) {
+              final index = options.indexOf(option);
+              return Column(
+                children: [
+                  buildFilterOption(
+                    context,
+                    title: option['title'],
+                    value: option['value'],
+                    currentFilter: category,
+                    onTap: () {
+                      setState(() => category = option['title']);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  if (index !=
+                      options.length -
+                          1) // Không thêm Divider sau option cuối
+                    Divider(height: 1, color: Colors.grey[100]),
+                ],
+              );
+            }).toList(),
+          ],
+        ),
+      ),
     );
-    if (selected != null) setState(() => category = selected);
   }
 
   void _selectDate() async {
@@ -38,6 +135,25 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       initialDate: date,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme.dark(
+              primary: Colors.black, // Màu icon & đường viền selected date
+              onPrimary: Colors.white, // Màu text trên nút (OK / Cancel)
+              surface: Colors.white, // Màu nền calendar
+              onSurface: Colors.black, // Màu text ngày thường
+            ),
+            dialogBackgroundColor: Colors.white, // Màu nền tổng thể
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black, // Nút "CANCEL", "OK"
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null) setState(() => date = picked);
   }
@@ -55,7 +171,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   void _inputDigit(String digit) {
-    setState(() => amount += digit);
+    if (digit == 'AC') {
+      _clearAmount();
+    } else {
+      setState(() => amount += digit);
+    }
   }
 
   void _clearAmount() {
@@ -63,137 +183,184 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   Widget _buildNumberPad() {
-    final keys = ['1','2','3','4','5','6','7','8','9','000','0'];
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: keys.map((e) => _buildKey(e)).toList(),
+    final keys = [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '000',
+      '0',
+      'AC',
+    ]; // Add empty string to fill grid
+
+    return GridView(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 12,
+        crossAxisSpacing: 12,
+        childAspectRatio: 2.5, // Giá trị này càng lớn thì nút càng thấp
+      ),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      children: [
+        _buildSelectorButton('Account', account, _selectAccount),
+        _buildSelectorButton('Tag', category, _selectCategory),
+        _buildSelectorButton(DateFormat('dd/MM').format(date), '', _selectDate),
+        ...keys.map((e) => _buildKey(e)).toList(),
+      ],
     );
   }
 
   Widget _buildKey(String key) {
-    return SizedBox(
-      width: 80,
-      height: 60,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-        onPressed: () => _inputDigit(key),
-        child: Text(key, style: TextStyle(fontSize: 20, color: Colors.black)),
-      ),
+    return CustomButton(
+      text: key,
+      onPressed: () => _inputDigit(key),
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
+      radius: 8,
+      fontSize: 24,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final isExpense = type == 'expense';
-    final displayAmount = (isExpense ? '-' : '') + (amount.isEmpty ? '0' : amount) + 'đ';
+    final displayAmount =
+        (isExpense ? '-' : '') + (amount.isEmpty ? '0' : amount) + 'đ';
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildTypeToggle('income', 'Tiền vào'),
-                _buildTypeToggle('expense', 'Tiền ra'),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Text(
-              displayAmount,
-              style: TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-                color: isExpense ? Colors.red : Colors.black,
-              ),
-            ),
-            const SizedBox(height: 10),
+            // 🔹 Phần 1: Toggle switch
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                controller: noteController,
-                decoration: const InputDecoration(
-                  hintText: 'Thêm ghi chú...',
-                  border: InputBorder.none,
-                ),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildTypeToggle('income', 'Income', Iconsax.money_recive),
+                  _buildTypeToggle('expense', 'Expense', Iconsax.money_send),
+                ],
               ),
             ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildSelectorButton('Tài khoản', account, _selectAccount),
-                _buildSelectorButton('Danh mục', category, _selectCategory),
-                _buildSelectorButton(DateFormat('dd/MM').format(date), null, _selectDate),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Expanded(child: _buildNumberPad()),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: _onSubmit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  minimumSize: const Size.fromHeight(50),
-                ),
-                child: const Text('Thêm vào', style: TextStyle(color: Colors.white, fontSize: 16)),
+
+            // 🔸 Phần 2: Chiếm phần còn lại
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    displayAmount,
+                    style: TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      color: isExpense ? Colors.red : Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      controller: noteController,
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      decoration: InputDecoration(
+                        hintText: 'Thêm ghi chú...',
+                        hintStyle: TextStyle(color: Colors.grey.shade400),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            )
+            ),
+
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(color: Colors.grey[100]),
+              child: Column(
+                children: [
+                  _buildNumberPad(),
+
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: CustomButton(
+                      text: 'Add transaction',
+                      onPressed: _onSubmit,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTypeToggle(String value, String label) {
+  Widget _buildTypeToggle(String value, String label, IconData icon) {
     final selected = type == value;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: ElevatedButton(
         onPressed: () => setState(() => type = value),
         style: ElevatedButton.styleFrom(
-          backgroundColor: selected ? Colors.black : Colors.grey[200],
+          backgroundColor: selected ? Colors.black : Colors.grey[100],
+          padding: EdgeInsets.all(16),
         ),
-        child: Text(label, style: TextStyle(color: selected ? Colors.white : Colors.black)),
+        child: Row(
+          mainAxisSize:
+              MainAxisSize.min, // Giữ cho Row không chiếm toàn bộ width
+          children: [
+            Icon(icon, color: selected ? Colors.white : Colors.black),
+            const SizedBox(width: 8), // Khoảng cách giữa icon và text
+            Text(
+              label,
+              style: TextStyle(
+                color: selected ? Colors.white : Colors.black,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildSelectorButton(String label, String? value, VoidCallback onTap) {
+  Widget _buildSelectorButton(String label, String value, VoidCallback onTap) {
+    final bool isSelected = value != '';
+
     return OutlinedButton(
       onPressed: onTap,
-      child: Text(value ?? label),
-    );
-  }
-}
-
-class _BottomSheetList extends StatelessWidget {
-  final String title;
-  final List<String> items;
-
-  const _BottomSheetList({required this.title, required this.items});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        side: MaterialStateProperty.all(
+          BorderSide(
+            color: isSelected ? Colors.blue : Colors.grey,
+            width: isSelected ? 2.0 : 1.0,
           ),
-          ...items.map(
-            (e) => ListTile(
-              title: Text(e),
-              onTap: () => Navigator.pop(context, e),
-            ),
-          )
-        ],
+        ),
+      ),
+      child: Text(
+        isSelected ? value : label,
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.black,
+          overflow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

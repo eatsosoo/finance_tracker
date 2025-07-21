@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/drag_handle.dart';
 import 'package:go_router/go_router.dart';
+import 'package:finance_tracker/widgets/filter_option.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -40,6 +41,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
       date: DateTime(2025, 6, 11, 18),
       isRead: true,
     ),
+  ];
+
+  final List<Map<String, dynamic>> filterOptions = [
+    {'icon': Icons.email_outlined, 'title': 'Unread and read', 'value': 'all'},
+    {
+      'icon': Icons.mark_email_unread_outlined,
+      'title': 'Unread',
+      'value': 'unread',
+    },
+    {'icon': Icons.mark_email_read_outlined, 'title': 'Read', 'value': 'read'},
   ];
 
   @override
@@ -158,50 +169,31 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
         child: Column(
           children: [
-            _buildFilterOption(
-              context,
-              icon: Icons.email_outlined,
-              title: 'Unread and read',
-              value: 'all',
-              currentFilter: filter,
-            ),
-            Divider(height: 1, color: Colors.grey[100]),
-            _buildFilterOption(
-              context,
-              icon: Icons.mark_email_unread_outlined,
-              title: 'Unread',
-              value: 'unread',
-              currentFilter: filter,
-            ),
-            Divider(height: 1, color: Colors.grey[100]),
-            _buildFilterOption(
-              context,
-              icon: Icons.mark_email_read_outlined,
-              title: 'Read',
-              value: 'read',
-              currentFilter: filter,
-            ),
+            ...filterOptions.map((option) {
+              final index = filterOptions.indexOf(option);
+              return Column(
+                children: [
+                  buildFilterOption(
+                    context,
+                    icon: option['icon'],
+                    title: option['title'],
+                    value: option['value'],
+                    currentFilter: filter,
+                    onTap: () {
+                      setState(() => filter = option['value']);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  if (index !=
+                      filterOptions.length -
+                          1) // Không thêm Divider sau option cuối
+                    Divider(height: 1, color: Colors.grey[100]),
+                ],
+              );
+            }).toList(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildFilterOption(
-    BuildContext context, {
-    required IconData icon,
-    required String title,
-    required String value,
-    required String currentFilter,
-  }) {
-    return ListTile(
-      leading: Icon(icon, size: 18),
-      title: Text(title, style: const TextStyle(fontSize: 14)),
-      onTap: () {
-        setState(() => filter = value);
-        Navigator.pop(context);
-      },
-      trailing: currentFilter == value ? const Icon(Icons.check) : null,
     );
   }
 }

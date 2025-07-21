@@ -89,24 +89,6 @@ class _ReportScreenState extends State<ReportScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text(
-      //     'Income and outcome report',
-      //     style: TextStyle(
-      //       fontWeight: FontWeight.bold,
-      //       fontSize: 14,
-      //       color: Colors.black,
-      //     ),
-      //   ),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.white,
-      //   foregroundColor: Colors.black,
-      //   elevation: 0,
-      //   leading: IconButton(
-      //     onPressed: () => context.go('/home'),
-      //     icon: const Icon(Iconsax.arrow_left_2),
-      //   ),
-      // ),
       appBar: CustomAppBar(title: 'Reports'),
       body: Column(
         children: [
