@@ -1,9 +1,11 @@
+import 'package:finance_tracker/widgets/animated_toggle.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:finance_tracker/widgets/custom_button.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/filter_option.dart';
+import 'package:go_router/go_router.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -42,13 +44,15 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   late Map<String, List<Map<String, dynamic>>> tagOptions;
 
+  final List<ToggleItem> tabs = [
+    ToggleItem(label: 'Income', value: 'income', icon: Iconsax.money_recive),
+    ToggleItem(label: 'Expense', value: 'expense', icon: Iconsax.money_send),
+  ];
+
   @override
   void initState() {
     super.initState();
-    tagOptions = {
-      'income': incomeTags,
-      'expense': expenseTags,
-    };
+    tagOptions = {'income': incomeTags, 'expense': expenseTags};
   }
 
   void _selectAccount() {
@@ -117,8 +121,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     },
                   ),
                   if (index !=
-                      options.length -
-                          1) // Không thêm Divider sau option cuối
+                      options.length - 1) // Không thêm Divider sau option cuối
                     Divider(height: 1, color: Colors.grey[100]),
                 ],
               );
@@ -222,7 +225,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       text: key,
       onPressed: () => _inputDigit(key),
       backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
+      foregroundColor: Colors.black54,
       radius: 8,
       fontSize: 24,
     );
@@ -232,26 +235,31 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   Widget build(BuildContext context) {
     final isExpense = type == 'expense';
     final displayAmount =
-        (isExpense ? '-' : '') + (amount.isEmpty ? '0' : amount) + 'đ';
+        (isExpense ? '-' : '') + (amount.isEmpty ? '0' : amount) + '₫';
 
     return Scaffold(
+      appBar: AppBar(
+        title: AnimatedToggle(
+          selected: 'income',
+          onChanged: (value) {
+            setState(() => type = value);
+          },
+          items: tabs,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            context.canPop() ? context.pop() : context.go('/home');
+          },
+          icon: Icon(Iconsax.close_circle5, color: Colors.grey.shade200,),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // 🔹 Phần 1: Toggle switch
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildTypeToggle('income', 'Income', Iconsax.money_recive),
-                  _buildTypeToggle('expense', 'Expense', Iconsax.money_send),
-                ],
-              ),
-            ),
-
             // 🔸 Phần 2: Chiếm phần còn lại
             Expanded(
               child: Column(
