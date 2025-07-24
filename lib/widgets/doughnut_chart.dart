@@ -93,7 +93,7 @@ class _DoughnutDefaultState extends State<DoughnutDefault> {
       // ),
       series: _buildDefaultDoughnutSeries(),
       tooltipBehavior: _tooltip,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
     );
   }
 

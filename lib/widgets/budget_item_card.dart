@@ -1,3 +1,4 @@
+import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/advanced_expandable.dart';
 import 'package:flutter/material.dart';
@@ -64,13 +65,7 @@ class BudgetItemCard extends StatelessWidget {
         right: BorderSide(color: borderColor, width: 1),
         bottom: BorderSide(color: borderColor, width: 1),
       ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 8,
-          offset: const Offset(0, 3),
-        ),
-      ],
+      boxShadow: [shadowCommon()],
     );
   }
 

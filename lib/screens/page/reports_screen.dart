@@ -117,31 +117,11 @@ class _ReportScreenState extends State<ReportScreen>
 
           // ✅ TabBar container
           Container(
-            margin: const EdgeInsets.only(
-              bottom: 0,
-              top: 8,
-              left: 16,
-              right: 16,
-            ),
-            padding: const EdgeInsets.only(
-              bottom: 8,
-              top: 4,
-              left: 4,
-              right: 4,
-            ),
+            margin: const EdgeInsets.only(top: 16, right: 16, left: 16),
+            // padding: const EdgeInsets.only(left: 16, right: 16),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(14),
-                topRight: Radius.circular(14),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.all(Radius.circular(14)),
             ),
             child: TabBar(
               controller: _tabController,
@@ -156,13 +136,7 @@ class _ReportScreenState extends State<ReportScreen>
               indicator: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
+                boxShadow: [shadowCommon()],
               ),
               indicatorPadding: const EdgeInsets.symmetric(
                 horizontal: 6,
@@ -195,52 +169,44 @@ class _ReportScreenState extends State<ReportScreen>
                 bottom: 16,
               ),
               padding: const EdgeInsets.all(0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                // borderRadius: BorderRadius.only(
-                //   bottomLeft: Radius.circular(8),
-                //   bottomRight: Radius.circular(8),
-                // ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
+              decoration: BoxDecoration(color: Colors.grey[100]),
               child: TabBarView(
                 controller: _tabController,
                 children: [
                   // ✅ Tab 1 có scroll nếu content dài
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // 🎯 Biểu đồ cố định chiều cao
-                        SizedBox(
-                          height: 300,
-                          child: DoughnutDefault(
-                            series: generateChartData(incomeList),
-                            baseColor: Colors.black,
-                          ),
+                  Column(
+                    children: [
+                      // 🎯 Biểu đồ cố định chiều cao
+                      SizedBox(
+                        height: 300,
+                        child: DoughnutDefault(
+                          series: generateChartData(incomeList),
+                          baseColor: Colors.black,
                         ),
-                        _listItems(context, incomeList),
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: _listItems(context, incomeList),
+                        ),
+                      ),
+                    ],
                   ),
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        // 🎯 Biểu đồ cố định chiều cao
-                        SizedBox(
-                          height: 300,
-                          child: DoughnutDefault(
-                            series: generateChartData(outcomeList),
-                          ),
+
+                  Column(
+                    children: [
+                      // 🎯 Biểu đồ cố định chiều cao
+                      SizedBox(
+                        height: 300,
+                        child: DoughnutDefault(
+                          series: generateChartData(outcomeList),
                         ),
-                        _listItems(context, outcomeList),
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: _listItems(context, outcomeList),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -264,19 +230,12 @@ class _ReportScreenState extends State<ReportScreen>
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 0),
           child: Container(
-            padding: const EdgeInsets.all(12),
-            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            margin: const EdgeInsets.only(top: 0, bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.08), // ✅ dùng màu xám mờ
-                  blurRadius: 12, // ✅ bóng mượt
-                  spreadRadius: 1, // ✅ lan nhẹ ra
-                  offset: const Offset(0, 4), // ✅ bóng hướng xuống
-                ),
-              ],
+              boxShadow: [shadowCommon()],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -317,9 +276,7 @@ class _ReportScreenState extends State<ReportScreen>
                       children: [
                         Text(
                           formatCurrency(item.amount),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           formatDateToMonthDay(item.date),
@@ -339,13 +296,6 @@ class _ReportScreenState extends State<ReportScreen>
       },
     );
   }
-}
-
-class _ChartData {
-  _ChartData(this.year, this.sales);
-
-  final String year;
-  final double sales;
 }
 
 class IncomItem {

@@ -1,3 +1,4 @@
+import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:go_router/go_router.dart';
@@ -78,11 +79,7 @@ class _ScrollableButtonBarState extends State<ScrollableButtonBar> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(isSelected ? 0.15 : 0.05),
-                    blurRadius: isSelected ? 8 : 4,
-                    offset: const Offset(0, 2),
-                  ),
+                  shadowCommon(),
                 ],
               ),
               child: Material(

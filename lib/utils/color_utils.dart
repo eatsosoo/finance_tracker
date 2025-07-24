@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<Color> generateColors({
-  required Color baseColor,
-  int count = 10,
-}) {
+List<Color> generateColors({required Color baseColor, int count = 10}) {
   final hsl = HSLColor.fromColor(baseColor);
 
   return List.generate(count, (i) {
@@ -24,4 +21,13 @@ Color hexToColor(String hex) {
     hex = 'FF$hex'; // Thêm alpha nếu chưa có
   }
   return Color(int.parse(hex, radix: 16));
+}
+
+BoxShadow shadowCommon() {
+  return BoxShadow(
+    color: Colors.black.withOpacity(0.08), // ✅ dùng màu xám mờ
+    blurRadius: 1, // ✅ bóng mượt
+    spreadRadius: 0, // ✅ lan nhẹ ra
+    offset: const Offset(0, 3), // ✅ bóng hướng xuống
+  );
 }
