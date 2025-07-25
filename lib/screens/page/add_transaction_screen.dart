@@ -252,7 +252,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           onPressed: () {
             context.canPop() ? context.pop() : context.go('/home');
           },
-          icon: Icon(Iconsax.close_circle5, color: Colors.grey.shade200,),
+          icon: Icon(Icons.clear, color: Colors.grey.shade200,),
         ),
       ),
       backgroundColor: Colors.white,

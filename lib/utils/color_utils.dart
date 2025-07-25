@@ -23,9 +23,9 @@ Color hexToColor(String hex) {
   return Color(int.parse(hex, radix: 16));
 }
 
-BoxShadow shadowCommon() {
+BoxShadow shadowCommon({ Color? baseColor }) {
   return BoxShadow(
-    color: Colors.black.withOpacity(0.08), // ✅ dùng màu xám mờ
+    color: baseColor ?? Colors.black.withOpacity(0.08), // ✅ dùng màu xám mờ
     blurRadius: 1, // ✅ bóng mượt
     spreadRadius: 0, // ✅ lan nhẹ ra
     offset: const Offset(0, 3), // ✅ bóng hướng xuống

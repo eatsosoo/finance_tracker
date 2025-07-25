@@ -1,3 +1,4 @@
+import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:flutter/material.dart';
 import 'month_selector.dart';
@@ -60,7 +61,11 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [shadowCommon()],
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+      ),
       child: Column(
         children: [
           // 🔽 Row: arrow, month selector, edit
@@ -86,7 +91,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
             icon: AnimatedRotation(
               duration: const Duration(milliseconds: 200),
               turns: isExpanded ? 0.5 : 0,
-              child: const Icon(Iconsax.arrow_up_2, size: 18,),
+              child: const Icon(Iconsax.arrow_up_2, size: 18),
             ),
             onPressed: () {
               _toggleExpanded();
