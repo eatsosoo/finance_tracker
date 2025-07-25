@@ -124,29 +124,34 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
 
                 // Avatar
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 8,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: avatarUrl != null
-                      ? CircleAvatar(
-                          radius: 22,
-                          backgroundImage: AssetImage(
-                            avatarUrl!, // bạn có thể sửa logic để load SVG ở đây nếu muốn
-                          ),
-                        )
-                      : SvgPicture.asset(
-                          'assets/illustrations/cool-girl-avatar.svg',
-                          width: 40,
-                          height: 40,
+                GestureDetector(
+                  onTap: () {
+                    context.push('/profile');
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 8,
+                          offset: Offset(0, 3),
                         ),
+                      ],
+                    ),
+                    child: avatarUrl != null
+                        ? CircleAvatar(
+                            radius: 22,
+                            backgroundImage: AssetImage(
+                              avatarUrl!, // bạn có thể sửa logic để load SVG ở đây nếu muốn
+                            ),
+                          )
+                        : SvgPicture.asset(
+                            'assets/illustrations/cool-girl-avatar.svg',
+                            width: 40,
+                            height: 40,
+                          ),
+                  ),
                 ),
               ],
             ),

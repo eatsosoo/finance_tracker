@@ -66,7 +66,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: AppBar(
         title: const Text(
           'Inbox',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -75,7 +79,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             onPressed: _showFilterOptions,
           ),
         ],
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(

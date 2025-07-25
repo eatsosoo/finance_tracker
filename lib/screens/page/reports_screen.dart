@@ -117,7 +117,7 @@ class _ReportScreenState extends State<ReportScreen>
 
           // ✅ TabBar container
           Container(
-            margin: const EdgeInsets.only(top: 16, right: 16, left: 16),
+            margin: const EdgeInsets.only(top: 12, right: 16, left: 16),
             // padding: const EdgeInsets.only(left: 16, right: 16),
             decoration: BoxDecoration(
               color: Colors.grey[200],
