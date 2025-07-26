@@ -1,5 +1,6 @@
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
+import 'package:finance_tracker/widgets/leading_common.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/drag_handle.dart';
@@ -82,16 +83,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            if (context.canPop()) {
-              context.pop();
-            } else {
-              context.go('/home');
-            }
-          },
-          icon: Icon(Iconsax.arrow_left_2),
-        ),
+        leadingWidth: 70,
+        leading: LeadingCommon(),
       ),
       body: ListView.separated(
         itemCount: filtered.length,

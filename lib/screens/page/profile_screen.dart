@@ -1,7 +1,9 @@
 import 'package:finance_tracker/utils/color_utils.dart';
+import 'package:finance_tracker/widgets/leading_common.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -16,12 +18,8 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: bgColor,
-        leading: IconButton(
-          icon: const Icon(Iconsax.arrow_left_2, color: Colors.black),
-          onPressed: () {
-            context.canPop() ? context.pop() : context.go('/home');
-          },
-        ),
+        leadingWidth: 70,
+        leading: LeadingCommon(),
         centerTitle: true,
         title: const Text(
           'Settings',
@@ -41,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [shadowCommon()]
+              boxShadow: [shadowCommon()],
             ),
             child: Column(
               children: [
@@ -85,6 +83,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
+              boxShadow: [shadowCommon()],
             ),
             child: Row(
               children: [
@@ -104,7 +103,11 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 6),
-                const Icon(Iconsax.arrow_right_3, color: Colors.orange, size: 18),
+                const Icon(
+                  Iconsax.arrow_right_3,
+                  color: Colors.orange,
+                  size: 18,
+                ),
               ],
             ),
           ),
@@ -117,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: const Color(0xFFFF8A34), // Orange
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [shadowCommon()]
+              boxShadow: [shadowCommon()],
             ),
             child: Row(
               children: [
@@ -136,7 +139,10 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(16),
@@ -148,7 +154,11 @@ class ProfileScreen extends StatelessWidget {
                             SizedBox(width: 4),
                             Text(
                               '50 /referral',
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 13),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                              ),
                             ),
                           ],
                         ),
@@ -157,13 +167,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 // Right: (Pandas or suitable placeholder)
-                SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: Image.asset(
-                    'assets/images/panda_friends.png', // Bạn cần chuẩn bị hình này cho đúng, hoặc dùng placeholder
-                    fit: BoxFit.contain,
-                  ),
+                SvgPicture.asset(
+                  'assets/illustrations/undraw_pizza-sharing.svg',
+                  width: 70,
+                  height: 70,
                 ),
               ],
             ),
@@ -176,7 +183,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [shadowCommon()]
+              boxShadow: [shadowCommon()],
             ),
             child: Column(
               children: [
@@ -200,12 +207,12 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildDivider() => Divider(
-        color: Colors.grey[100],
-        height: 1,
-        thickness: 1,
-        indent: 16,
-        endIndent: 16,
-      );
+    color: Colors.grey[100],
+    height: 1,
+    thickness: 1,
+    indent: 16,
+    endIndent: 16,
+  );
 
   Widget _buildProfileTile({
     required IconData icon,
@@ -214,7 +221,10 @@ class ProfileScreen extends StatelessWidget {
   }) {
     return ListTile(
       leading: Icon(icon, color: Colors.black, size: 22),
-      title: Text(label, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12)),
+      title: Text(
+        label,
+        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+      ),
       trailing: const Icon(Iconsax.arrow_right_3, color: Colors.grey, size: 18),
       onTap: onTap,
       tileColor: Colors.transparent,

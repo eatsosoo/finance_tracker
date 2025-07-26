@@ -231,7 +231,7 @@ class _ReportScreenState extends State<ReportScreen>
           padding: const EdgeInsets.symmetric(vertical: 0),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            margin: const EdgeInsets.only(top: 0, bottom: 16),
+            margin: const EdgeInsets.only(top: 0, bottom: 16, right: 2, left: 2),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
