@@ -204,8 +204,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     return GridView(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
         childAspectRatio: 2.5, // Giá trị này càng lớn thì nút càng thấp
       ),
       shrinkWrap: true,
@@ -315,35 +315,6 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Widget _buildTypeToggle(String value, String label, IconData icon) {
-    final selected = type == value;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: ElevatedButton(
-        onPressed: () => setState(() => type = value),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: selected ? Colors.black : Colors.grey[100],
-          padding: EdgeInsets.all(16),
-        ),
-        child: Row(
-          mainAxisSize:
-              MainAxisSize.min, // Giữ cho Row không chiếm toàn bộ width
-          children: [
-            Icon(icon, color: selected ? Colors.white : Colors.black),
-            const SizedBox(width: 8), // Khoảng cách giữa icon và text
-            Text(
-              label,
-              style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildSelectorButton(String label, String value, VoidCallback onTap) {
     final bool isSelected = value != '';
 
@@ -367,7 +338,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           fontSize: 14,
           color: Colors.black,
           overflow: TextOverflow.ellipsis,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

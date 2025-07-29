@@ -82,9 +82,9 @@ class BudgetItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildInformation(remain, item.tag, isExpanded),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           _buildSpent(over, item.spent, item.limit),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           _buildStack(percent, over),
         ],
       ),
@@ -219,14 +219,14 @@ class BudgetItemCard extends StatelessWidget {
             Row(
               children: [
                 Icon(Icons.square, color: Colors.grey[200], size: 14),
-                const SizedBox(width: 6),
+                const SizedBox(width: 8),
                 const Text('Amount assigned', style: TextStyle(fontSize: 12)),
               ],
             ),
             Row(
               children: [
                 Icon(Icons.square, color: Colors.black12, size: 14),
-                const SizedBox(width: 6),
+                const SizedBox(width: 8),
                 const Text('Amount spent', style: TextStyle(fontSize: 12)),
               ],
             ),
@@ -234,15 +234,14 @@ class BudgetItemCard extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.square, color: Colors.red.shade100, size: 14),
-                  const SizedBox(width: 6),
+                  const SizedBox(width: 8),
                   const Text('Overspent', style: TextStyle(fontSize: 12)),
                 ],
               ),
           ],
         ),
-        const SizedBox(height: 4),
         Divider(height: 16, color: Colors.grey[200]),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
       ],
     );
   }

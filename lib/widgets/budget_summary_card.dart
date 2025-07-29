@@ -130,7 +130,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
   Widget _buildExpandedContent() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       margin: const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 0),
       decoration: BoxDecoration(
         color: Colors.black,
@@ -148,7 +148,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
               color: Colors.white,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           const Text(
             'Total amount',
             style: TextStyle(color: Colors.white70, fontSize: 12),
@@ -161,7 +161,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           const Text(
             'Total allocated',
             style: TextStyle(color: Colors.white70, fontSize: 12),

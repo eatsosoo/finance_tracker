@@ -42,14 +42,14 @@ class AppBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           buildDragHandle(),
           if (title != null)
             Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.only(bottom: 24),
               child: Text(
                 title!,
                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -65,7 +65,7 @@ class AppBottomSheet extends StatelessWidget {
 Widget buildDragHandle() => Container(
       width: 40,
       height: 4,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: Colors.grey[400],
         borderRadius: BorderRadius.circular(2),

@@ -53,14 +53,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 40),
+            const SizedBox(height: 48),
             // 🔽 SVG Illustration
             SvgPicture.asset(
               'assets/illustrations/everywhere-together.svg',
               width: 200,
               height: 200,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 48),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -76,13 +76,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             CustomInput(
               hintText: 'Email',
               controller: emailController,
               prefixIcon: const Icon(Iconsax.sms, size: 20),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             CustomInput(
               hintText: 'Tel',
               controller: telController,
@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 LengthLimitingTextInputFormatter(10),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             CustomInput(
               hintText: 'Password',
               controller: passwordController,
@@ -100,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               prefixIcon: const Icon(Iconsax.lock, size: 20),
             ),
             // Reminder login
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             Row(
               children: [
                 SizedBox(width: 14,),
@@ -112,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             isLoading
                 ? const CircularProgressIndicator()
                 : CustomButton(text: 'Sign Up', onPressed: _handleRegister),

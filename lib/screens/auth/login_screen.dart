@@ -50,14 +50,14 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 40),
+            const SizedBox(height: 48),
             // 🔽 SVG Illustration
             SvgPicture.asset(
               'assets/illustrations/proud-designer.svg',
               width: 200,
               height: 200,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 48),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -73,13 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             CustomInput(
               hintText: 'Email',
               controller: emailController,
               prefixIcon: const Icon(Icons.email, size: 20),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             CustomInput(
               hintText: 'Password',
               controller: passwordController,
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
               prefixIcon: const Icon(Icons.lock, size: 20),
             ),
             // Reminder login
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             Row(
               children: [
                 SizedBox(width: 14,),
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             isLoading
                 ? const CircularProgressIndicator()
                 : CustomButton(text: 'Sign In', onPressed: _handleLogin),

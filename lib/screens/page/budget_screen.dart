@@ -131,7 +131,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
               totalAllocated: 30000000,
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             // Notify overspent
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),

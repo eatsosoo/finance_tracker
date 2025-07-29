@@ -117,7 +117,7 @@ class _ReportScreenState extends State<ReportScreen>
 
           // ✅ TabBar container
           Container(
-            margin: const EdgeInsets.only(top: 12, right: 16, left: 16),
+            margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
             // padding: const EdgeInsets.only(left: 16, right: 16),
             decoration: BoxDecoration(
               color: Colors.grey[200],
@@ -230,7 +230,7 @@ class _ReportScreenState extends State<ReportScreen>
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 0),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             margin: const EdgeInsets.only(top: 0, bottom: 16, right: 2, left: 2),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -250,7 +250,7 @@ class _ReportScreenState extends State<ReportScreen>
                           item.title,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(height: 2),
+                        const SizedBox(height: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 8,
@@ -278,6 +278,7 @@ class _ReportScreenState extends State<ReportScreen>
                           formatCurrency(item.amount),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
+                        const SizedBox(height: 8),
                         Text(
                           formatDateToMonthDay(item.date),
                           style: const TextStyle(
