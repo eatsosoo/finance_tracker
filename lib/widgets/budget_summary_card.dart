@@ -139,7 +139,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
         color: Colors.black,
         borderRadius: BorderRadius.circular(14),
         image: const DecorationImage(
-          image: AssetImage('/images/abstract-black-white.jpg'),
+          image: AssetImage('/images/abstract-bg-1.jpg'),
           fit: BoxFit.cover,
         ),
       ),
