@@ -78,7 +78,7 @@ class _ScrollableButtonBarState extends State<ScrollableButtonBar> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
-                  shadowCommon(),
+                  boxShadowCommon(),
                 ],
               ),
               child: Material(

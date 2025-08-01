@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [shadowCommon()],
+              boxShadow: [boxShadowCommon()],
             ),
             child: Column(
               children: [
@@ -83,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [shadowCommon()],
+              boxShadow: [boxShadowCommon()],
             ),
             child: Row(
               children: [
@@ -120,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: const Color(0xFFFF8A34), // Orange
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [shadowCommon()],
+              boxShadow: [boxShadowCommon()],
             ),
             child: Row(
               children: [
@@ -183,7 +183,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [shadowCommon()],
+              boxShadow: [boxShadowCommon()],
             ),
             child: Column(
               children: [

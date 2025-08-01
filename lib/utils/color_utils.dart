@@ -23,11 +23,19 @@ Color hexToColor(String hex) {
   return Color(int.parse(hex, radix: 16));
 }
 
-BoxShadow shadowCommon({ Color? baseColor }) {
+BoxShadow boxShadowCommon({Color? baseColor}) {
   return BoxShadow(
     color: baseColor ?? Colors.black.withOpacity(0.08), // ✅ dùng màu xám mờ
     blurRadius: 1, // ✅ bóng mượt
     spreadRadius: 0, // ✅ lan nhẹ ra
     offset: const Offset(0, 3), // ✅ bóng hướng xuống
+  );
+}
+
+Shadow shadowCommon({Color? baseColor}) {
+  return Shadow(
+    offset: Offset(2, 2), // độ lệch bóng (x, y)
+    blurRadius: 4, // độ mờ của bóng
+    color: baseColor ?? Colors.black, // màu bóng
   );
 }

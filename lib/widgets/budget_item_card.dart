@@ -64,7 +64,7 @@ class BudgetItemCard extends StatelessWidget {
         right: BorderSide(color: borderColor, width: 1),
         bottom: BorderSide(color: borderColor, width: 1),
       ),
-      boxShadow: [shadowCommon()],
+      boxShadow: [boxShadowCommon()],
     );
   }
 

@@ -63,8 +63,11 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [shadowCommon()],
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+        boxShadow: [boxShadowCommon()],
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(16),
+          bottomRight: Radius.circular(16),
+        ),
       ),
       child: Column(
         children: [
@@ -135,23 +138,32 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(14),
+        image: const DecorationImage(
+          image: AssetImage('/images/abstract-black-white.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'New budget',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Colors.white,
+              shadows: [shadowCommon()],
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'Total amount',
-            style: TextStyle(color: Colors.white70, fontSize: 12),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              shadows: [shadowCommon()],
+            ),
           ),
           Text(
             formatCurrency(widget.totalAmount),
@@ -162,9 +174,13 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'Total allocated',
-            style: TextStyle(color: Colors.white70, fontSize: 12),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+              shadows: [shadowCommon()],
+            ),
           ),
           Text(
             formatCurrency(widget.totalAllocated),

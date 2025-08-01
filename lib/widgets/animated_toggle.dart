@@ -54,7 +54,7 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
       decoration: BoxDecoration(
         color: Colors.grey[100],
         borderRadius: BorderRadius.circular(30),
-        boxShadow: [shadowCommon()]
+        boxShadow: [boxShadowCommon()]
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -73,7 +73,7 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(25),
-                    boxShadow: [shadowCommon()],
+                    boxShadow: [boxShadowCommon()],
                   ),
                 ),
               ),

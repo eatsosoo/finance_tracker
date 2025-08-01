@@ -17,7 +17,7 @@ class LeadingCommon extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [shadowCommon()],
+          boxShadow: [boxShadowCommon()],
         ),
         child: IconButton(
           icon: const Icon(LucideIcons.chevronLeft, color: Colors.black),

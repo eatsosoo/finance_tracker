@@ -135,7 +135,7 @@ class _ReportScreenState extends State<ReportScreen>
               indicator: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
-                boxShadow: [shadowCommon()],
+                boxShadow: [boxShadowCommon()],
               ),
               indicatorPadding: const EdgeInsets.symmetric(
                 horizontal: 6,
@@ -234,7 +234,7 @@ class _ReportScreenState extends State<ReportScreen>
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              boxShadow: [shadowCommon()],
+              boxShadow: [boxShadowCommon()],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
