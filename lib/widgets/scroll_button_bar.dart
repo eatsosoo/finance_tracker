@@ -2,7 +2,6 @@ import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 
 class ScrollableButtonBar extends StatefulWidget {
   final List<String> labels;

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:finance_tracker/widgets/budget_item_card.dart';
 import 'package:finance_tracker/widgets/advanced_expandable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class BudgetScreen extends StatefulWidget {
   const BudgetScreen({super.key});
@@ -174,7 +175,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  const Icon(Icons.keyboard_arrow_right, color: Colors.black),
+                  const Icon(LucideIcons.chevronRight, color: Colors.black, size: 18,),
                 ],
               ),
             ),

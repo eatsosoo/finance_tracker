@@ -2,6 +2,7 @@ import 'package:finance_tracker/widgets/custom_radio.dart';
 import 'package:finance_tracker/widgets/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:finance_tracker/providers/auth_provider.dart';
 import 'package:finance_tracker/widgets/custom_input.dart';
@@ -77,14 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomInput(
               hintText: 'Email',
               controller: emailController,
-              prefixIcon: const Icon(Icons.email, size: 20),
+              prefixIcon: const Icon(LucideIcons.mail, size: 18),
             ),
             const SizedBox(height: 16),
             CustomInput(
               hintText: 'Password',
               controller: passwordController,
               obscureText: true,
-              prefixIcon: const Icon(Icons.lock, size: 20),
+              prefixIcon: const Icon(LucideIcons.lock, size: 18),
             ),
             // Reminder login
             const SizedBox(height: 16),

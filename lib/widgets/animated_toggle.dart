@@ -1,6 +1,5 @@
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
 class ToggleItem {
   final String label;
@@ -91,10 +90,10 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                           children: [
                             Icon(
                               item.icon,
-                              size: 20,
+                              size: 16,
                               color: isSelected ? Colors.white : Colors.black,
                             ),
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 8),
                             Text(
                               item.label,
                               style: TextStyle(

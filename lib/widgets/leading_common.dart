@@ -1,7 +1,7 @@
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class LeadingCommon extends StatelessWidget {
   const LeadingCommon({super.key});
@@ -20,7 +20,7 @@ class LeadingCommon extends StatelessWidget {
           boxShadow: [shadowCommon()],
         ),
         child: IconButton(
-          icon: const Icon(Iconsax.arrow_left_2, color: Colors.black),
+          icon: const Icon(LucideIcons.chevronLeft, color: Colors.black),
           onPressed: () {
             context.canPop() ? context.pop() : context.go('/home');
           },

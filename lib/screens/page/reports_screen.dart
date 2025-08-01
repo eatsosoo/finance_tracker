@@ -5,7 +5,6 @@ import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/scroll_button_bar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';

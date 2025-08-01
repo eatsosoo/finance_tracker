@@ -3,9 +3,9 @@ import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:finance_tracker/widgets/custom_button.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/filter_option.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -45,8 +45,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   late Map<String, List<Map<String, dynamic>>> tagOptions;
 
   final List<ToggleItem> tabs = [
-    ToggleItem(label: 'Income', value: 'income', icon: Iconsax.money_recive),
-    ToggleItem(label: 'Expense', value: 'expense', icon: Iconsax.money_send),
+    ToggleItem(label: 'Income', value: 'income', icon: LucideIcons.circleArrowOutDownLeft),
+    ToggleItem(label: 'Expense', value: 'expense', icon: LucideIcons.circleArrowOutUpRight),
   ];
 
   @override

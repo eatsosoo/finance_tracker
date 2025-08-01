@@ -1,8 +1,7 @@
 import 'package:finance_tracker/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:go_router/go_router.dart';
-
+import  'package:lucide_icons_flutter/lucide_icons.dart';
 class NewItemScreen extends StatefulWidget {
   const NewItemScreen({super.key});
 
@@ -28,7 +27,7 @@ class _NewItemScreenState extends State<NewItemScreen> {
           onPressed: () {
             context.go('/home');
           },
-          icon: Icon(Iconsax.arrow_left_2),
+          icon: Icon(LucideIcons.chevronLeft),
         ),
         actions: const [Icon(Icons.more_horiz, size: 18), SizedBox(width: 12)],
       ),

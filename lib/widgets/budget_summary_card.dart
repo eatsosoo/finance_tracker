@@ -1,8 +1,8 @@
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'month_selector.dart';
-import 'package:iconsax/iconsax.dart';
 
 class BudgetSummaryCard extends StatefulWidget {
   final String selectedMonth;
@@ -91,7 +91,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
             icon: AnimatedRotation(
               duration: const Duration(milliseconds: 200),
               turns: isExpanded ? 0.5 : 0,
-              child: const Icon(Iconsax.arrow_up_2, size: 18),
+              child: const Icon(LucideIcons.chevronUp),
             ),
             onPressed: () {
               _toggleExpanded();
@@ -119,7 +119,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
             ],
           ),
           IconButton(
-            icon: const Icon(Iconsax.edit, size: 18),
+            icon: const Icon(LucideIcons.squarePen, size: 18),
             onPressed: widget.onEdit,
           ),
         ],

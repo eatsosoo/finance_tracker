@@ -9,7 +9,7 @@ import 'package:finance_tracker/widgets/custom_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:finance_tracker/screens/auth/register_screen.dart';
 import 'package:flutter/services.dart';
-import 'package:iconsax/iconsax.dart';
+import  'package:lucide_icons_flutter/lucide_icons.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -80,13 +80,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomInput(
               hintText: 'Email',
               controller: emailController,
-              prefixIcon: const Icon(Iconsax.sms, size: 20),
+              prefixIcon: const Icon(LucideIcons.mail, size: 18),
             ),
             const SizedBox(height: 16),
             CustomInput(
               hintText: 'Tel',
               controller: telController,
-              prefixIcon: const Icon(Iconsax.call, size: 20),
+              prefixIcon: const Icon(LucideIcons.phone, size: 18),
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(10),
@@ -97,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               hintText: 'Password',
               controller: passwordController,
               obscureText: true,
-              prefixIcon: const Icon(Iconsax.lock, size: 20),
+              prefixIcon: const Icon(LucideIcons.lock, size: 18),
             ),
             // Reminder login
             const SizedBox(height: 16),

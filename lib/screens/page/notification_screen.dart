@@ -2,10 +2,10 @@ import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:finance_tracker/widgets/leading_common.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:finance_tracker/widgets/drag_handle.dart';
 import 'package:go_router/go_router.dart';
 import 'package:finance_tracker/widgets/filter_option.dart';
+import  'package:lucide_icons_flutter/lucide_icons.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -45,13 +45,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
   ];
 
   final List<Map<String, dynamic>> filterOptions = [
-    {'icon': Icons.email_outlined, 'title': 'Unread and read', 'value': 'all'},
+    {'icon': LucideIcons.mail, 'title': 'Unread and read', 'value': 'all'},
     {
-      'icon': Icons.mark_email_unread_outlined,
+      'icon': LucideIcons.mailWarning,
       'title': 'Unread',
       'value': 'unread',
     },
-    {'icon': Icons.mark_email_read_outlined, 'title': 'Read', 'value': 'read'},
+    {'icon': LucideIcons.mailCheck, 'title': 'Read', 'value': 'read'},
   ];
 
   @override
@@ -76,7 +76,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Iconsax.sort),
+            icon: const Icon(LucideIcons.listFilter),
             onPressed: _showFilterOptions,
           ),
         ],
@@ -106,7 +106,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       backgroundColor: Colors.red.shade700,
                       radius: 12,
                       child: Icon(
-                        Icons.access_alarm,
+                        LucideIcons.alarmClock,
                         color: Colors.white,
                         size: 14,
                       ),

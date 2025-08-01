@@ -1,9 +1,9 @@
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/widgets/leading_common.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -44,31 +44,31 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 _buildProfileTile(
-                  icon: Iconsax.sms,
+                  icon: LucideIcons.mail,
                   label: 'Email',
                   onTap: () {},
                 ),
                 _buildDivider(),
                 _buildProfileTile(
-                  icon: Iconsax.profile_circle,
+                  icon: LucideIcons.squareUser,
                   label: 'Username',
                   onTap: () {},
                 ),
                 _buildDivider(),
                 _buildProfileTile(
-                  icon: Iconsax.activity,
+                  icon: LucideIcons.activity,
                   label: 'Step data source',
                   onTap: () {},
                 ),
                 _buildDivider(),
                 _buildProfileTile(
-                  icon: Iconsax.language_square,
+                  icon: LucideIcons.languages,
                   label: 'Language',
                   onTap: () {},
                 ),
                 _buildDivider(),
                 _buildProfileTile(
-                  icon: Iconsax.shield_tick,
+                  icon: LucideIcons.shieldCheck,
                   label: 'Privacy',
                   onTap: () {},
                 ),
@@ -87,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(Iconsax.crown, color: Color(0xFF3D5AFE)),
+                const Icon(LucideIcons.crown, color: Color(0xFF3D5AFE)),
                 const SizedBox(width: 12),
                 const Expanded(
                   child: Text(
@@ -104,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 6),
                 const Icon(
-                  Iconsax.arrow_right_3,
+                  LucideIcons.chevronRight,
                   color: Colors.orange,
                   size: 18,
                 ),
@@ -150,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Icon(Iconsax.gift, size: 16, color: Colors.white),
+                            Icon(LucideIcons.gift, size: 16, color: Colors.white),
                             SizedBox(width: 4),
                             Text(
                               '50 /referral',
@@ -188,13 +188,13 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 _buildProfileTile(
-                  icon: Iconsax.d_cube_scan,
+                  icon: LucideIcons.box,
                   label: 'App Icon',
                   onTap: () {},
                 ),
                 _buildDivider(),
                 _buildProfileTile(
-                  icon: Iconsax.element_3,
+                  icon: LucideIcons.layoutGrid,
                   label: 'Widget',
                   onTap: () {},
                 ),
@@ -220,12 +220,12 @@ class ProfileScreen extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.black, size: 22),
+      leading: Icon(icon, color: Colors.grey, size: 18),
       title: Text(
         label,
         style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
       ),
-      trailing: const Icon(Iconsax.arrow_right_3, color: Colors.grey, size: 18),
+      trailing: const Icon(LucideIcons.chevronRight, color: Colors.grey, size: 18),
       onTap: onTap,
       tileColor: Colors.transparent,
       contentPadding: const EdgeInsets.only(left: 16, right: 16),

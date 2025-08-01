@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -85,9 +85,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             ],
                           ),
                           child: const Icon(
-                            Iconsax.notification5,
+                            LucideIcons.bell,
                             color: Colors.black,
-                            size: 24,
+                            size: 20,
                           ),
                         ),
 

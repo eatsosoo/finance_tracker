@@ -2,7 +2,6 @@ import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/advanced_expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class BudgetItem {

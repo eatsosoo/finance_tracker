@@ -3,8 +3,8 @@ import 'package:finance_tracker/screens/page/notification_screen.dart';
 import 'package:finance_tracker/screens/page/add_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget child;
@@ -12,7 +12,9 @@ class MainLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final uri = GoRouterState.of(context).uri.toString(); // ✅ Lấy từ GoRouterState
+    final uri = GoRouterState.of(
+      context,
+    ).uri.toString(); // ✅ Lấy từ GoRouterState
 
     int currentIndex = 0;
     if (uri.contains('budget')) {
@@ -31,11 +33,27 @@ class MainLayout extends StatelessWidget {
         index: currentIndex,
         height: 60.0,
         items: <Widget>[
-          Icon(Iconsax.home_25, size: currentIndex == 0 ? 24 : 18, color: Colors.black),
-          Icon(Iconsax.wallet_1, size: currentIndex == 1 ? 24 : 18, color: Colors.black),
-          Icon(Iconsax.add5, size: currentIndex == 2 ? 24 : 18, color: Colors.black),
-          Icon(Iconsax.card, size: currentIndex == 3 ? 24 : 18, color: Colors.black),
-          Icon(Iconsax.document_favorite5, size: currentIndex == 4 ? 24 : 18, color: Colors.black),
+          Icon(
+            LucideIcons.house,
+            size: currentIndex == 0 ? 24 : 18,
+            // color: Colors.black,
+          ),
+          Icon(
+            LucideIcons.wallet,
+            size: currentIndex == 1 ? 24 : 18,
+            // color: Colors.black,
+          ),
+          Icon(
+            LucideIcons.squarePlus,
+            size: currentIndex == 2 ? 24 : 18,
+            // color: Colors.black,
+          ),
+          Icon(
+            LucideIcons.walletCards,
+            size: currentIndex == 3 ? 24 : 18,
+            // color: Colors.black,
+          ),
+          Icon(LucideIcons.chartPie, size: currentIndex == 4 ? 24 : 18),
         ],
         color: Colors.white,
         buttonBackgroundColor: Colors.white,
@@ -66,5 +84,3 @@ class MainLayout extends StatelessWidget {
     );
   }
 }
-
-
