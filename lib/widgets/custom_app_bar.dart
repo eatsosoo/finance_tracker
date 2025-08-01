@@ -1,3 +1,4 @@
+import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
@@ -73,15 +74,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         Container(
                           width: 40,
                           height: 40,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
                             boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 8,
-                                offset: Offset(0, 3),
-                              ),
+                              boxShadowCommon()
                             ],
                           ),
                           child: const Icon(
@@ -132,11 +129,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 8,
-                          offset: Offset(0, 3),
-                        ),
+                        boxShadowCommon()
                       ],
                     ),
                     child: avatarUrl != null

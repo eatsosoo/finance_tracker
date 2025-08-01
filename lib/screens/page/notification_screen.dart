@@ -38,7 +38,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     ),
     NotificationItem(
       title: '🌕 Chiêm ngưỡng Trăng Dâu (Strawberry Moon)',
-      dueDate: '11 Jun 2025 6:00 PM–7:00 PM',
+      dueDate: '11 Jun 2025 6:00 PM',
       date: DateTime(2025, 6, 11, 18),
       isRead: true,
     ),
@@ -56,7 +56,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
     final filtered = allNotifications.where((n) {
       if (filter == 'read') return n.isRead;
       if (filter == 'unread') return !n.isRead;
@@ -83,7 +82,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
-        leadingWidth: 70,
         leading: LeadingCommon(),
       ),
       body: ListView.separated(
@@ -95,13 +93,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
           final daysAgo = timeAgo(item.date);
           return Container(
             color: Colors.white,
+            margin: EdgeInsets.only(bottom: 8),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 6),
+                    margin: EdgeInsets.only(top: 0),
                     child: CircleAvatar(
                       backgroundColor: Colors.red.shade700,
                       radius: 12,
@@ -121,7 +120,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           text: TextSpan(
                             style: TextStyle(color: Colors.black),
                             children: [
-                              TextSpan(text: 'You have a reminder in '),
                               TextSpan(
                                 text: item.title,
                                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -130,12 +128,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        const Text(
-                          'Due date',
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
                         Text(
-                          '@${item.dueDate}',
+                          item.dueDate,
                           style: TextStyle(fontSize: 13),
                         ),
                       ],

@@ -45,8 +45,16 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   late Map<String, List<Map<String, dynamic>>> tagOptions;
 
   final List<ToggleItem> tabs = [
-    ToggleItem(label: 'Income', value: 'income', icon: LucideIcons.circleArrowOutDownLeft),
-    ToggleItem(label: 'Expense', value: 'expense', icon: LucideIcons.circleArrowOutUpRight),
+    ToggleItem(
+      label: 'Income',
+      value: 'income',
+      icon: LucideIcons.circleArrowOutDownLeft,
+    ),
+    ToggleItem(
+      label: 'Expense',
+      value: 'expense',
+      icon: LucideIcons.circleArrowOutUpRight,
+    ),
   ];
 
   @override
@@ -211,12 +219,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.zero,
-      children: [
-        _buildSelectorButton('Account', account, _selectAccount),
-        _buildSelectorButton('Tag', category, _selectCategory),
-        _buildSelectorButton(DateFormat('dd/MM').format(date), '', _selectDate),
-        ...keys.map((e) => _buildKey(e)).toList(),
-      ],
+      children: [...keys.map((e) => _buildKey(e)).toList()],
     );
   }
 
@@ -252,7 +255,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           onPressed: () {
             context.canPop() ? context.pop() : context.go('/home');
           },
-          icon: Icon(Icons.clear, color: Colors.grey.shade200,),
+          icon: Icon(Icons.clear, color: Colors.grey.shade200),
         ),
       ),
       backgroundColor: Colors.white,
@@ -296,6 +299,36 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               decoration: BoxDecoration(color: Colors.grey[100]),
               child: Column(
                 children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildSelectorButton(
+                          'Account',
+                          account,
+                          _selectAccount,
+                        ),
+                      ),
+                      SizedBox(width: 8), // Khoảng cách giữa các nút
+                      Expanded(
+                        child: _buildSelectorButton(
+                          'Category',
+                          category,
+                          _selectCategory,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: _buildSelectorButton(
+                          DateFormat('dd/MM').format(date),
+                          '',
+                          _selectDate,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 12),
+
                   _buildNumberPad(),
 
                   const SizedBox(height: 12),
@@ -304,6 +337,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     child: CustomButton(
                       text: 'Add transaction',
                       onPressed: _onSubmit,
+                      radius: 8,
                     ),
                   ),
                 ],
@@ -318,27 +352,31 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   Widget _buildSelectorButton(String label, String value, VoidCallback onTap) {
     final bool isSelected = value != '';
 
-    return OutlinedButton(
-      onPressed: onTap,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.white),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-        side: MaterialStateProperty.all(
-          BorderSide(
-            color: isSelected ? Colors.blue : Colors.grey,
-            width: isSelected ? 2.0 : 1.0,
+    return SizedBox(
+      height: 40,
+      child: OutlinedButton(
+        onPressed: onTap,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.white),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
+          side: MaterialStateProperty.all(
+            BorderSide(
+              color: isSelected ? Colors.blue : Colors.grey,
+              width: isSelected ? 2.0 : 1.0,
+            ),
+          ),
+          overlayColor: MaterialStateProperty.all(Colors.grey.shade100),
         ),
-      ),
-      child: Text(
-        isSelected ? value : label,
-        style: TextStyle(
-          fontSize: 14,
-          color: Colors.black,
-          overflow: TextOverflow.ellipsis,
-          fontWeight: FontWeight.bold,
+        child: Text(
+          isSelected ? value : label,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.black,
+            overflow: TextOverflow.ellipsis,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
