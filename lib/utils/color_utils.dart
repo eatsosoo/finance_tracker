@@ -15,6 +15,17 @@ List<Color> generateColors({required Color baseColor, int count = 10}) {
   });
 }
 
+List<Color> blackToRedPalette({
+  int count = 10,
+  Color leftColor = Colors.black,
+  Color rightColor = Colors.red,
+}) {
+  return List.generate(
+    count,
+    (i) => Color.lerp(leftColor, rightColor, i / (count - 1))!,
+  );
+}
+
 Color hexToColor(String hex) {
   hex = hex.replaceAll('#', '');
   if (hex.length == 6) {
@@ -37,5 +48,17 @@ Shadow shadowCommon({Color? baseColor}) {
     offset: Offset(2, 2), // độ lệch bóng (x, y)
     blurRadius: 4, // độ mờ của bóng
     color: baseColor ?? Colors.black, // màu bóng
+  );
+}
+
+LinearGradient buildGradient(Color baseColor) {
+  // Tạo 2 màu gradient: màu sáng hơn và màu tối hơn dựa trên baseColor
+  final Color lighter = Color.lerp(baseColor, Colors.white, 0.5)!;
+  final Color darker = Color.lerp(baseColor, Colors.black, 0.4)!;
+
+  return LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [lighter, baseColor, darker],
   );
 }

@@ -134,7 +134,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      margin: const EdgeInsets.only(bottom: 16, right: 16, left: 16, top: 0),
+      margin: const EdgeInsets.only(bottom: 8, right: 8, left: 8, top: 0),
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(14),

@@ -41,16 +41,17 @@ class _DoughnutDefaultState extends State<DoughnutDefault> {
     super.initState();
     _explodeIndex = 0;
     _tooltip = TooltipBehavior(enable: true, format: 'point.x : point.y%');
-    _colors = generateColors(
-      baseColor: widget.baseColor,
+    _colors = blackToRedPalette(
       count: widget.series.length,
+      leftColor: Colors.black54,
+      rightColor: Colors.grey.shade300,
     );
     _chartData = List.generate(widget.series.length, (i) {
       return ChartSampleData(
         tag: widget.series[i].tag,
         amount: widget.series[i].amount,
         text: widget.series[i].text,
-        color: widget.series[i].color,
+        color: _colors[i],
       );
     });
   }
@@ -67,16 +68,17 @@ class _DoughnutDefaultState extends State<DoughnutDefault> {
     // Nếu danh sách series mới khác với cũ → cập nhật
     if (widget.series != oldWidget.series) {
       setState(() {
-        _colors = generateColors(
-          baseColor: widget.baseColor,
+        _colors = blackToRedPalette(
           count: widget.series.length,
+          leftColor: Colors.black54,
+          rightColor: Colors.grey.shade300,
         );
         _chartData = List.generate(widget.series.length, (i) {
           return ChartSampleData(
             tag: widget.series[i].tag,
             amount: widget.series[i].amount,
             text: widget.series[i].text,
-            color: widget.series[i].color,
+            color: _colors[i], // use color from generateColors()
           );
         });
       });

@@ -180,7 +180,6 @@ class _ReportScreenState extends State<ReportScreen>
                         height: 300,
                         child: DoughnutDefault(
                           series: generateChartData(incomeList),
-                          baseColor: Colors.black,
                         ),
                       ),
                       Expanded(
@@ -229,8 +228,8 @@ class _ReportScreenState extends State<ReportScreen>
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 0),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            margin: const EdgeInsets.only(top: 0, bottom: 16, right: 2, left: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            margin: const EdgeInsets.only(top: 0, bottom: 8, right: 2, left: 2),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -256,13 +255,13 @@ class _ReportScreenState extends State<ReportScreen>
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: tagColor.withOpacity(0.5),
+                            color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             item.tag,
                             style: TextStyle(
-                              color: tagColor,
+                              color: Colors.grey,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                             ),
