@@ -178,10 +178,22 @@ class _ReportScreenState extends State<ReportScreen>
                       // 🎯 Biểu đồ cố định chiều cao
                       SizedBox(
                         height: 300,
-                        child: DoughnutDefault(
+                        child: DoughnutChart(
                           series: generateChartData(incomeList),
                         ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(width: 8),
+                          const Text(
+                            'History',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
                       Expanded(
                         child: SingleChildScrollView(
                           child: _listItems(context, incomeList),
@@ -195,10 +207,22 @@ class _ReportScreenState extends State<ReportScreen>
                       // 🎯 Biểu đồ cố định chiều cao
                       SizedBox(
                         height: 300,
-                        child: DoughnutDefault(
+                        child: DoughnutChart(
                           series: generateChartData(outcomeList),
                         ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(width: 8),
+                          const Text(
+                            'History',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
                       Expanded(
                         child: SingleChildScrollView(
                           child: _listItems(context, outcomeList),

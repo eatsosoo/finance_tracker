@@ -40,7 +40,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Account'),
+      appBar: CustomAppBar(title: 'Accounts'),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     setState(() {
@@ -105,6 +105,8 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ],
           ),
+
+          
         ],
       ),
     );

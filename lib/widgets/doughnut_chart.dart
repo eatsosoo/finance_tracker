@@ -16,21 +16,21 @@ class ChartSampleData {
   });
 }
 
-class DoughnutDefault extends StatefulWidget {
+class DoughnutChart extends StatefulWidget {
   final List<ChartSampleData> series;
   final Color baseColor;
 
-  const DoughnutDefault({
+  const DoughnutChart({
     super.key,
     required this.series,
     this.baseColor = Colors.black,
   });
 
   @override
-  State<DoughnutDefault> createState() => _DoughnutDefaultState();
+  State<DoughnutChart> createState() => _DoughnutChartState();
 }
 
-class _DoughnutDefaultState extends State<DoughnutDefault> {
+class _DoughnutChartState extends State<DoughnutChart> {
   late TooltipBehavior _tooltip;
   late List<ChartSampleData> _chartData;
   late int _explodeIndex;
@@ -62,7 +62,7 @@ class _DoughnutDefaultState extends State<DoughnutDefault> {
   }
 
   @override
-  void didUpdateWidget(covariant DoughnutDefault oldWidget) {
+  void didUpdateWidget(covariant DoughnutChart oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     // Nếu danh sách series mới khác với cũ → cập nhật
