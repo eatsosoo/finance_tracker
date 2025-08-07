@@ -1,10 +1,13 @@
+import 'package:finance_tracker/types/chart.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
+import 'package:finance_tracker/widgets/spline_chart.dart';
+import 'package:finance_tracker/widgets/cards_swiper.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
-import 'package:finance_tracker/widgets/cards_swiper.dart';
+import 'dart:convert';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -15,6 +18,9 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
   bool _shouldPlayAnimation = false;
+  late Map<String, dynamic> mockData = {};
+  List _colors = [];
+
   final List<AccountCard> cards = [
     AccountCard(title: 'Vietinbank', amount: 500000),
     AccountCard(title: 'ACB Bank', amount: 5000000),
@@ -25,7 +31,38 @@ class _AccountScreenState extends State<AccountScreen> {
     AccountCard(title: 'Bonus', amount: 50000000),
   ];
 
-  List _colors = [];
+  final data = [
+    ChartData('Jan', 30),
+    ChartData('Feb', 42),
+    ChartData('Mar', 20),
+    ChartData('Apr', 50),
+    ChartData('May', 50),
+    ChartData('Jun', 50),
+    ChartData('Jul', 50),
+    ChartData('Aug', 10),
+    ChartData('Sep', 60),
+    ChartData('Oct', 80),
+    ChartData('Nov', 100),
+  ];
+
+  List<ChartSampleData> generateChartData(Map<String, dynamic> jsonData) {
+    final List<ChartSampleData> result = [];
+
+    jsonData.forEach((tag, months) {
+      (months as Map<String, dynamic>).forEach((month, amount) {
+        result.add(ChartSampleData(tag: tag, amount: amount, text: month));
+      });
+    });
+
+    return result;
+  }
+
+  Future<void> loadMockData(BuildContext context) async {
+    final String response = await DefaultAssetBundle.of(
+      context,
+    ).loadString('mocks/accounts.json');
+    mockData = jsonDecode(response);
+  }
 
   @override
   void initState() {
@@ -35,6 +72,7 @@ class _AccountScreenState extends State<AccountScreen> {
       leftColor: Colors.black,
       rightColor: Colors.blueGrey,
     );
+    loadMockData(context);
   }
 
   @override
@@ -105,8 +143,15 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ],
           ),
-
-          
+          Container(
+            margin: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [boxShadowCommon()],
+              color: Colors.white
+            ),
+            child: SplineChart(data: data, title: 'Chi tiêu theo tháng'),
+          )
         ],
       ),
     );

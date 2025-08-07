@@ -1,20 +1,9 @@
+import 'package:finance_tracker/types/chart.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class ChartSampleData {
-  final String tag;
-  final double amount;
-  final String text;
-  final Color? color;
 
-  ChartSampleData({
-    required this.tag,
-    required this.amount,
-    required this.text,
-    this.color,
-  });
-}
 
 class DoughnutChart extends StatefulWidget {
   final List<ChartSampleData> series;
@@ -23,7 +12,7 @@ class DoughnutChart extends StatefulWidget {
   const DoughnutChart({
     super.key,
     required this.series,
-    this.baseColor = Colors.black,
+    this.baseColor = Colors.red,
   });
 
   @override
@@ -43,8 +32,8 @@ class _DoughnutChartState extends State<DoughnutChart> {
     _tooltip = TooltipBehavior(enable: true, format: 'point.x : point.y%');
     _colors = blackToRedPalette(
       count: widget.series.length,
-      leftColor: Colors.black54,
-      rightColor: Colors.grey.shade300,
+      leftColor: widget.baseColor,
+      rightColor: Colors.white,
     );
     _chartData = List.generate(widget.series.length, (i) {
       return ChartSampleData(
@@ -70,8 +59,8 @@ class _DoughnutChartState extends State<DoughnutChart> {
       setState(() {
         _colors = blackToRedPalette(
           count: widget.series.length,
-          leftColor: Colors.black54,
-          rightColor: Colors.grey.shade300,
+          leftColor: widget.baseColor,
+          rightColor: Colors.white,
         );
         _chartData = List.generate(widget.series.length, (i) {
           return ChartSampleData(

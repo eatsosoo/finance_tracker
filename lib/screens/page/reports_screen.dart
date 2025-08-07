@@ -1,4 +1,5 @@
 import 'package:finance_tracker/constants/colors.dart';
+import 'package:finance_tracker/types/chart.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
@@ -46,14 +47,11 @@ class _ReportScreenState extends State<ReportScreen>
 
     final result = grouped.entries.map((e) {
       final percent = (e.value / total) * 100;
-      final tagHex = tagColors[e.key] ?? '#000000';
-      final tagColor = hexToColor(tagHex);
 
       return ChartSampleData(
         tag: e.key,
         amount: double.parse(percent.toStringAsFixed(1)),
         text: '${percent.toStringAsFixed(1)}%',
-        color: tagColor,
       );
     }).toList();
 
