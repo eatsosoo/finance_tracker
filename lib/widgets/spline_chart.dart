@@ -1,5 +1,7 @@
+import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:finance_tracker/utils/color_utils.dart';
 
 class ChartData {
   final String xLabel;
@@ -8,15 +10,36 @@ class ChartData {
   ChartData(this.xLabel, this.yValue);
 }
 
-class SplineChart extends StatelessWidget {
-  final List<ChartData> data;
+class SplineChart extends StatefulWidget {
+  final List<List<ChartData>> series;
   final String title;
+  final List<Color>? palettes;
 
   const SplineChart({
     super.key,
-    required this.data,
-    this.title = 'Biểu đồ spline',
+    required this.series,
+    this.title = '',
+    this.palettes,
   });
+
+  @override
+  State<SplineChart> createState() => _SplineChartState();
+}
+
+class _SplineChartState extends State<SplineChart> {
+  late List<Color> _palettes;
+
+  @override
+  void initState() {
+    super.initState();
+    _palettes =
+        widget.palettes ??
+        blackToRedPalette(
+          count: widget.series.length,
+          leftColor: Colors.black,
+          rightColor: Colors.red,
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +64,7 @@ class SplineChart extends StatelessWidget {
         labelPlacement: LabelPlacement.onTicks,
         minimum: 0, // index bắt đầu
         maximum: 5,
-        // edgeLabelPlacement: EdgeLabelPlacement.shift,
+        edgeLabelPlacement: EdgeLabelPlacement.shift,
       ),
       primaryYAxis: NumericAxis(
         isVisible: false,
@@ -68,7 +91,7 @@ class SplineChart extends StatelessWidget {
               int pointIndex,
               int seriesIndex,
             ) {
-              final value = data.yValue.toStringAsFixed(2);
+              final value = data.yValue;
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -76,7 +99,7 @@ class SplineChart extends StatelessWidget {
                   // borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  '\$${value}',
+                  formatNumberShort(value),
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -86,35 +109,22 @@ class SplineChart extends StatelessWidget {
             },
       ),
       series: <SplineSeries<ChartData, String>>[
-        SplineSeries<ChartData, String>(
-          dataSource: data,
-          xValueMapper: (ChartData d, _) => d.xLabel,
-          yValueMapper: (ChartData d, _) => d.yValue,
-          color: Colors.orange,
-          width: 2,
-          markerSettings: const MarkerSettings(
-            isVisible: true,
-            shape: DataMarkerType.circle,
-            color: Colors.orange,
-            borderColor: Colors.white,
-            borderWidth: 2,
+        ...widget.series.asMap().entries.map(
+          (seri) => SplineSeries<ChartData, String>(
+            dataSource: seri.value,
+            xValueMapper: (ChartData d, _) => d.xLabel,
+            yValueMapper: (ChartData d, _) => d.yValue,
+            color: _palettes[seri.key],
+            width: 2,
+            markerSettings: MarkerSettings(
+              isVisible: true,
+              shape: DataMarkerType.circle,
+              color: _palettes[seri.key],
+              borderColor: Colors.white,
+              borderWidth: 2,
+            ),
           ),
-        ),
-        SplineSeries<ChartData, String>(
-          dataSource: data,
-          xValueMapper: (ChartData d, _) => d.xLabel,
-          yValueMapper: (ChartData d, _) =>
-              d.yValue + 10, // khác giá trị để tạo đường thứ 2
-          color: Colors.green,
-          width: 2,
-          markerSettings: const MarkerSettings(
-            isVisible: true,
-            shape: DataMarkerType.circle,
-            color: Colors.green,
-            borderColor: Colors.white,
-            borderWidth: 2,
-          ),
-        ),
+        ).toList(),
       ],
     );
   }

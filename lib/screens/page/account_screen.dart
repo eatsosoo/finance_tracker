@@ -2,12 +2,15 @@ import 'package:finance_tracker/types/chart.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
+import 'package:finance_tracker/widgets/month_selector.dart';
 import 'package:finance_tracker/widgets/spline_chart.dart';
 import 'package:finance_tracker/widgets/cards_swiper.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -19,7 +22,8 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   bool _shouldPlayAnimation = false;
   late Map<String, dynamic> mockData = {};
-  List _colors = [];
+  List<Color> _colors = [];
+  String selected = '6 months';
 
   final List<AccountCard> cards = [
     AccountCard(title: 'Vietinbank', amount: 500000),
@@ -31,19 +35,44 @@ class _AccountScreenState extends State<AccountScreen> {
     AccountCard(title: 'Bonus', amount: 50000000),
   ];
 
-  final data = [
-    ChartData('Jan', 30),
-    ChartData('Feb', 42),
-    ChartData('Mar', 20),
-    ChartData('Apr', 50),
-    ChartData('May', 50),
-    ChartData('Jun', 50),
-    ChartData('Jul', 50),
-    ChartData('Aug', 10),
-    ChartData('Sep', 60),
-    ChartData('Oct', 80),
-    ChartData('Nov', 100),
+  final data1 = [
+    ChartData('Jan', 30000000),
+    ChartData('Feb', 42000000),
+    ChartData('Mar', 20000000),
+    ChartData('Apr', 50000000),
+    ChartData('May', 50000000),
+    ChartData('Jun', 50000000),
+    ChartData('Jul', 50000000),
+    ChartData('Aug', 10000000),
+    ChartData('Sep', 60000000),
+    ChartData('Oct', 80000000),
+    ChartData('Nov', 10000000),
   ];
+
+  final data2 = [
+    ChartData('Jan', 30000000),
+    ChartData('Feb', 52000000),
+    ChartData('Mar', 20000000),
+    ChartData('Apr', 50000000),
+    ChartData('May', 50000000),
+    ChartData('Jun', 100000000),
+    ChartData('Jul', 50000000),
+    ChartData('Aug', 10000000),
+    ChartData('Sep', 50000000),
+    ChartData('Oct', 50000000),
+    ChartData('Nov', 50000000),
+  ];
+
+  final averageIncome = AverageCard(
+    title: 'Average Income',
+    amount: 50000000,
+    rate: 50,
+  );
+  final averageExpense = AverageCard(
+    title: 'Average Expense',
+    amount: 1000000,
+    rate: -10.5,
+  );
 
   List<ChartSampleData> generateChartData(Map<String, dynamic> jsonData) {
     final List<ChartSampleData> result = [];
@@ -70,7 +99,7 @@ class _AccountScreenState extends State<AccountScreen> {
     _colors = blackToRedPalette(
       count: cards.length,
       leftColor: Colors.black,
-      rightColor: Colors.blueGrey,
+      rightColor: Colors.grey,
     );
     loadMockData(context);
   }
@@ -90,68 +119,121 @@ class _AccountScreenState extends State<AccountScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(height: 48),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CardsSwiperWidget(
-                onCardCollectionAnimationComplete: (value) {
-                  setState(() {
-                    _shouldPlayAnimation = value;
-                  });
-                },
-                shouldStartCardCollectionAnimation: _shouldPlayAnimation,
-                cardData: cards,
-                animationDuration: const Duration(milliseconds: 600),
-                downDragDuration: const Duration(milliseconds: 200),
-                onCardChange: (index) {},
-                cardBuilder: (context, index, visibleIndex) {
-                  if (index < 0 || index >= cards.length) {
-                    return const SizedBox.shrink();
-                  }
-                  final card = cards[index];
-                  return AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                          final bool isIncoming =
-                              child.key == ValueKey<int>(visibleIndex);
+          Container(
+            padding: EdgeInsets.only(top: 32, bottom: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CardsSwiperWidget(
+                  onCardCollectionAnimationComplete: (value) {
+                    setState(() {
+                      _shouldPlayAnimation = value;
+                    });
+                  },
+                  shouldStartCardCollectionAnimation: _shouldPlayAnimation,
+                  cardData: cards,
+                  animationDuration: const Duration(milliseconds: 600),
+                  downDragDuration: const Duration(milliseconds: 200),
+                  onCardChange: (index) {},
+                  cardBuilder: (context, index, visibleIndex) {
+                    if (index < 0 || index >= cards.length) {
+                      return const SizedBox.shrink();
+                    }
+                    final card = cards[index];
+                    return AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                            final bool isIncoming =
+                                child.key == ValueKey<int>(visibleIndex);
 
-                          if (isIncoming) {
-                            return FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            );
-                          } else {
-                            return child;
-                          }
-                        },
-                    child: Container(
-                      key: ValueKey<int>(visibleIndex),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: buildGradient(_colors[index]),
-                        boxShadow: [boxShadowCommon()],
+                            if (isIncoming) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            } else {
+                              return child;
+                            }
+                          },
+                      child: Container(
+                        key: ValueKey<int>(visibleIndex),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: buildGradient(_colors[index]),
+                          boxShadow: [boxShadowCommon()],
+                        ),
+                        width: 350,
+                        height: 200,
+                        // alignment: Alignment.center,
+                        child: _buildCard(card),
                       ),
-                      width: 350,
-                      height: 200,
-                      // alignment: Alignment.center,
-                      child: _buildCard(card),
-                    ),
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           Container(
             margin: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               boxShadow: [boxShadowCommon()],
-              color: Colors.white
+              color: Colors.white,
             ),
-            child: SplineChart(data: data, title: 'Chi tiêu theo tháng'),
-          )
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Data Metrics',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Income-Expense Insight Analyzer',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      ),
+                      OverlayMonthSelector(
+                        selectedMonth: selected,
+                        onChanged: (newMonth) {
+                          setState(() {
+                            selected = newMonth;
+                          });
+                        },
+                        options: ['6 months', '12 months'],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 200,
+                  child: SplineChart(
+                    series: [data1, data2],
+                    palettes: [Colors.greenAccent, Colors.redAccent],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 8,
+                    children: [
+                      Expanded(child: _buildAverage(averageIncome)),
+                      Expanded(child: _buildAverage(averageExpense)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -183,6 +265,60 @@ class _AccountScreenState extends State<AccountScreen> {
       ],
     );
   }
+
+  Widget _buildAverage(AverageCard item) {
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            item.title,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                formatCurrency(item.amount),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  Icon(
+                    item.rate < 0 ? LucideIcons.moveDown : LucideIcons.moveUp,
+                    size: 14,
+                    color: item.rate < 0 ? Colors.red : Colors.green,
+                  ),
+                  Text(
+                    '${item.rate < 0 ? '' : '+'}${item.rate}%',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: item.rate < 0 ? Colors.red : Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class AccountCard {
@@ -190,4 +326,12 @@ class AccountCard {
   final double amount;
 
   AccountCard({required this.title, required this.amount});
+}
+
+class AverageCard {
+  final String title;
+  final double amount;
+  final double rate;
+
+  AverageCard({required this.title, required this.amount, required this.rate});
 }
