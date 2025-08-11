@@ -1,3 +1,4 @@
+import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/widgets/animated_toggle.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       title: 'Account select',
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -214,7 +215,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         crossAxisCount: 3,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
-        childAspectRatio: 2.5, // Giá trị này càng lớn thì nút càng thấp
+        childAspectRatio: 2, // Giá trị này càng lớn thì nút càng thấp
       ),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -228,8 +229,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       text: key,
       onPressed: () => _inputDigit(key),
       backgroundColor: Colors.white,
-      foregroundColor: Colors.black54,
-      radius: 8,
+      foregroundColor: Colors.black87,
+      radius: 20,
       fontSize: 24,
     );
   }
@@ -240,110 +241,116 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     final displayAmount =
         (isExpense ? '-' : '') + (amount.isEmpty ? '0' : amount) + '₫';
 
-    return Scaffold(
-      appBar: AppBar(
-        title: AnimatedToggle(
-          selected: 'income',
-          onChanged: (value) {
-            setState(() => type = value);
-          },
-          items: tabs,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            context.canPop() ? context.pop() : context.go('/home');
-          },
-          icon: Icon(Icons.clear, color: Colors.grey.shade200),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: backgroundGradient()
       ),
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // 🔸 Phần 2: Chiếm phần còn lại
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    displayAmount,
-                    style: TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                      color: isExpense ? Colors.red : Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      controller: noteController,
-                      style: TextStyle(color: Colors.black, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: 'Thêm ghi chú...',
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        border: InputBorder.none,
+      child: Scaffold(
+        appBar: AppBar(
+          title: AnimatedToggle(
+            selected: 'income',
+            onChanged: (value) {
+              setState(() => type = value);
+            },
+            items: tabs,
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: () {
+              context.canPop() ? context.pop() : context.go('/home');
+            },
+            padding: EdgeInsets.all(8),
+            icon: Icon(Icons.clear, color: Colors.grey.shade100),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // 🔸 Phần 2: Chiếm phần còn lại
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      displayAmount,
+                      style: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                        color: isExpense ? Colors.red : Colors.black,
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        controller: noteController,
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: 'Thêm ghi chú...',
+                          hintStyle: TextStyle(color: Colors.grey.shade400),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(color: Colors.grey[100]),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildSelectorButton(
-                          'Account',
-                          account,
-                          _selectAccount,
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(color: Colors.transparent),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildSelectorButton(
+                            'Account',
+                            account,
+                            _selectAccount,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 8), // Khoảng cách giữa các nút
-                      Expanded(
-                        child: _buildSelectorButton(
-                          'Category',
-                          category,
-                          _selectCategory,
+                        SizedBox(width: 8), // Khoảng cách giữa các nút
+                        Expanded(
+                          child: _buildSelectorButton(
+                            'Category',
+                            category,
+                            _selectCategory,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: _buildSelectorButton(
-                          DateFormat('dd/MM').format(date),
-                          '',
-                          _selectDate,
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: _buildSelectorButton(
+                            DateFormat('dd/MM').format(date),
+                            '',
+                            _selectDate,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  _buildNumberPad(),
-
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: CustomButton(
-                      text: 'Add transaction',
-                      onPressed: _onSubmit,
-                      radius: 8,
+                      ],
                     ),
-                  ),
-                ],
+
+                    const SizedBox(height: 16),
+
+                    _buildNumberPad(),
+
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: CustomButton(
+                        text: 'Add transaction',
+                        onPressed: _onSubmit,
+                        radius: 8,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

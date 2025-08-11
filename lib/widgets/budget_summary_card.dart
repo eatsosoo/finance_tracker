@@ -62,7 +62,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [boxShadowCommon()],
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(16),
@@ -136,7 +136,6 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       margin: const EdgeInsets.only(bottom: 8, right: 8, left: 8, top: 0),
       decoration: BoxDecoration(
-        color: Colors.black,
         borderRadius: BorderRadius.circular(14),
         image: const DecorationImage(
           image: AssetImage('/images/abstract-bg-1.jpg'),

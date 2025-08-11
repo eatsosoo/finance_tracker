@@ -115,7 +115,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Budgets', backgroundColor: Colors.white),
+      appBar: CustomAppBar(title: 'Budgets', backgroundColor: Theme.of(context).colorScheme.surface),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
