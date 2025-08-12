@@ -31,7 +31,9 @@ class LeadingCommon extends StatelessWidget {
     // );
 
     return IconButton(
-      icon: const Icon(LucideIcons.chevronLeft, color: Colors.black),
+      icon: Icon(
+        LucideIcons.chevronLeft,
+      ),
       onPressed: () {
         context.canPop() ? context.pop() : context.go('/home');
       },

@@ -103,7 +103,7 @@ class _OverlayMonthSelectorState extends State<OverlayMonthSelector> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           decoration: BoxDecoration(
             border: BoxBorder.all(
-              color: Theme.of(context).colorScheme.onSurface
+              color: Colors.grey.shade800
             ),
             borderRadius: BorderRadius.circular(6),
             color: Theme.of(context).colorScheme.surface,

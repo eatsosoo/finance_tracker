@@ -47,6 +47,13 @@ final lightTheme = ThemeData(
   textTheme: GoogleFonts.interTextTheme(),
   scaffoldBackgroundColor: lightColorScheme.background,
   cardTheme: CardThemeData(color: lightColorScheme.surface),
+   appBarTheme: AppBarTheme(
+    backgroundColor: lightColorScheme.background,
+    foregroundColor: lightColorScheme.onBackground, 
+  ),
+  dividerTheme: DividerThemeData(
+    color: Colors.grey.shade200
+  )
 );
 
 final darkTheme = ThemeData(
@@ -58,6 +65,13 @@ final darkTheme = ThemeData(
     color: darkColorScheme.surface,
     surfaceTintColor: darkColorScheme.onSurface,
   ),
+  appBarTheme: AppBarTheme(
+    backgroundColor: darkColorScheme.background,
+    foregroundColor: darkColorScheme.onBackground, 
+  ),
+  dividerTheme: DividerThemeData(
+    color: Colors.grey.shade800
+  )
 );
 
 void main() {

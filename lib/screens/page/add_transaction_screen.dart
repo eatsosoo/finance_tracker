@@ -1,6 +1,7 @@
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/widgets/animated_toggle.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
+import 'package:finance_tracker/widgets/show_bottom_options.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:finance_tracker/widgets/custom_button.dart';
@@ -65,79 +66,28 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   void _selectAccount() {
-    AppBottomSheet.show(
+    showBottomOptions(
       context: context,
       title: 'Account select',
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            ...accountOptions.map((option) {
-              final index = accountOptions.indexOf(option);
-              return Column(
-                children: [
-                  buildFilterOption(
-                    context,
-                    title: option['title'],
-                    value: option['value'],
-                    currentFilter: account,
-                    onTap: () {
-                      setState(() => account = option['title']);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  if (index !=
-                      accountOptions.length -
-                          1) // Không thêm Divider sau option cuối
-                    Divider(height: 1, color: Colors.grey[100]),
-                ],
-              );
-            }).toList(),
-          ],
-        ),
-      ),
+      filterOptions: accountOptions,
+      currentFilter: account,
+      onSelected: (value) {
+        setState(() => account = value);
+      },
     );
   }
 
   void _selectCategory() async {
     final options = tagOptions[type] ?? [];
 
-    AppBottomSheet.show(
+    showBottomOptions(
       context: context,
       title: 'Tag select',
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            ...options.map((option) {
-              final index = options.indexOf(option);
-              return Column(
-                children: [
-                  buildFilterOption(
-                    context,
-                    title: option['title'],
-                    value: option['value'],
-                    currentFilter: category,
-                    onTap: () {
-                      setState(() => category = option['title']);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  if (index !=
-                      options.length - 1) // Không thêm Divider sau option cuối
-                    Divider(height: 1, color: Colors.grey[100]),
-                ],
-              );
-            }).toList(),
-          ],
-        ),
-      ),
+      filterOptions: options,
+      currentFilter: category,
+      onSelected: (value) {
+        setState(() => category = value);
+      },
     );
   }
 

@@ -1,11 +1,12 @@
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:finance_tracker/widgets/leading_common.dart';
+import 'package:finance_tracker/widgets/show_bottom_options.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/widgets/drag_handle.dart';
 import 'package:go_router/go_router.dart';
 import 'package:finance_tracker/widgets/filter_option.dart';
-import  'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -46,11 +47,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   final List<Map<String, dynamic>> filterOptions = [
     {'icon': LucideIcons.mail, 'title': 'Unread and read', 'value': 'all'},
-    {
-      'icon': LucideIcons.mailWarning,
-      'title': 'Unread',
-      'value': 'unread',
-    },
+    {'icon': LucideIcons.mailWarning, 'title': 'Unread', 'value': 'unread'},
     {'icon': LucideIcons.mailCheck, 'title': 'Read', 'value': 'read'},
   ];
 
@@ -64,23 +61,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Inbox',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(LucideIcons.listFilter),
+            icon: Icon(
+              LucideIcons.listFilter,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
             onPressed: _showFilterOptions,
           ),
         ],
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
         elevation: 0,
         leading: LeadingCommon(),
       ),
@@ -128,10 +122,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          item.dueDate,
-                          style: TextStyle(fontSize: 13),
-                        ),
+                        Text(item.dueDate, style: TextStyle(fontSize: 13)),
                       ],
                     ),
                   ),
@@ -150,41 +141,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   void _showFilterOptions() {
-    AppBottomSheet.show(
+    showBottomOptions(
       context: context,
       title: 'Filters',
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            ...filterOptions.map((option) {
-              final index = filterOptions.indexOf(option);
-              return Column(
-                children: [
-                  buildFilterOption(
-                    context,
-                    icon: option['icon'],
-                    title: option['title'],
-                    value: option['value'],
-                    currentFilter: filter,
-                    onTap: () {
-                      setState(() => filter = option['value']);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  if (index !=
-                      filterOptions.length -
-                          1) // Không thêm Divider sau option cuối
-                    Divider(height: 1, color: Colors.grey[100]),
-                ],
-              );
-            }).toList(),
-          ],
-        ),
-      ),
+      filterOptions: filterOptions,
+      currentFilter: filter,
+      onSelected: (value) {
+        setState(() => filter = value);
+      },
     );
   }
 }
