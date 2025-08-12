@@ -178,9 +178,9 @@ class _AccountScreenState extends State<AccountScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildMetricBlock(),
+                  _buildMetricBlock(context),
                   const SizedBox(height: 16),
-                  _buildSavingBlock(),
+                  _buildSavingBlock(context),
                   const SizedBox(height: 8),
                 ],
               ),
@@ -221,7 +221,7 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  Widget _buildAverage(AverageCard item) {
+  Widget _buildAverage(AverageCard item, BuildContext context) {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -275,13 +275,13 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  Widget _buildMetricBlock() {
+  Widget _buildMetricBlock(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [boxShadowCommon()],
-        color: Colors.white,
+        // boxShadow: [boxShadowCommon()],
+        color: Theme.of(context).colorScheme.surface,
       ),
       child: Column(
         children: [
@@ -328,8 +328,8 @@ class _AccountScreenState extends State<AccountScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               spacing: 8,
               children: [
-                Expanded(child: _buildAverage(averageIncome)),
-                Expanded(child: _buildAverage(averageExpense)),
+                Expanded(child: _buildAverage(averageIncome, context)),
+                Expanded(child: _buildAverage(averageExpense, context)),
               ],
             ),
           ),
@@ -338,14 +338,14 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  Widget _buildSavingBlock() {
+  Widget _buildSavingBlock(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [boxShadowCommon()],
-        borderRadius: BorderRadius.circular(16)
+        color: Theme.of(context).colorScheme.surface,
+        // boxShadow: [boxShadowCommon()],
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -353,54 +353,70 @@ class _AccountScreenState extends State<AccountScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Your saving', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 12),),
-              const SizedBox(height: 8,),
-              Text(formatCurrency(100000000), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),)
+              const Text(
+                'Your saving',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                formatCurrency(100000000),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
             ],
           ),
           Wrap(
-            children: [Center(
-            child: CircularPercentIndicator(
-              radius: 25, // bán kính vòng tròn
-              lineWidth: 5, // độ dày đường
-              percent: 0.75, // 75%
-              center: Icon(LucideIcons.gamepad),
-              progressColor: Colors.black26,
-              backgroundColor: Colors.grey.shade300,
-              circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
-              animation: true, // bật animation
-              animationDuration: 800,
-            ),
+            children: [
+              Center(
+                child: CircularPercentIndicator(
+                  radius: 25, // bán kính vòng tròn
+                  lineWidth: 5, // độ dày đường
+                  percent: 0.75, // 75%
+                  center: Icon(LucideIcons.gamepad),
+                  progressColor: Colors.black26,
+                  backgroundColor: Colors.grey.shade300,
+                  circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
+                  animation: true, // bật animation
+                  animationDuration: 800,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Center(
+                child: CircularPercentIndicator(
+                  radius: 25, // bán kính vòng tròn
+                  lineWidth: 5, // độ dày đường
+                  percent: 0.5, // 75%
+                  center: Icon(LucideIcons.car),
+                  progressColor: Colors.black26,
+                  backgroundColor: Colors.grey.shade300,
+                  circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
+                  animation: true, // bật animation
+                  animationDuration: 800,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Center(
+                child: CircularPercentIndicator(
+                  radius: 25, // bán kính vòng tròn
+                  lineWidth: 5, // độ dày đường
+                  percent: 0.25, // 75%
+                  center: Icon(LucideIcons.heartHandshake),
+                  progressColor: Colors.black26,
+                  backgroundColor: Colors.grey.shade300,
+                  circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
+                  animation: true, // bật animation
+                  animationDuration: 800,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 8,),
-          Center(
-            child: CircularPercentIndicator(
-              radius: 25, // bán kính vòng tròn
-              lineWidth: 5, // độ dày đường
-              percent: 0.5, // 75%
-              center: Icon(LucideIcons.car),
-              progressColor: Colors.black26,
-              backgroundColor: Colors.grey.shade300,
-              circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
-              animation: true, // bật animation
-              animationDuration: 800,
-            ),
-          ),
-          const SizedBox(width: 8,),
-          Center(
-            child: CircularPercentIndicator(
-              radius: 25, // bán kính vòng tròn
-              lineWidth: 5, // độ dày đường
-              percent: 0.25, // 75%
-              center: Icon(LucideIcons.heartHandshake),
-              progressColor: Colors.black26,
-              backgroundColor: Colors.grey.shade300,
-              circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
-              animation: true, // bật animation
-              animationDuration: 800,
-            ),
-          ),],
-          )
         ],
       ),
     );
