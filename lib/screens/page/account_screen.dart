@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -174,66 +174,19 @@ class _AccountScreenState extends State<AccountScreen> {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [boxShadowCommon()],
-              color: Colors.white,
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Data Metrics',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'Income-Expense Insight Analyzer',
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ],
-                      ),
-                      OverlayMonthSelector(
-                        selectedMonth: selected,
-                        onChanged: (newMonth) {
-                          setState(() {
-                            selected = newMonth;
-                          });
-                        },
-                        options: ['6 months', '12 months'],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 200,
-                  child: SplineChart(
-                    series: [data1, data2],
-                    palettes: [Colors.greenAccent, Colors.redAccent],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    spacing: 8,
-                    children: [
-                      Expanded(child: _buildAverage(averageIncome)),
-                      Expanded(child: _buildAverage(averageExpense)),
-                    ],
-                  ),
-                ),
-              ],
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildMetricBlock(),
+                  const SizedBox(height: 16),
+                  _buildSavingBlock(),
+                  const SizedBox(height: 8),
+                ],
+              ),
             ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -249,6 +202,7 @@ class _AccountScreenState extends State<AccountScreen> {
             color: Colors.white,
             fontSize: 14,
             fontWeight: FontWeight.bold,
+            shadows: [shadowCommon()],
           ),
           textAlign: TextAlign.start,
         ),
@@ -259,6 +213,7 @@ class _AccountScreenState extends State<AccountScreen> {
             color: Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.bold,
+            shadows: [shadowCommon(baseColor: Colors.black38)],
           ),
           textAlign: TextAlign.start,
         ),
@@ -315,6 +270,137 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMetricBlock() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [boxShadowCommon()],
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Data Metrics',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Income-Expense Insight Analyzer',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+                OverlayMonthSelector(
+                  selectedMonth: selected,
+                  onChanged: (newMonth) {
+                    setState(() {
+                      selected = newMonth;
+                    });
+                  },
+                  options: ['6 months', '12 months'],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 200,
+            child: SplineChart(
+              series: [data1, data2],
+              palettes: [Colors.greenAccent, Colors.redAccent],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              spacing: 8,
+              children: [
+                Expanded(child: _buildAverage(averageIncome)),
+                Expanded(child: _buildAverage(averageExpense)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSavingBlock() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [boxShadowCommon()],
+        borderRadius: BorderRadius.circular(16)
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Your saving', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: 12),),
+              const SizedBox(height: 8,),
+              Text(formatCurrency(100000000), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),)
+            ],
+          ),
+          Wrap(
+            children: [Center(
+            child: CircularPercentIndicator(
+              radius: 25, // bán kính vòng tròn
+              lineWidth: 5, // độ dày đường
+              percent: 0.75, // 75%
+              center: Icon(LucideIcons.gamepad),
+              progressColor: Colors.black26,
+              backgroundColor: Colors.grey.shade300,
+              circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
+              animation: true, // bật animation
+              animationDuration: 800,
+            ),
+          ),
+          const SizedBox(width: 8,),
+          Center(
+            child: CircularPercentIndicator(
+              radius: 25, // bán kính vòng tròn
+              lineWidth: 5, // độ dày đường
+              percent: 0.5, // 75%
+              center: Icon(LucideIcons.car),
+              progressColor: Colors.black26,
+              backgroundColor: Colors.grey.shade300,
+              circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
+              animation: true, // bật animation
+              animationDuration: 800,
+            ),
+          ),
+          const SizedBox(width: 8,),
+          Center(
+            child: CircularPercentIndicator(
+              radius: 25, // bán kính vòng tròn
+              lineWidth: 5, // độ dày đường
+              percent: 0.25, // 75%
+              center: Icon(LucideIcons.heartHandshake),
+              progressColor: Colors.black26,
+              backgroundColor: Colors.grey.shade300,
+              circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
+              animation: true, // bật animation
+              animationDuration: 800,
+            ),
+          ),],
+          )
         ],
       ),
     );
