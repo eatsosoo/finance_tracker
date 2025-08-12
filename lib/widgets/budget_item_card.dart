@@ -40,12 +40,10 @@ class BudgetItemCard extends StatelessWidget {
     final borderColor = over
         ? Theme.of(context).colorScheme.error
         : Theme.of(context).colorScheme.surface;
-    final surfaceColor = Theme.of(context).colorScheme.surface;
 
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        color: surfaceColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(width: 1, color: borderColor),
@@ -71,7 +69,7 @@ class BudgetItemCard extends StatelessWidget {
     double percent,
     BuildContext context
   ) {
-    final spentColor = over ? Theme.of(context).colorScheme.onError : Theme.of(context).colorScheme.onSurface;
+    final spentColor = over ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurface;
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -115,7 +113,7 @@ class BudgetItemCard extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 'Remain: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
-                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -134,7 +132,6 @@ class BudgetItemCard extends StatelessWidget {
     return Text.rich(
       TextSpan(
         text: 'Spent: ',
-        style: const TextStyle(fontWeight: FontWeight.bold),
 
         children: [
           TextSpan(
@@ -147,11 +144,10 @@ class BudgetItemCard extends StatelessWidget {
           const TextSpan(text: ' / '),
           TextSpan(
             text: formatCurrency(limit),
-            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],
       ),
-      style: const TextStyle(fontSize: 13),
+      style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
     );
   }
 
@@ -162,7 +158,7 @@ class BudgetItemCard extends StatelessWidget {
           height: 8,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color: Colors.grey,
+            color: Colors.grey.shade300,
           ),
         ),
         FractionallySizedBox(
@@ -171,7 +167,7 @@ class BudgetItemCard extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: over ? Colors.red.shade100 : Colors.black12,
+              color: over ? Colors.red.shade200 : Colors.orangeAccent,
             ),
           ),
         ),
@@ -190,14 +186,14 @@ class BudgetItemCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.square, color: Colors.grey[200], size: 14),
+                Icon(Icons.square, color: Colors.grey.shade300, size: 14),
                 const SizedBox(width: 8),
                 const Text('Amount assigned', style: TextStyle(fontSize: 12)),
               ],
             ),
             Row(
               children: [
-                Icon(Icons.square, color: Colors.black12, size: 14),
+                Icon(Icons.square, color: Colors.orangeAccent, size: 14),
                 const SizedBox(width: 8),
                 const Text('Amount spent', style: TextStyle(fontSize: 12)),
               ],

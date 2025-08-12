@@ -8,33 +8,37 @@ import 'screens/auth/login_screen.dart';
 import 'routes/router.dart';
 
 // LIGHT MODE
-final lightColorScheme = ColorScheme.fromSeed(
-  seedColor: Colors.black87, // hoặc Colors.black87 nếu muốn đồng bộ nhận diện
-  brightness: Brightness.light,
-).copyWith(
-  primary: Colors.black,
-  onPrimary: Colors.white,
-  background: Colors.grey.shade100,
-  onBackground: Colors.black87,
-  surface: Colors.white,
-  onSurface: Colors.black87,
-  error: Colors.red, // đỏ cảnh báo
-  onError: Colors.white
-);
+final lightColorScheme =
+    ColorScheme.fromSeed(
+      seedColor:
+          Colors.black87, // hoặc Colors.black87 nếu muốn đồng bộ nhận diện
+      brightness: Brightness.light,
+    ).copyWith(
+      primary: Colors.black,
+      onPrimary: Colors.white,
+      background: Colors.grey.shade100,
+      onBackground: Colors.black87,
+      surface: Colors.white,
+      onSurface: Colors.black87,
+      error: Colors.red, // đỏ cảnh báo
+      onError: Colors.white,
+    );
 
 // DARK MODE
-final darkColorScheme = ColorScheme.fromSeed(
-  seedColor: Colors.black87, // hoặc Colors.black87 nếu muốn đồng bộ nhận diện
-  brightness: Brightness.dark,
-).copyWith(
-  onPrimary: Colors.white,
-  background:  Color.fromARGB(255, 33, 33, 33), // nền chính
-  surface: Color.fromARGB(255, 23, 23, 23), // bề mặt card
-  onSurface: const Color(0xFFB0B0B0), // text phụ
-  onBackground: Colors.white, // text chính
-  error: Colors.red, // đỏ cảnh báo
-  onError: Colors.white
-);
+final darkColorScheme =
+    ColorScheme.fromSeed(
+      seedColor:
+          Colors.black87, // hoặc Colors.black87 nếu muốn đồng bộ nhận diện
+      brightness: Brightness.dark,
+    ).copyWith(
+      primary: Colors.white,
+      background: Color.fromARGB(255, 23, 23, 23), // nền chính
+      surface: Color.fromARGB(255, 33, 33, 33), // bề mặt card
+      onSurface: Color.fromARGB(255, 145, 152, 161), // text phụ
+      onBackground: Colors.white, // text chính
+      error: Colors.red, // đỏ cảnh báo
+      onError: Colors.white,
+    );
 
 // THEME DATA
 final lightTheme = ThemeData(
@@ -42,17 +46,18 @@ final lightTheme = ThemeData(
   colorScheme: lightColorScheme,
   textTheme: GoogleFonts.interTextTheme(),
   scaffoldBackgroundColor: lightColorScheme.background,
-  cardColor: lightColorScheme.surface
+  cardTheme: CardThemeData(color: lightColorScheme.surface),
 );
 
 final darkTheme = ThemeData(
   useMaterial3: true,
   colorScheme: darkColorScheme,
-  textTheme: GoogleFonts.interTextTheme(
-    ThemeData.dark().textTheme,
-  ),
+  textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
   scaffoldBackgroundColor: darkColorScheme.background,
-  cardColor: darkColorScheme.surface
+  cardTheme: CardThemeData(
+    color: darkColorScheme.surface,
+    surfaceTintColor: darkColorScheme.onSurface,
+  ),
 );
 
 void main() {

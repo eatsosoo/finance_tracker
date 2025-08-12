@@ -103,6 +103,8 @@ class _BudgetScreenState extends State<BudgetScreen> {
   String selectedMonth = 'Jan';
   int? expandedIndex;
   int _overspentCount = 0;
+  final ScrollController _scrollController = ScrollController();
+  bool _atBottom = false;
 
   @override
   void initState() {
@@ -110,12 +112,32 @@ class _BudgetScreenState extends State<BudgetScreen> {
     _overspentCount = budgetList.where((budget) {
       return (budget.limit - budget.spent) < 0;
     }).length;
+
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 1) {
+        // Đã cuộn tới cuối
+        if (!_atBottom) setState(() => _atBottom = true);
+      } else {
+        if (_atBottom) setState(() => _atBottom = false);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Budgets', backgroundColor: Theme.of(context).colorScheme.surface),
+      appBar: CustomAppBar(
+        title: 'Budgets',
+        backgroundColor: Theme.of(context).colorScheme.surface,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,35 +197,69 @@ class _BudgetScreenState extends State<BudgetScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  const Icon(LucideIcons.chevronRight, color: Colors.black, size: 18,),
+                  const Icon(
+                    LucideIcons.chevronRight,
+                    color: Colors.black,
+                    size: 18,
+                  ),
                 ],
               ),
             ),
             // 🔘 Danh sách ngân sách từng danh mục
             Expanded(
-              child: ListView.builder(
-                itemCount: budgetList.length,
-                itemBuilder: (context, index) {
-                  final item = budgetList[index];
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 0,
-                    ),
-                    child: BudgetItemCard(
-                      item: item,
-                      isExpanded: expandedIndex == index,
-                      onTap: () {
-                        setState(() {
-                          expandedIndex = expandedIndex == index ? null : index;
-                        });
-                      },
-                    ),
-                  );
-                },
+              child: Stack(
+                children: [
+                  ListView.builder(
+                    itemCount: budgetList.length,
+                    itemBuilder: (context, index) {
+                      final item = budgetList[index];
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 0,
+                        ),
+                        child: BudgetItemCard(
+                          item: item,
+                          isExpanded: expandedIndex == index,
+                          onTap: () {
+                            setState(() {
+                              expandedIndex = expandedIndex == index
+                                  ? null
+                                  : index;
+                            });
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  // if (!_atBottom)
+                  //   Positioned(
+                  //     bottom: 0,
+                  //     left: 0,
+                  //     right: 0,
+                  //     child: IgnorePointer(
+                  //       ignoring: true,
+                  //       child: Container(
+                  //         height: 28,
+                  //         margin: EdgeInsets.symmetric(horizontal: 20),
+                  //         padding: EdgeInsets.only(bottom: 16),
+                  //         decoration: BoxDecoration(
+                  //           gradient: LinearGradient(
+                  //             begin: Alignment.topCenter,
+                  //             end: Alignment.bottomCenter,
+                  //             colors: [
+                  //               Colors.transparent,
+                  //               Colors.transparent.withOpacity(0.09),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16,)
           ],
         ),
       ),
