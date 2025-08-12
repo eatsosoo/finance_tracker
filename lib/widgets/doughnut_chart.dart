@@ -40,7 +40,7 @@ class _DoughnutChartState extends State<DoughnutChart> {
         tag: widget.series[i].tag,
         amount: widget.series[i].amount,
         text: widget.series[i].text,
-        color: _colors[i],
+        color: widget.series[i].color,
       );
     });
   }
@@ -67,7 +67,7 @@ class _DoughnutChartState extends State<DoughnutChart> {
             tag: widget.series[i].tag,
             amount: widget.series[i].amount,
             text: widget.series[i].text,
-            color: _colors[i], // use color from generateColors()
+            color: widget.series[i].color, // use color from generateColors()
           );
         });
       });
@@ -84,7 +84,7 @@ class _DoughnutChartState extends State<DoughnutChart> {
       // ),
       series: _buildDefaultDoughnutSeries(),
       tooltipBehavior: _tooltip,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.transparent,
     );
   }
 

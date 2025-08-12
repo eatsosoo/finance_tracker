@@ -50,9 +50,9 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
     return Container(
       width: 220,
       height: 44,
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [boxShadowCommon()]
       ),
@@ -69,11 +69,10 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                 // Trả về -1.0 (trái) ... 0 (giữa) ... 1.0 (phải)
                 child: Container(
                   width: itemWidth,
-                  height: 34,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(25),
-                    boxShadow: [boxShadowCommon()],
                   ),
                 ),
               ),
@@ -91,13 +90,13 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                             Icon(
                               item.icon,
                               size: 16,
-                              color: isSelected ? Colors.white : Colors.black,
+                              color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
                             ),
                             const SizedBox(width: 8),
                             Text(
                               item.label,
                               style: TextStyle(
-                                color: isSelected ? Colors.white : Colors.black,
+                                color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                               ),

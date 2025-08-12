@@ -16,6 +16,7 @@ final lightColorScheme =
     ).copyWith(
       primary: Colors.black,
       onPrimary: Colors.white,
+      secondary: Color(0xFF1E1E1E),
       background: Colors.grey.shade100,
       onBackground: Colors.black87,
       surface: Colors.white,
@@ -32,6 +33,8 @@ final darkColorScheme =
       brightness: Brightness.dark,
     ).copyWith(
       primary: Colors.white,
+      onPrimary: Colors.black87,
+      secondary: Color(0xFF1E1E1E),
       background: Color.fromARGB(255, 23, 23, 23), // nền chính
       surface: Color.fromARGB(255, 33, 33, 33), // bề mặt card
       onSurface: Color.fromARGB(255, 145, 152, 161), // text phụ
@@ -47,13 +50,12 @@ final lightTheme = ThemeData(
   textTheme: GoogleFonts.interTextTheme(),
   scaffoldBackgroundColor: lightColorScheme.background,
   cardTheme: CardThemeData(color: lightColorScheme.surface),
-   appBarTheme: AppBarTheme(
+  appBarTheme: AppBarTheme(
     backgroundColor: lightColorScheme.background,
-    foregroundColor: lightColorScheme.onBackground, 
+    foregroundColor: lightColorScheme.onBackground,
   ),
-  dividerTheme: DividerThemeData(
-    color: Colors.grey.shade200
-  )
+  dividerTheme: DividerThemeData(color: Colors.grey.shade200),
+  iconTheme: IconThemeData(color: lightColorScheme.primary)
 );
 
 final darkTheme = ThemeData(
@@ -67,11 +69,10 @@ final darkTheme = ThemeData(
   ),
   appBarTheme: AppBarTheme(
     backgroundColor: darkColorScheme.background,
-    foregroundColor: darkColorScheme.onBackground, 
+    foregroundColor: darkColorScheme.onBackground,
   ),
-  dividerTheme: DividerThemeData(
-    color: Colors.grey.shade800
-  )
+  dividerTheme: DividerThemeData(color: Colors.grey.shade800),
+  iconTheme: IconThemeData(color: darkColorScheme.primary)
 );
 
 void main() {

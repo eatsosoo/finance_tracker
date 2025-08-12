@@ -77,15 +77,13 @@ class _ScrollableButtonBarState extends State<ScrollableButtonBar> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  boxShadowCommon(),
-                ],
+                // boxShadow: [boxShadowCommon()],
               ),
               child: Material(
                 elevation: isSelected ? 4 : 0,
                 borderRadius: BorderRadius.circular(8),
                 shadowColor: Colors.black26,
-                color: isSelected ? Colors.black : Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 child: InkWell(
                   onTap: () => widget.onPressed(label),
                   borderRadius: BorderRadius.circular(8),
@@ -103,7 +101,9 @@ class _ScrollableButtonBarState extends State<ScrollableButtonBar> {
                         fontWeight: isSelected
                             ? FontWeight.w600
                             : FontWeight.w500,
-                        color: isSelected ? Colors.white : Colors.black,
+                        color: isSelected
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),

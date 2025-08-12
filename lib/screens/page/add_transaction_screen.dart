@@ -144,7 +144,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     setState(() => amount = '');
   }
 
-  Widget _buildNumberPad() {
+  Widget _buildNumberPad(BuildContext context) {
     final keys = [
       '1',
       '2',
@@ -170,16 +170,16 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.zero,
-      children: [...keys.map((e) => _buildKey(e)).toList()],
+      children: [...keys.map((e) => _buildKey(e, context)).toList()],
     );
   }
 
-  Widget _buildKey(String key) {
+  Widget _buildKey(String key, BuildContext context) {
     return CustomButton(
       text: key,
       onPressed: () => _inputDigit(key),
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black87,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
       radius: 20,
       fontSize: 24,
     );
@@ -194,6 +194,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     return Container(
       decoration: BoxDecoration(
         gradient: backgroundGradient()
+        // color: Theme.of(context).colorScheme.background
       ),
       child: Scaffold(
         appBar: AppBar(
@@ -211,7 +212,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               context.canPop() ? context.pop() : context.go('/home');
             },
             padding: EdgeInsets.all(8),
-            icon: Icon(Icons.clear, color: Colors.grey.shade100),
+            icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.onBackground),
           ),
         ),
         backgroundColor: Colors.transparent,
@@ -229,7 +230,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       style: TextStyle(
                         fontSize: 48,
                         fontWeight: FontWeight.bold,
-                        color: isExpense ? Colors.red : Colors.black,
+                        color: isExpense ? Colors.red : Colors.greenAccent,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -238,7 +239,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       child: TextField(
                         textAlign: TextAlign.center,
                         controller: noteController,
-                        style: TextStyle(color: Colors.black, fontSize: 14),
+                        style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
                         decoration: InputDecoration(
                           hintText: 'Thêm ghi chú...',
                           hintStyle: TextStyle(color: Colors.grey.shade400),
@@ -262,6 +263,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             'Account',
                             account,
                             _selectAccount,
+                            context
                           ),
                         ),
                         SizedBox(width: 8), // Khoảng cách giữa các nút
@@ -270,6 +272,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             'Category',
                             category,
                             _selectCategory,
+                            context
                           ),
                         ),
                         SizedBox(width: 8),
@@ -278,6 +281,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             DateFormat('dd/MM').format(date),
                             '',
                             _selectDate,
+                            context
                           ),
                         ),
                       ],
@@ -285,13 +289,15 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
                     const SizedBox(height: 16),
 
-                    _buildNumberPad(),
+                    _buildNumberPad(context),
 
                     const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.all(0),
                       child: CustomButton(
                         text: 'Add transaction',
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
                         onPressed: _onSubmit,
                         radius: 8,
                       ),
@@ -306,7 +312,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Widget _buildSelectorButton(String label, String value, VoidCallback onTap) {
+  Widget _buildSelectorButton(String label, String value, VoidCallback onTap, BuildContext context) {
     final bool isSelected = value != '';
 
     return SizedBox(
@@ -314,13 +320,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       child: OutlinedButton(
         onPressed: onTap,
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.white),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
           side: MaterialStateProperty.all(
             BorderSide(
-              color: isSelected ? Colors.blue : Colors.grey,
+              color: isSelected ? Colors.orange : Theme.of(context).colorScheme.surface,
               width: isSelected ? 2.0 : 1.0,
             ),
           ),
@@ -330,9 +335,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           isSelected ? value : label,
           style: TextStyle(
             fontSize: 14,
-            color: Colors.black,
             overflow: TextOverflow.ellipsis,
             fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.onSurface
           ),
         ),
       ),

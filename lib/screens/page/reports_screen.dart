@@ -85,6 +85,9 @@ class _ReportScreenState extends State<ReportScreen>
 
   @override
   Widget build(BuildContext context) {
+    final surfaceColor = Theme.of(context).colorScheme.surface;
+    final onSurfaceColor = Theme.of(context).colorScheme.onSurface;
+
     return Scaffold(
       appBar: CustomAppBar(title: 'Reports'),
       body: Column(
@@ -117,7 +120,7 @@ class _ReportScreenState extends State<ReportScreen>
             margin: const EdgeInsets.only(top: 8, right: 16, left: 16),
             // padding: const EdgeInsets.only(left: 16, right: 16),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: surfaceColor,
               borderRadius: BorderRadius.all(Radius.circular(14)),
             ),
             child: TabBar(
@@ -166,7 +169,7 @@ class _ReportScreenState extends State<ReportScreen>
                 bottom: 16,
               ),
               padding: const EdgeInsets.all(0),
-              decoration: BoxDecoration(color: Colors.grey[100]),
+              decoration: BoxDecoration(color: Colors.transparent),
               child: TabBarView(
                 controller: _tabController,
                 children: [
@@ -253,9 +256,9 @@ class _ReportScreenState extends State<ReportScreen>
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             margin: const EdgeInsets.only(top: 0, bottom: 8, right: 2, left: 2),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(8),
-              boxShadow: [boxShadowCommon()],
+              // boxShadow: [boxShadowCommon()],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,7 +271,10 @@ class _ReportScreenState extends State<ReportScreen>
                       children: [
                         Text(
                           item.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Container(
@@ -277,13 +283,13 @@ class _ReportScreenState extends State<ReportScreen>
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
+                            color: tagColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             item.tag,
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: tagColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                             ),
@@ -296,14 +302,17 @@ class _ReportScreenState extends State<ReportScreen>
                       children: [
                         Text(
                           formatCurrency(item.amount),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           formatDateToMonthDay(item.date),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ],
