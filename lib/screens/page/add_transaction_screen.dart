@@ -193,8 +193,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        gradient: backgroundGradient()
-        // color: Theme.of(context).colorScheme.background
+        // gradient: backgroundGradient()
+        color: Theme.of(context).colorScheme.background
       ),
       child: Scaffold(
         appBar: AppBar(
@@ -278,8 +278,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         SizedBox(width: 8),
                         Expanded(
                           child: _buildSelectorButton(
+                            'Date',
                             DateFormat('dd/MM').format(date),
-                            '',
                             _selectDate,
                             context
                           ),
@@ -337,7 +337,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             fontSize: 14,
             overflow: TextOverflow.ellipsis,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onSurface
+            color: isSelected ? Colors.orange : Theme.of(context).colorScheme.onSurface
           ),
         ),
       ),

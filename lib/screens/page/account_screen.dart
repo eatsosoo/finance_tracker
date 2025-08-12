@@ -225,7 +225,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -380,7 +380,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   lineWidth: 5, // độ dày đường
                   percent: 0.75, // 75%
                   center: Icon(LucideIcons.gamepad),
-                  progressColor: Colors.black26,
+                  progressColor: Theme.of(context).colorScheme.secondary,
                   backgroundColor: Colors.grey.shade300,
                   circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
                   animation: true, // bật animation
@@ -394,7 +394,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   lineWidth: 5, // độ dày đường
                   percent: 0.5, // 75%
                   center: Icon(LucideIcons.car),
-                  progressColor: Colors.black26,
+                  progressColor: Theme.of(context).colorScheme.secondary,
                   backgroundColor: Colors.grey.shade300,
                   circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
                   animation: true, // bật animation
@@ -408,7 +408,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   lineWidth: 5, // độ dày đường
                   percent: 0.25, // 75%
                   center: Icon(LucideIcons.heartHandshake),
-                  progressColor: Colors.black26,
+                  progressColor: Theme.of(context).colorScheme.secondary,
                   backgroundColor: Colors.grey.shade300,
                   circularStrokeCap: CircularStrokeCap.round, // bo tròn đầu nét
                   animation: true, // bật animation

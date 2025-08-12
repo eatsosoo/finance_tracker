@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 const Map<String, String> tagColors = {
-  'Food': '#FF6B6B',
-  'Transport': '#4ECDC4',
-  'Shopping': '#C77DFF',
-  'Salary': '#1DD1A1',
-  'Other': '#A4B0BE',
+  'Food': '#115f86',
+  'Transport': '#e06087',
+  'Shopping': '#ff5b7d',
+  'Drink': '#ffae8c',
+  'Salary': '#33b997',
+  'Bonus': '#115f86',
+  'Other': '#00aebb',
 };

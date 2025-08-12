@@ -47,11 +47,14 @@ class _ReportScreenState extends State<ReportScreen>
 
     final result = grouped.entries.map((e) {
       final percent = (e.value / total) * 100;
+      final tagHex = tagColors[e.key] ?? '#000000';
+      final tagColor = hexToColor(tagHex);
 
       return ChartSampleData(
         tag: e.key,
         amount: double.parse(percent.toStringAsFixed(1)),
         text: '${percent.toStringAsFixed(1)}%',
+        color: tagColor
       );
     }).toList();
 
@@ -86,7 +89,6 @@ class _ReportScreenState extends State<ReportScreen>
   @override
   Widget build(BuildContext context) {
     final surfaceColor = Theme.of(context).colorScheme.surface;
-    final onSurfaceColor = Theme.of(context).colorScheme.onSurface;
 
     return Scaffold(
       appBar: CustomAppBar(title: 'Reports'),

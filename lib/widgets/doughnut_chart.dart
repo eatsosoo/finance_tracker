@@ -67,7 +67,7 @@ class _DoughnutChartState extends State<DoughnutChart> {
             tag: widget.series[i].tag,
             amount: widget.series[i].amount,
             text: widget.series[i].text,
-            color: widget.series[i].color, // use color from generateColors()
+            color: widget.series[i].color,
           );
         });
       });
