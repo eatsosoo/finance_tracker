@@ -62,3 +62,17 @@ LinearGradient buildGradient(Color baseColor) {
     colors: [lighter, baseColor, darker],
   );
 }
+
+LinearGradient backgroundGradient() {
+  return LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      Color(0xFFE9E4EF),
+      Color(0xFFF1F4F6),
+      Color(0xFFEEF5FA),
+      Color(0xFFF3F8FD),
+    ],
+    stops: [0.0, 0.3, 0.65, 1.0], // Màu 2
+  );
+}

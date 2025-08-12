@@ -37,34 +37,29 @@ class BudgetItemCard extends StatelessWidget {
     final over = item.spent > item.limit;
     final remain = item.limit - item.spent;
     final percent = (item.spent / item.limit).clamp(0.0, 1.0);
-    final borderColor = over ? Colors.red : Colors.white;
+    final borderColor = over
+        ? Theme.of(context).colorScheme.error
+        : Theme.of(context).colorScheme.surface;
+    final surfaceColor = Theme.of(context).colorScheme.surface;
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        decoration: _buildBoxDecoration(isExpanded, over, borderColor),
+      child: Card(
+        color: surfaceColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(width: 1, color: borderColor),
+        ),
+        // surfaceTintColor: Colors.white,
+        shadowColor: Colors.grey.shade100,
+        elevation: 0,
         child: AdvancedExpandable(
           headerBuilder: (isExpanded) =>
-              _buildHeaderContent(remain, item, isExpanded, over, percent),
+              _buildHeaderContent(remain, item, isExpanded, over, percent, context),
           expandedContent: _buildExpandedContent(over),
           collapsedContent: over ? _buildCollapseContent() : null,
         ),
       ),
-    );
-  }
-
-  BoxDecoration _buildBoxDecoration(bool open, bool over, Color borderColor) {
-    return BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border(
-        top: BorderSide(color: borderColor, width: 1),
-        left: BorderSide(color: borderColor, width: 1),
-        right: BorderSide(color: borderColor, width: 1),
-        bottom: BorderSide(color: borderColor, width: 1),
-      ),
-      boxShadow: [boxShadowCommon()],
     );
   }
 
@@ -74,7 +69,9 @@ class BudgetItemCard extends StatelessWidget {
     bool isExpanded,
     bool over,
     double percent,
+    BuildContext context
   ) {
+    final spentColor = over ? Theme.of(context).colorScheme.onError : Theme.of(context).colorScheme.onSurface;
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -82,7 +79,7 @@ class BudgetItemCard extends StatelessWidget {
         children: [
           _buildInformation(remain, item.tag, isExpanded),
           const SizedBox(height: 16),
-          _buildSpent(over, item.spent, item.limit),
+          _buildSpent(spentColor, item.spent, item.limit),
           const SizedBox(height: 8),
           _buildStack(percent, over),
         ],
@@ -104,24 +101,6 @@ class BudgetItemCard extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // CachedNetworkImage(
-        //   imageUrl: item.icon,
-        //   width: 40,
-        //   height: 40,
-        //   imageBuilder: (context, imageProvider) => Container(
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(10),
-        //       // border: Border.all(color: Colors.black12),
-        //       color: Colors.white,
-        //       image: DecorationImage(
-        //         image: imageProvider,
-        //         fit: BoxFit.cover,
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // Icon(Iconsax.activity),
-        // const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,30 +130,24 @@ class BudgetItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildSpent(bool over, double spent, double limit) {
+  Widget _buildSpent(Color overColor, double spent, double limit) {
     return Text.rich(
       TextSpan(
         text: 'Spent: ',
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
+        style: const TextStyle(fontWeight: FontWeight.bold),
 
         children: [
           TextSpan(
             text: formatCurrency(spent),
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: over ? Colors.red : Colors.black54,
+              color: overColor,
             ),
           ),
           const TextSpan(text: ' / '),
           TextSpan(
             text: formatCurrency(limit),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -189,7 +162,7 @@ class BudgetItemCard extends StatelessWidget {
           height: 8,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color: Colors.grey[200],
+            color: Colors.grey,
           ),
         ),
         FractionallySizedBox(
@@ -250,8 +223,8 @@ class BudgetItemCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.red.shade700,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(8),
-          bottomRight: Radius.circular(8),
+          bottomLeft: Radius.circular(12),
+          bottomRight: Radius.circular(12),
         ),
       ),
       padding: const EdgeInsets.all(8),
