@@ -6,6 +6,7 @@ import 'providers/auth_provider.dart';
 import 'screens/auth/login_screen.dart';
 // import 'screens/dashboard/dashboard_screen.dart'; // tạo sau
 import 'routes/router.dart';
+import 'providers/theme_provider.dart';
 
 // LIGHT MODE
 final lightColorScheme =
@@ -63,6 +64,11 @@ final lightTheme = ThemeData(
       color: Colors.grey
     ),
     prefixIconColor: Colors.grey
+  ),
+  listTileTheme: ListTileThemeData(
+    textColor: lightColorScheme.onSurface,
+    iconColor: lightColorScheme.onSurface,
+    tileColor: lightColorScheme.onSurface,
   )
 );
 
@@ -88,6 +94,11 @@ final darkTheme = ThemeData(
       color: Colors.grey
     ),
     prefixIconColor: Colors.grey
+  ),
+  listTileTheme: ListTileThemeData(
+    textColor: darkColorScheme.onSurface,
+    iconColor: darkColorScheme.onSurface,
+    tileColor: darkColorScheme.onSurface,
   )
 );
 

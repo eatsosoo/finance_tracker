@@ -1,3 +1,4 @@
+import 'package:finance_tracker/providers/theme_provider.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/widgets/leading_common.dart';
 import 'package:flutter/material.dart';
@@ -5,28 +6,36 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  ThemeMode _themeMode = ThemeMode.light;
+
+  void _toggleTheme() {
+    setState(() {
+      _themeMode = _themeMode == ThemeMode.light
+          ? ThemeMode.dark
+          : ThemeMode.light;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Color blockColor = Colors.white;
-    final Color bgColor = const Color(0xFFF6F6F6);
+    final Color blockColor = Theme.of(context).colorScheme.surface;
 
     return Scaffold(
-      backgroundColor: bgColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: bgColor,
         leading: LeadingCommon(),
         centerTitle: true,
         title: const Text(
           'Settings',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
       body: ListView(
@@ -38,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [boxShadowCommon()],
+              // boxShadow: [boxShadowCommon()],
             ),
             child: Column(
               children: [
@@ -82,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [boxShadowCommon()],
+              // boxShadow: [boxShadowCommon()],
             ),
             child: Row(
               children: [
@@ -119,7 +128,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: const Color(0xFFFF8A34), // Orange
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [boxShadowCommon()],
+              // boxShadow: [boxShadowCommon()],
             ),
             child: Row(
               children: [
@@ -149,7 +158,11 @@ class ProfileScreen extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Icon(LucideIcons.gift, size: 16, color: Colors.white),
+                            Icon(
+                              LucideIcons.gift,
+                              size: 16,
+                              color: Colors.white,
+                            ),
                             SizedBox(width: 4),
                             Text(
                               '50 /referral',
@@ -182,7 +195,7 @@ class ProfileScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: blockColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [boxShadowCommon()],
+              // boxShadow: [boxShadowCommon()],
             ),
             child: Column(
               children: [
@@ -197,6 +210,14 @@ class ProfileScreen extends StatelessWidget {
                   label: 'Widget',
                   onTap: () {},
                 ),
+                _buildDivider(),
+                _buildProfileTile(
+                  icon: _themeMode == ThemeMode.light
+                      ? LucideIcons.sun
+                      : LucideIcons.moon,
+                  label: 'Theme',
+                  onTap: () {},
+                ),
               ],
             ),
           ),
@@ -206,11 +227,10 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildDivider() => Divider(
-    color: Colors.grey[100],
     height: 1,
     thickness: 1,
-    indent: 16,
-    endIndent: 16,
+    // indent: 16,
+    // endIndent: 16,
   );
 
   Widget _buildProfileTile({
@@ -219,14 +239,13 @@ class ProfileScreen extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.grey, size: 18),
+      leading: Icon(icon, size: 18),
       title: Text(
         label,
         style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
       ),
-      trailing: const Icon(LucideIcons.chevronRight, color: Colors.grey, size: 18),
+      trailing: const Icon(LucideIcons.chevronRight, size: 18),
       onTap: onTap,
-      tileColor: Colors.transparent,
       contentPadding: const EdgeInsets.only(left: 16, right: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     );

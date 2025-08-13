@@ -60,6 +60,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     }).toList();
 
     return Scaffold(
+      // backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text(
           'Inbox',
@@ -78,16 +79,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
         elevation: 0,
         leading: LeadingCommon(),
       ),
-      body: ListView.separated(
+      body: ListView.builder(
         itemCount: filtered.length,
-        separatorBuilder: (_, __) =>
-            Divider(color: Colors.grey[100], height: 1),
+
         itemBuilder: (context, index) {
           final item = filtered[index];
           final daysAgo = timeAgo(item.date);
           return Container(
-            color: Colors.white,
-            margin: EdgeInsets.only(bottom: 8),
+            margin: EdgeInsets.only(right: 16, left: 16, bottom: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Theme.of(context).colorScheme.surface,
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
@@ -116,7 +119,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             children: [
                               TextSpan(
                                 text: item.title,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                               ),
                             ],
                           ),
