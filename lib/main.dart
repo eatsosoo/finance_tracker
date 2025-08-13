@@ -60,16 +60,13 @@ final lightTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: Colors.grey.shade200,
-    hintStyle: TextStyle(
-      color: Colors.grey
-    ),
-    prefixIconColor: Colors.grey
+    hintStyle: TextStyle(color: Colors.grey),
+    prefixIconColor: Colors.grey,
   ),
   listTileTheme: ListTileThemeData(
     textColor: lightColorScheme.onSurface,
     iconColor: lightColorScheme.onSurface,
-    tileColor: lightColorScheme.onSurface,
-  )
+  ),
 );
 
 final darkTheme = ThemeData(
@@ -90,22 +87,22 @@ final darkTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: Colors.grey.shade800,
-    hintStyle: TextStyle(
-      color: Colors.grey
-    ),
-    prefixIconColor: Colors.grey
+    hintStyle: TextStyle(color: Colors.grey),
+    prefixIconColor: Colors.grey,
   ),
   listTileTheme: ListTileThemeData(
     textColor: darkColorScheme.onSurface,
     iconColor: darkColorScheme.onSurface,
-    tileColor: darkColorScheme.onSurface,
-  )
+  ),
 );
 
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -116,11 +113,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp.router(
       title: 'Finance Tracker Personal',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.light, // Tự đổi theo hệ thống (light/dark)
+      themeMode: themeProvider.themeMode, // Tự đổi theo hệ thống (light/dark)
       routerConfig: appRouter,
     );
   }

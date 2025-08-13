@@ -20,6 +20,14 @@ String formatNumberShort(num number) {
   }
 }
 
+String findTitleMapOptions(List<Map<String, String>> options, String value) {
+  String foundValue = options
+      .firstWhere((item) => item["value"] == value, orElse: () => {})
+      .putIfAbsent("title", () => '');
+
+  return foundValue;
+}
+
 Future<Map<String, dynamic>> loadMockData(
   BuildContext context,
   String path,

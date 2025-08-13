@@ -1,10 +1,13 @@
 import 'package:finance_tracker/providers/theme_provider.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
+import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/leading_common.dart';
+import 'package:finance_tracker/widgets/show_bottom_options.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,19 +17,19 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  ThemeMode _themeMode = ThemeMode.light;
+  String themeSelected = '0';
+  final List<Map<String, String>> themeOptions = [
+    {'title': 'Light', 'value': '0'},
+    {'title': 'Dark', 'value': '1'},
+    {'title': 'System', 'value': '2'},
+  ];
 
-  void _toggleTheme() {
-    setState(() {
-      _themeMode = _themeMode == ThemeMode.light
-          ? ThemeMode.dark
-          : ThemeMode.light;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
     final Color blockColor = Theme.of(context).colorScheme.surface;
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -212,11 +215,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 _buildDivider(),
                 _buildProfileTile(
-                  icon: _themeMode == ThemeMode.light
-                      ? LucideIcons.sun
-                      : LucideIcons.moon,
-                  label: 'Theme',
-                  onTap: () {},
+                  icon: LucideIcons.sun,
+                  label: '${findTitleMapOptions(themeOptions, themeSelected)} Mode',
+                  onTap: () => _selectTheme(themeProvider),
                 ),
               ],
             ),
@@ -248,6 +249,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       onTap: onTap,
       contentPadding: const EdgeInsets.only(left: 16, right: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+    );
+  }
+
+  void _selectTheme(ThemeProvider theme) {
+    showBottomOptions(
+      context: context,
+      title: 'Theme select',
+      filterOptions: themeOptions,
+      currentFilter: themeSelected,
+      onSelected: (value) {
+        setState(() {
+          themeSelected = value;
+        });
+        theme.toggleTheme(value);
+      },
     );
   }
 }
