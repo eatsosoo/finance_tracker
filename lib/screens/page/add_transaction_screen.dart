@@ -194,7 +194,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     return Container(
       decoration: BoxDecoration(
         // gradient: backgroundGradient()
-        color: Theme.of(context).colorScheme.background
+        color: Theme.of(context).colorScheme.background,
       ),
       child: Scaffold(
         appBar: AppBar(
@@ -211,9 +211,22 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             onPressed: () {
               context.canPop() ? context.pop() : context.go('/home');
             },
-            padding: EdgeInsets.all(8),
-            icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.onBackground),
+            icon: Icon(
+              Icons.clear,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
           ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                LucideIcons.paperclip,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+              onPressed: () {
+                // attach file action
+              },
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
         body: SafeArea(
@@ -230,7 +243,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       style: TextStyle(
                         fontSize: 48,
                         fontWeight: FontWeight.bold,
-                        color: isExpense ? Colors.red : Theme.of(context).colorScheme.primary,
+                        color: isExpense
+                            ? Colors.red
+                            : Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -239,13 +254,16 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       child: TextField(
                         textAlign: TextAlign.center,
                         controller: noteController,
-                        style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+                        style: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 14,
+                        ),
                         decoration: InputDecoration(
                           fillColor: Theme.of(context).colorScheme.background,
                           hintText: 'Thêm ghi chú...',
                           hintStyle: TextStyle(color: Colors.grey.shade400),
                           border: InputBorder.none,
-                          hoverColor: Theme.of(context).colorScheme.background
+                          hoverColor: Theme.of(context).colorScheme.background,
                         ),
                       ),
                     ),
@@ -265,7 +283,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             'Account',
                             account,
                             _selectAccount,
-                            context
+                            context,
                           ),
                         ),
                         SizedBox(width: 8), // Khoảng cách giữa các nút
@@ -274,7 +292,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             'Category',
                             category,
                             _selectCategory,
-                            context
+                            context,
                           ),
                         ),
                         SizedBox(width: 8),
@@ -283,7 +301,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             'Date',
                             DateFormat('dd/MM').format(date),
                             _selectDate,
-                            context
+                            context,
                           ),
                         ),
                       ],
@@ -299,7 +317,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       child: CustomButton(
                         text: 'Add transaction',
                         backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                        foregroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary,
                         onPressed: _onSubmit,
                         radius: 8,
                       ),
@@ -314,7 +334,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     );
   }
 
-  Widget _buildSelectorButton(String label, String value, VoidCallback onTap, BuildContext context) {
+  Widget _buildSelectorButton(
+    String label,
+    String value,
+    VoidCallback onTap,
+    BuildContext context,
+  ) {
     final bool isSelected = value != '';
 
     return SizedBox(
@@ -327,7 +352,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           ),
           side: MaterialStateProperty.all(
             BorderSide(
-              color: isSelected ? Colors.orange : Theme.of(context).colorScheme.surface,
+              color: isSelected
+                  ? Colors.orange
+                  : Theme.of(context).colorScheme.surface,
               width: isSelected ? 2.0 : 1.0,
             ),
           ),
@@ -339,7 +366,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             fontSize: 14,
             overflow: TextOverflow.ellipsis,
             fontWeight: FontWeight.bold,
-            color: isSelected ? Colors.orange : Theme.of(context).colorScheme.onSurface
+            color: isSelected
+                ? Colors.orange
+                : Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ),
