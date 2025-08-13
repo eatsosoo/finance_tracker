@@ -39,6 +39,8 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
       vsync: this,
     );
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+
+    _toggleExpanded();
   }
 
   @override

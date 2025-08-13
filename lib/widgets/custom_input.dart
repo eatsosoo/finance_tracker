@@ -10,7 +10,7 @@ class CustomInput extends StatelessWidget {
   final bool disableEmoji;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
-  final Color fillColor;
+  final Color? fillColor;
   final double borderRadius;
 
   const CustomInput({
@@ -23,7 +23,7 @@ class CustomInput extends StatelessWidget {
     this.disableEmoji = true,
     this.keyboardType,
     this.inputFormatters,
-    this.fillColor = const Color(0xFFF5F5F5),
+    this.fillColor,
     this.borderRadius = 50,
   });
 
@@ -53,10 +53,8 @@ class CustomInput extends StatelessWidget {
       style: const TextStyle(fontSize: 14),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14),
         prefixIcon: prefixIcon,
         filled: true,
-        fillColor: fillColor,
         contentPadding: const EdgeInsets.symmetric(
           vertical: 16,
           horizontal: 16,

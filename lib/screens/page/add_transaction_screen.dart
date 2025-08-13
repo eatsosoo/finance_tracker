@@ -230,7 +230,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       style: TextStyle(
                         fontSize: 48,
                         fontWeight: FontWeight.bold,
-                        color: isExpense ? Colors.red : Colors.greenAccent,
+                        color: isExpense ? Colors.red : Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -241,9 +241,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         controller: noteController,
                         style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
                         decoration: InputDecoration(
+                          fillColor: Theme.of(context).colorScheme.background,
                           hintText: 'Thêm ghi chú...',
                           hintStyle: TextStyle(color: Colors.grey.shade400),
                           border: InputBorder.none,
+                          hoverColor: Theme.of(context).colorScheme.background
                         ),
                       ),
                     ),

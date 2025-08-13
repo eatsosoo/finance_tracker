@@ -4,8 +4,8 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double radius;
-  final Color backgroundColor;
-  final Color foregroundColor;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
   final double fontSize;
 
   const CustomButton({
@@ -13,8 +13,8 @@ class CustomButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.radius = 50,
-    this.backgroundColor = Colors.black,
-    this.foregroundColor = Colors.white,
+    this.backgroundColor,
+    this.foregroundColor,
     this.fontSize = 16,
   });
 
@@ -26,8 +26,8 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          foregroundColor: foregroundColor,
+          backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.primary,
+          foregroundColor: foregroundColor ?? Theme.of(context).colorScheme.onPrimary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius)
           )

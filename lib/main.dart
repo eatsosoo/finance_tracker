@@ -33,7 +33,7 @@ final darkColorScheme =
       brightness: Brightness.dark,
     ).copyWith(
       primary: Colors.white,
-      onPrimary: Colors.black87,
+      onPrimary: Colors.black,
       secondary: Colors.orange,
       background: Color.fromARGB(255, 23, 23, 23), // nền chính
       surface: Color.fromARGB(255, 33, 33, 33), // bề mặt card
@@ -56,6 +56,14 @@ final lightTheme = ThemeData(
   ),
   dividerTheme: DividerThemeData(color: Colors.grey.shade200),
   iconTheme: IconThemeData(color: lightColorScheme.primary),
+  inputDecorationTheme: InputDecorationTheme(
+    filled: true,
+    fillColor: Colors.grey.shade200,
+    hintStyle: TextStyle(
+      color: Colors.grey
+    ),
+    prefixIconColor: Colors.grey
+  )
 );
 
 final darkTheme = ThemeData(
@@ -73,6 +81,14 @@ final darkTheme = ThemeData(
   ),
   dividerTheme: DividerThemeData(color: Colors.grey.shade800),
   iconTheme: IconThemeData(color: darkColorScheme.primary),
+  inputDecorationTheme: InputDecorationTheme(
+    filled: true,
+    fillColor: Colors.grey.shade800,
+    hintStyle: TextStyle(
+      color: Colors.grey
+    ),
+    prefixIconColor: Colors.grey
+  )
 );
 
 void main() {
@@ -93,7 +109,7 @@ class MyApp extends StatelessWidget {
       title: 'Finance Tracker Personal',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.dark, // Tự đổi theo hệ thống (light/dark)
+      themeMode: ThemeMode.light, // Tự đổi theo hệ thống (light/dark)
       routerConfig: appRouter,
     );
   }
