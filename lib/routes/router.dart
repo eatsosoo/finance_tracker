@@ -1,6 +1,6 @@
 import 'package:finance_tracker/layouts/main_layout.dart';
 import 'package:finance_tracker/screens/auth/login_screen.dart';
-import 'package:finance_tracker/screens/home_screen.dart';
+import 'package:finance_tracker/screens/page/home_screen.dart';
 import 'package:finance_tracker/screens/page/account_screen.dart';
 import 'package:finance_tracker/screens/page/budget_screen.dart';
 import 'package:finance_tracker/screens/page/data_metric_screen.dart';

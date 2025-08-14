@@ -11,6 +11,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:finance_tracker/widgets/doughnut_chart.dart';
 import 'dart:convert';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -54,7 +55,7 @@ class _ReportScreenState extends State<ReportScreen>
         tag: e.key,
         amount: double.parse(percent.toStringAsFixed(1)),
         text: '${percent.toStringAsFixed(1)}%',
-        color: tagColor
+        color: tagColor,
       );
     }).toList();
 
@@ -146,15 +147,23 @@ class _ReportScreenState extends State<ReportScreen>
               ),
               tabs: const [
                 Tab(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Income'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(LucideIcons.circleArrowOutDownLeft, size: 14,),
+                      SizedBox(width: 8), // Khoảng cách giữa icon và text
+                      Text('Income'),
+                    ],
                   ),
                 ),
                 Tab(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Expenses'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(LucideIcons.circleArrowOutUpRight, size: 14,),
+                      SizedBox(width: 8),
+                      Text('Expenses'),
+                    ],
                   ),
                 ),
               ],

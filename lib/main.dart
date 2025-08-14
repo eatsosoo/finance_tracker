@@ -94,6 +94,14 @@ final darkTheme = ThemeData(
     textColor: darkColorScheme.onSurface,
     iconColor: darkColorScheme.onSurface,
   ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: darkColorScheme.primary,
+      foregroundColor: darkColorScheme.onPrimary,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      textStyle: TextStyle(fontWeight: FontWeight.bold)
+    ),
+  ),
 );
 
 void main() {
@@ -119,7 +127,8 @@ class MyApp extends StatelessWidget {
       title: 'Finance Tracker Personal',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: themeProvider.themeMode, // Tự đổi theo hệ thống (light/dark)
+      // themeMode: themeProvider.themeMode, // Tự đổi theo hệ thống (light/dark)
+      themeMode: ThemeMode.dark,
       routerConfig: appRouter,
     );
   }

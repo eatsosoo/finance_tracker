@@ -1,4 +1,4 @@
-import 'package:finance_tracker/screens/home_screen.dart';
+import 'package:finance_tracker/screens/page/home_screen.dart';
 import 'package:finance_tracker/screens/page/notification_screen.dart';
 import 'package:finance_tracker/screens/page/add_transaction_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,33 +27,27 @@ class MainLayout extends StatelessWidget {
       currentIndex = 4;
     }
 
+    double sizeIcon(double index) {
+      return currentIndex == index ? 24 : 18;
+    }
+
+    Color colorIcon(double index) {
+      return currentIndex == index
+          ? Theme.of(context).colorScheme.primary
+          : Theme.of(context).colorScheme.onSurface;
+    }
+
     return Scaffold(
       body: child,
       bottomNavigationBar: CurvedNavigationBar(
         index: currentIndex,
         height: 60.0,
         items: <Widget>[
-          Icon(
-            LucideIcons.house,
-            size: currentIndex == 0 ? 24 : 18,
-            // color: Colors.black,
-          ),
-          Icon(
-            LucideIcons.wallet,
-            size: currentIndex == 1 ? 24 : 18,
-            // color: Colors.black,
-          ),
-          Icon(
-            LucideIcons.squarePlus,
-            size: currentIndex == 2 ? 24 : 18,
-            // color: Colors.black,
-          ),
-          Icon(
-            LucideIcons.walletCards,
-            size: currentIndex == 3 ? 24 : 18,
-            // color: Colors.black,
-          ),
-          Icon(LucideIcons.chartPie, size: currentIndex == 4 ? 24 : 18),
+          Icon(LucideIcons.house, size: sizeIcon(0), color: colorIcon(0)),
+          Icon(LucideIcons.wallet, size: sizeIcon(1), color: colorIcon(1)),
+          Icon(LucideIcons.squarePlus, size: sizeIcon(2), color: colorIcon(2)),
+          Icon(LucideIcons.walletCards, size: sizeIcon(3), color: colorIcon(3)),
+          Icon(LucideIcons.chartPie, size: sizeIcon(4), color: colorIcon(4)),
         ],
         color: Theme.of(context).colorScheme.surface,
         buttonBackgroundColor: Theme.of(context).colorScheme.surface,

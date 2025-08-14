@@ -49,6 +49,7 @@ dependencies:
   flutter_swiper_view: ^1.1.8
   flutter_card_swiper: ^7.0.2
   percent_indicator: ^4.2.3
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_test:
