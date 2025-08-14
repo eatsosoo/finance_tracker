@@ -244,7 +244,7 @@ class _AccountScreenState extends State<AccountScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                formatCurrency(item.amount),
+                formatNumberShort(item.amount),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

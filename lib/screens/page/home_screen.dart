@@ -1,6 +1,7 @@
 // home_screen.dart
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
+import 'package:finance_tracker/widgets/event_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -20,16 +21,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final Map<DateTime, List<Map<String, String>>> events = {};
 
-  @override
-  void initState() {
-    super.initState();
-    events[_focusedDay] = [
-      {'title': 'Dentist appointment', 'time': '10:00 - 11:00 AM'},
-      {'title': 'Gym', 'time': '04:30 - 06:00 PM'},
-      {'title': 'Dinner', 'time': '07:00 - 08:00 PM'},
-      {'title': 'Learning langauges', 'time': '09:00 - 11:00 PM'},
-    ];
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   events[_focusedDay] = [
+  //     {'title': 'Dentist appointment', 'time': '10:00 - 11:00 AM'},
+  //     {'title': 'Gym', 'time': '04:30 - 06:00 PM'},
+  //     {'title': 'Dinner', 'time': '07:00 - 08:00 PM'},
+  //     {'title': 'Learning langauges', 'time': '09:00 - 11:00 PM'},
+  //   ];
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
+            rowHeight: 44,
             calendarStyle: CalendarStyle(
               selectedDecoration: BoxDecoration(
                 color: colorScheme.primary,
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               todayDecoration: BoxDecoration(
                 color: colorScheme.secondary,
-                // shape: BoxShape.circle,
+                shape: BoxShape.circle,
               ),
               defaultTextStyle: TextStyle(fontWeight: FontWeight.bold),
               weekendTextStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -108,11 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const SizedBox(width: 16),
               ElevatedButton(
-                onPressed: () => _showBottomSheet(_selectedDay ?? _focusedDay),
+                onPressed: () => _showBottomSheet(_selectedDay ?? _focusedDay, colorScheme),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(LucideIcons.circlePlus, size: 16,),
+                    Icon(LucideIcons.circlePlus, size: 16),
                     SizedBox(width: 8),
                     Text('Event'),
                   ],
@@ -122,38 +124,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 8),
           Expanded(child: _buildViewEventsTab(_focusedDay, colorScheme)),
+          const SizedBox(height: 16),
         ],
       ),
     );
   }
 
-  void _showBottomSheet(DateTime selectedDay) {
+  void _showBottomSheet(DateTime selectedDay, ColorScheme colorScheme) {
     AppBottomSheet.show(
+      backgroundColor: colorScheme.background,
+      title: 'New event',
       context: context,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.6,
-        child: DefaultTabController(
-          length: 2,
-          child: Column(
-            children: [
-              const TabBar(
-                tabs: [
-                  Tab(text: "Add"),
-                  Tab(text: "View"),
-                ],
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    _buildAddEventTab(selectedDay),
-                    // _buildViewEventsTab(selectedDay, colorSch),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      child:
+          // _buildAddEventTab(selectedDay),
+          EventFormWidget(),
     );
   }
 
@@ -219,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 0),
                 Text(event['time'] ?? '', style: TextStyle(fontSize: 12)),
               ],
             ),

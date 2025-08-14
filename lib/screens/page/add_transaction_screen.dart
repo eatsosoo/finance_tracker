@@ -354,7 +354,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             BorderSide(
               color: isSelected
                   ? Colors.orange
-                  : Theme.of(context).colorScheme.surface,
+                  : Theme.of(context).colorScheme.onSurfaceVariant,
               width: isSelected ? 2.0 : 1.0,
             ),
           ),

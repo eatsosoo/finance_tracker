@@ -22,6 +22,7 @@ final lightColorScheme =
       onBackground: Colors.black87,
       surface: Colors.white,
       onSurface: Colors.black87,
+      onSurfaceVariant: Color(0xFF242527),
       error: Colors.red, // đỏ cảnh báo
       onError: Colors.white,
     );
@@ -39,6 +40,7 @@ final darkColorScheme =
       background: Color.fromARGB(255, 23, 23, 23), // nền chính
       surface: Color.fromARGB(255, 33, 33, 33), // bề mặt card
       onSurface: Color.fromARGB(255, 145, 152, 161), // text phụ
+      onSurfaceVariant: Color(0xFF242527),
       onBackground: Colors.white, // text chính
       error: Colors.red, // đỏ cảnh báo
       onError: Colors.white,
@@ -66,6 +68,14 @@ final lightTheme = ThemeData(
   listTileTheme: ListTileThemeData(
     textColor: lightColorScheme.onSurface,
     iconColor: lightColorScheme.onSurface,
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: lightColorScheme.primary,
+      foregroundColor: lightColorScheme.onPrimary,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      textStyle: TextStyle(fontWeight: FontWeight.bold)
+    ),
   ),
 );
 
