@@ -1,4 +1,4 @@
-import 'package:finance_tracker/widgets/custom_radio.dart';
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/widgets/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,12 +18,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
   bool isEnabled = true;
   bool isLoading = false;
 
-  void _handleLogin() async {
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleLogin() async {
     setState(() => isLoading = true);
 
     final success = await context.read<AuthProvider>().login(
@@ -36,102 +50,84 @@ class _LoginScreenState extends State<LoginScreen> {
     if (success) {
       context.go('/home');
     } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Đăng nhập thất bại')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(S.of(context)!.auth_login_failed)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context)!;
     return Scaffold(
-      // backgroundColor: Theme.of(context).colorScheme.onPrimary,
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 48),
-            // 🔽 SVG Illustration
-            SvgPicture.asset(
-              'assets/illustrations/proud-designer.svg',
-              width: 200,
-              height: 200,
-            ),
-            const SizedBox(height: 48),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Login',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 48),
+              // SVG Illustration
+              SvgPicture.asset(
+                'assets/illustrations/proud-designer.svg',
+                width: 200,
+                height: 200,
               ),
-            ),
-            const SizedBox(height: 8),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Please Sign In to continue',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              const SizedBox(height: 48),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(s.auth_login, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
-            ),
-            const SizedBox(height: 24),
-            CustomInput(
-              hintText: 'Email',
-              controller: emailController,
-              prefixIcon: const Icon(LucideIcons.mail, size: 18),
-            ),
-            const SizedBox(height: 16),
-            CustomInput(
-              hintText: 'Password',
-              controller: passwordController,
-              obscureText: true,
-              prefixIcon: const Icon(LucideIcons.lock, size: 18),
-            ),
-            // Reminder login
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                SizedBox(width: 14,),
-                Text("Reminder me nextime", style: TextStyle(fontSize: 12),),
-                Spacer(),
-                CustomSwitch(
-                  value: isEnabled,
-                  onChanged: (val) => setState(() => isEnabled = val),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            isLoading
-                ? const CircularProgressIndicator()
-                : CustomButton(text: 'Sign In', onPressed: _handleLogin),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Don't have an account?",
-                  style: TextStyle(fontSize: 12),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // 👉 Điều hướng sang màn hình đăng ký
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(s.auth_login_subtitle, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+              ),
+              const SizedBox(height: 24),
+              CustomInput(
+                hintText: s.auth_mail,
+                controller: emailController,
+                prefixIcon: const Icon(LucideIcons.mail, size: 18),
+              ),
+              const SizedBox(height: 16),
+              CustomInput(
+                hintText: s.auth_password,
+                controller: passwordController,
+                obscureText: true,
+                prefixIcon: const Icon(LucideIcons.lock, size: 18),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const SizedBox(width: 14),
+                  Text(s.auth_remenber_next_time_text, style: const TextStyle(fontSize: 12)),
+                  const Spacer(),
+                  CustomSwitch(
+                    value: isEnabled,
+                    onChanged: (val) => setState(() => isEnabled = val),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+              const SizedBox(height: 24),
+              isLoading
+                  ? const CircularProgressIndicator()
+                  : CustomButton(text: s.auth_signin, onPressed: _handleLogin),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(s.auth_not_have_account, style: const TextStyle(fontSize: 12)),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                      );
+                    },
+                    child: Text(s.auth_signup, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

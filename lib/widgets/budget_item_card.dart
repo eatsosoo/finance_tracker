@@ -56,7 +56,7 @@ class BudgetItemCard extends StatelessWidget {
           headerBuilder: (isExpanded) =>
               _buildHeaderContent(remain, item, isExpanded, over, percent, context),
           expandedContent: _buildExpandedContent(context, over),
-          collapsedContent: over ? _buildCollapseContent() : null,
+          collapsedContent: over ? _buildCollapseContent(context) : null,
         ),
       ),
     );
@@ -215,7 +215,7 @@ class BudgetItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildCollapseContent() {
+  Widget _buildCollapseContent(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.red.shade700,
@@ -229,7 +229,7 @@ class BudgetItemCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'You have one overspent',
+            S.of(context)!.budget_warning_text_2,
             style: TextStyle(
               fontSize: 12,
               color: Colors.white,
@@ -237,7 +237,7 @@ class BudgetItemCard extends StatelessWidget {
             ),
           ),
           Text(
-            'Edit',
+            S.of(context)!.common_edit,
             style: TextStyle(
               fontSize: 12,
               color: Colors.white,

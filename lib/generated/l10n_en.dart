@@ -20,7 +20,7 @@ class SEn extends S {
   String get auth_signup => 'Sign Up';
 
   @override
-  String get auth_signinn => 'Sign In';
+  String get auth_signin => 'Sign In';
 
   @override
   String get auth_register => 'Register';
@@ -35,13 +35,25 @@ class SEn extends S {
   String get auth_tel => 'Tel';
 
   @override
+  String get auth_mail => 'Mail';
+
+  @override
   String get auth_login_subtitle => 'Please Sign In to continue';
 
   @override
   String get auth_register_subtitle => 'Please Sign Up to continue';
 
   @override
-  String get auth_reminder_text => 'Reminder me next time';
+  String get auth_remenber_next_time_text => 'Remenber me next time';
+
+  @override
+  String get auth_not_have_account => 'Don\'t have an account?';
+
+  @override
+  String get auth_already_have_account => 'Already have account';
+
+  @override
+  String get auth_login_failed => 'Login failed!';
 
   @override
   String get common_save => 'Save';
@@ -74,6 +86,9 @@ class SEn extends S {
   String budget_warning_text(Object times) {
     return 'You have overspent $times times';
   }
+
+  @override
+  String get budget_warning_text_2 => 'You have one overspent';
 
   @override
   String get budget_legend_1 => 'Amount assigned';

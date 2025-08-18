@@ -115,11 +115,11 @@ abstract class S {
   /// **'Sign Up'**
   String get auth_signup;
 
-  /// No description provided for @auth_signinn.
+  /// No description provided for @auth_signin.
   ///
   /// In en, this message translates to:
   /// **'Sign In'**
-  String get auth_signinn;
+  String get auth_signin;
 
   /// No description provided for @auth_register.
   ///
@@ -145,6 +145,12 @@ abstract class S {
   /// **'Tel'**
   String get auth_tel;
 
+  /// No description provided for @auth_mail.
+  ///
+  /// In en, this message translates to:
+  /// **'Mail'**
+  String get auth_mail;
+
   /// No description provided for @auth_login_subtitle.
   ///
   /// In en, this message translates to:
@@ -157,11 +163,29 @@ abstract class S {
   /// **'Please Sign Up to continue'**
   String get auth_register_subtitle;
 
-  /// No description provided for @auth_reminder_text.
+  /// No description provided for @auth_remenber_next_time_text.
   ///
   /// In en, this message translates to:
-  /// **'Reminder me next time'**
-  String get auth_reminder_text;
+  /// **'Remenber me next time'**
+  String get auth_remenber_next_time_text;
+
+  /// No description provided for @auth_not_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get auth_not_have_account;
+
+  /// No description provided for @auth_already_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have account'**
+  String get auth_already_have_account;
+
+  /// No description provided for @auth_login_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed!'**
+  String get auth_login_failed;
 
   /// No description provided for @common_save.
   ///
@@ -222,6 +246,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'You have overspent {times} times'**
   String budget_warning_text(Object times);
+
+  /// No description provided for @budget_warning_text_2.
+  ///
+  /// In en, this message translates to:
+  /// **'You have one overspent'**
+  String get budget_warning_text_2;
 
   /// No description provided for @budget_legend_1.
   ///

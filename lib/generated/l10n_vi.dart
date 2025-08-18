@@ -20,7 +20,7 @@ class SVi extends S {
   String get auth_signup => 'Đăng ký';
 
   @override
-  String get auth_signinn => 'Đăng nhập';
+  String get auth_signin => 'Đăng nhập';
 
   @override
   String get auth_register => 'Tạo tài khoản';
@@ -35,19 +35,31 @@ class SVi extends S {
   String get auth_tel => 'Số điện thoại';
 
   @override
+  String get auth_mail => 'Mail';
+
+  @override
   String get auth_login_subtitle => 'Vui lòng đăng nhập để tiếp tục';
 
   @override
   String get auth_register_subtitle => 'Vui lòng đăng ký để tiếp tục';
 
   @override
-  String get auth_reminder_text => 'Nhắc tôi lần sau';
+  String get auth_remenber_next_time_text => 'Ghi nhớ đăng nhập';
+
+  @override
+  String get auth_not_have_account => 'Bạn chưa có tài khoản?';
+
+  @override
+  String get auth_already_have_account => 'Bạn đã có tài khoản?';
+
+  @override
+  String get auth_login_failed => 'Đăng nhập thất bại!';
 
   @override
   String get common_save => 'Lưu';
 
   @override
-  String get common_edit => 'Chỉnh sửa';
+  String get common_edit => 'Sửa';
 
   @override
   String get common_delete => 'Xóa';
@@ -74,6 +86,9 @@ class SVi extends S {
   String budget_warning_text(Object times) {
     return 'Bạn đã chi quá mức $times lần';
   }
+
+  @override
+  String get budget_warning_text_2 => 'Bạn đã chi tiêu quá mức';
 
   @override
   String get budget_legend_1 => 'Số tiền đã phân bổ';
