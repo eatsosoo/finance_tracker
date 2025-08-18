@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context)!;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -42,9 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           TableCalendar(
+            locale: 'vi_VN',
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
+            availableCalendarFormats: {
+              CalendarFormat.month: s.common_month,
+            },
+            calendarFormat: CalendarFormat.month,
             rowHeight: 44,
             calendarStyle: CalendarStyle(
               selectedDecoration: BoxDecoration(
@@ -117,14 +123,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Icon(LucideIcons.circlePlus, size: 16),
                     SizedBox(width: 8),
-                    Text('Event'),
+                    Text(s.home_event),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Expanded(child: _buildViewEventsTab(_focusedDay, colorScheme)),
+          Expanded(child: _buildViewEventsTab(context, _focusedDay, colorScheme)),
           const SizedBox(height: 16),
         ],
       ),
@@ -180,10 +186,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildViewEventsTab(DateTime day, ColorScheme colorScheme) {
+  Widget _buildViewEventsTab(BuildContext context, DateTime day, ColorScheme colorScheme) {
     final dayEvents = events[day] ?? [];
     if (dayEvents.isEmpty) {
-      return const Center(child: Text("No events"));
+      return Center(child: Text(S.of(context)!.home_no_events));
     }
 
     return ListView.builder(

@@ -14,6 +14,39 @@ class SEn extends S {
   }
 
   @override
+  String get home_event => 'Event';
+
+  @override
+  String get home_no_events => 'No events';
+
+  @override
+  String get home_new_event => 'New event';
+
+  @override
+  String get home_event_form_title => 'Event name';
+
+  @override
+  String get home_event_form_location => 'Location or URL';
+
+  @override
+  String get home_event_form_all_day_event => 'All day event';
+
+  @override
+  String get home_event_form_start => 'Start';
+
+  @override
+  String get home_event_form_end => 'End';
+
+  @override
+  String get home_event_form_repetitive => 'Repetitive event';
+
+  @override
+  String get home_event_form_tags => 'Tags';
+
+  @override
+  String get home_event_form_notes => 'Notes';
+
+  @override
   String get auth_login => 'Login';
 
   @override
@@ -63,6 +96,15 @@ class SEn extends S {
 
   @override
   String get common_delete => 'Delete';
+
+  @override
+  String get common_week => 'Week';
+
+  @override
+  String get common_month => 'Month';
+
+  @override
+  String get common_year => 'Year';
 
   @override
   String get budget_title => 'Budgets';

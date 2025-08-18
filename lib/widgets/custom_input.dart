@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomInput extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   final TextEditingController controller;
   final bool obscureText;
   final Widget? prefixIcon;
@@ -15,7 +15,7 @@ class CustomInput extends StatelessWidget {
 
   const CustomInput({
     super.key,
-    required this.hintText,
+    this.hintText,
     required this.controller,
     this.obscureText = false,
     this.prefixIcon,

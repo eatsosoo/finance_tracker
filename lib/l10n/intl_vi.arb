@@ -1,8 +1,18 @@
 {
   "@@locale": "vi",
-
   "home_title": "Chào mừng {name}",
-
+  "home_event": "Sự kiện",
+  "home_no_events": "Không có sự kiện",
+  "home_new_event": "Sự kiện mới",
+  "home_event_form_title": "Tên sự kiện",
+  "home_event_form_location": "Địa điểm hoặc URL",
+  "home_event_form_all_day_event": "Sự kiện cả ngày",
+  "home_event_form_start": "Bắt đầu",
+  "home_event_form_end": "Kết thúc",
+  "home_event_form_repetitive": "Sự kiện lặp lại",
+  "home_event_form_tags": "Danh mục",
+  "home_event_form_notes": "Ghi chú",
+  
   "auth_login": "Đăng nhập",
   "auth_signup": "Đăng ký",
   "auth_signin": "Đăng nhập",
@@ -23,6 +33,9 @@
   "common_delete": "Xóa",
   "common_expense": "Chi phí",
   "common_income": "Thu nhập",
+  "common_week": "Tuần",
+  "common_month": "Tháng",
+  "common_year": "Năm",
 
   "budget_title": "Ngân sách",
   "budget_new": "Ngân sách mới",

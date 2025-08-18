@@ -103,6 +103,72 @@ abstract class S {
   /// **'Welcome {name}'**
   String home_title(Object name);
 
+  /// No description provided for @home_event.
+  ///
+  /// In en, this message translates to:
+  /// **'Event'**
+  String get home_event;
+
+  /// No description provided for @home_no_events.
+  ///
+  /// In en, this message translates to:
+  /// **'No events'**
+  String get home_no_events;
+
+  /// No description provided for @home_new_event.
+  ///
+  /// In en, this message translates to:
+  /// **'New event'**
+  String get home_new_event;
+
+  /// No description provided for @home_event_form_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Event name'**
+  String get home_event_form_title;
+
+  /// No description provided for @home_event_form_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location or URL'**
+  String get home_event_form_location;
+
+  /// No description provided for @home_event_form_all_day_event.
+  ///
+  /// In en, this message translates to:
+  /// **'All day event'**
+  String get home_event_form_all_day_event;
+
+  /// No description provided for @home_event_form_start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get home_event_form_start;
+
+  /// No description provided for @home_event_form_end.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get home_event_form_end;
+
+  /// No description provided for @home_event_form_repetitive.
+  ///
+  /// In en, this message translates to:
+  /// **'Repetitive event'**
+  String get home_event_form_repetitive;
+
+  /// No description provided for @home_event_form_tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get home_event_form_tags;
+
+  /// No description provided for @home_event_form_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get home_event_form_notes;
+
   /// No description provided for @auth_login.
   ///
   /// In en, this message translates to:
@@ -204,6 +270,24 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Delete'**
   String get common_delete;
+
+  /// No description provided for @common_week.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get common_week;
+
+  /// No description provided for @common_month.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get common_month;
+
+  /// No description provided for @common_year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get common_year;
 
   /// No description provided for @budget_title.
   ///

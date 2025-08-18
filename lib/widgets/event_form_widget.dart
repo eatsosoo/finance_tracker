@@ -1,4 +1,6 @@
 import 'package:finance_tracker/constants/datetime.dart';
+import 'package:finance_tracker/generated/l10n.dart';
+import 'package:finance_tracker/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/widgets/custom_switch.dart';
 
@@ -104,6 +106,7 @@ class _EventFormWidgetState extends State<EventFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context)!;
     final textFieldStyle = TextStyle(color: Colors.white);
     final labelStyle = TextStyle(
       color: Colors.white,
@@ -112,7 +115,7 @@ class _EventFormWidgetState extends State<EventFormWidget> {
     final subLabelStyle = TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.bold,
-      fontSize: 12
+      fontSize: 12,
     );
     final boxDecoration = BoxDecoration(
       color: const Color(0xFF23232B),
@@ -131,58 +134,22 @@ class _EventFormWidgetState extends State<EventFormWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Title field
-            TextField(
+            CustomInput(
+              hintText: s.home_event_form_title,
               controller: _titleController,
-              style: textFieldStyle,
-              decoration: InputDecoration(
-                filled: true,
-                // fillColor: const Color(0xFF23232B),
-                hintText: "Title",
-                hintStyle: TextStyle(color: Colors.white12),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Color(0xFF44444D)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Color(0xFF44444D)),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 8,
-                ),
-              ),
             ),
             const SizedBox(height: 8),
             // Location field
-            TextField(
+            CustomInput(
+              hintText: s.home_event_form_location,
               controller: _locationController,
-              style: textFieldStyle,
-              decoration: InputDecoration(
-                filled: true,
-                // fillColor: const Color(0xFF23232B),
-                hintText: "Location or meeting URL",
-                hintStyle: TextStyle(color: Colors.white12),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Color(0xFF44444D)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: Color(0xFF44444D)),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 8,
-                ),
-              ),
             ),
             const SizedBox(height: 24),
             // All day event row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("All day event", style: labelStyle),
+                Text(s.home_event_form_all_day_event, style: labelStyle),
                 CustomSwitch(
                   value: _isAllDay,
                   onChanged: (val) => setState(() => _isAllDay = val),
@@ -195,7 +162,7 @@ class _EventFormWidgetState extends State<EventFormWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Start", style: subLabelStyle),
+                Text(s.home_event_form_start, style: subLabelStyle),
                 const SizedBox(height: 6),
                 Row(
                   children: [
@@ -218,7 +185,7 @@ class _EventFormWidgetState extends State<EventFormWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("End", style: subLabelStyle,),
+                Text(s.home_event_form_end, style: subLabelStyle),
                 const SizedBox(height: 6),
                 Row(
                   children: [
@@ -242,7 +209,7 @@ class _EventFormWidgetState extends State<EventFormWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Repetitive event", style: labelStyle),
+                Text(s.home_event_form_repetitive, style: labelStyle),
                 CustomSwitch(
                   value: _isRepetitive,
                   onChanged: (val) => setState(() => _isRepetitive = val),
@@ -251,7 +218,7 @@ class _EventFormWidgetState extends State<EventFormWidget> {
             ),
             const SizedBox(height: 16),
             // Tags
-            Text("Tags:", style: labelStyle),
+            Text(s.home_event_form_tags, style: labelStyle),
             const SizedBox(height: 8),
             Wrap(
               spacing: 10,
@@ -287,7 +254,7 @@ class _EventFormWidgetState extends State<EventFormWidget> {
             ),
             const SizedBox(height: 16),
             // Notes
-            Text("Notes:", style: labelStyle),
+            Text(s.home_event_form_notes, style: labelStyle),
             const SizedBox(height: 8),
             Container(
               decoration: boxDecoration,

@@ -14,6 +14,39 @@ class SVi extends S {
   }
 
   @override
+  String get home_event => 'Sự kiện';
+
+  @override
+  String get home_no_events => 'Không có sự kiện';
+
+  @override
+  String get home_new_event => 'Sự kiện mới';
+
+  @override
+  String get home_event_form_title => 'Tên sự kiện';
+
+  @override
+  String get home_event_form_location => 'Địa điểm hoặc URL';
+
+  @override
+  String get home_event_form_all_day_event => 'Sự kiện cả ngày';
+
+  @override
+  String get home_event_form_start => 'Bắt đầu';
+
+  @override
+  String get home_event_form_end => 'Kết thúc';
+
+  @override
+  String get home_event_form_repetitive => 'Sự kiện lặp lại';
+
+  @override
+  String get home_event_form_tags => 'Danh mục';
+
+  @override
+  String get home_event_form_notes => 'Ghi chú';
+
+  @override
   String get auth_login => 'Đăng nhập';
 
   @override
@@ -63,6 +96,15 @@ class SVi extends S {
 
   @override
   String get common_delete => 'Xóa';
+
+  @override
+  String get common_week => 'Tuần';
+
+  @override
+  String get common_month => 'Tháng';
+
+  @override
+  String get common_year => 'Năm';
 
   @override
   String get budget_title => 'Ngân sách';
