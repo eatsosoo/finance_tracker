@@ -1,12 +1,14 @@
+import 'package:finance_tracker/providers/locale_provider.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'screens/auth/login_screen.dart';
-// import 'screens/dashboard/dashboard_screen.dart'; // tạo sau
 import 'routes/router.dart';
 import 'providers/theme_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart'; // file generate từ intl
 
 // LIGHT MODE
 final lightColorScheme =
@@ -74,9 +76,10 @@ final lightTheme = ThemeData(
       backgroundColor: lightColorScheme.primary,
       foregroundColor: lightColorScheme.onPrimary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      textStyle: TextStyle(fontWeight: FontWeight.bold)
+      textStyle: TextStyle(fontWeight: FontWeight.bold),
     ),
   ),
+  // timePickerTheme: TimePickerTheme(data: data, child: child)
 );
 
 final darkTheme = ThemeData(
@@ -109,7 +112,7 @@ final darkTheme = ThemeData(
       backgroundColor: darkColorScheme.primary,
       foregroundColor: darkColorScheme.onPrimary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      textStyle: TextStyle(fontWeight: FontWeight.bold)
+      textStyle: TextStyle(fontWeight: FontWeight.bold),
     ),
   ),
 );
@@ -120,6 +123,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => LocaleProvider())
       ],
       child: const MyApp(),
     ),
@@ -132,6 +136,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
 
     return MaterialApp.router(
       title: 'Finance Tracker Personal',
@@ -140,6 +145,14 @@ class MyApp extends StatelessWidget {
       // themeMode: themeProvider.themeMode, // Tự đổi theo hệ thống (light/dark)
       themeMode: ThemeMode.dark,
       routerConfig: appRouter,
+      locale: localeProvider.locale,
+      supportedLocales: S.supportedLocales,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

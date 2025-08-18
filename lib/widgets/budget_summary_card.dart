@@ -1,3 +1,4 @@
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'New budget',
+            S.of(context)!.budget_new,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -159,7 +160,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
           ),
           const SizedBox(height: 8),
           Text(
-            'Total amount',
+            S.of(context)!.budget_total_amount,
             style: TextStyle(
               color: Colors.white70,
               fontSize: 12,
@@ -176,7 +177,7 @@ class _BudgetSummaryCardState extends State<BudgetSummaryCard>
           ),
           const SizedBox(height: 8),
           Text(
-            'Total allocated',
+            S.of(context)!.budget_total_allocated,
             style: TextStyle(
               color: Colors.white70,
               fontSize: 12,

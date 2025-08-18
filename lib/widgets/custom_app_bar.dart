@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.rightWidget,
     this.avatarUrl,
     this.backgroundColor = Colors.transparent,
-  }) : subtitle = subtitle ?? getFormattedDate();
+  }) : subtitle = subtitle ?? '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      subtitle,
+                      getFormattedDate(context),
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     const SizedBox(height: 0),

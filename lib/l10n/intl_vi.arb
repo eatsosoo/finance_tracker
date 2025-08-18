@@ -1,0 +1,31 @@
+{
+  "@@locale": "vi",
+
+  "home_title": "Chào mừng {name}",
+
+  "auth_login": "Đăng nhập",
+  "auth_signup": "Đăng ký",
+  "auth_signinn": "Đăng nhập",
+  "auth_register": "Tạo tài khoản",
+  "auth_password": "Mật khẩu",
+  "auth_username": "Tên đăng nhập",
+  "auth_tel": "Số điện thoại",
+  "auth_login_subtitle": "Vui lòng đăng nhập để tiếp tục",
+  "auth_register_subtitle": "Vui lòng đăng ký để tiếp tục",
+  "auth_reminder_text": "Nhắc tôi lần sau",
+
+  "common_save": "Lưu",
+  "common_edit": "Chỉnh sửa",
+  "common_delete": "Xóa",
+
+  "budget_title": "Ngân sách",
+  "budget_new": "Ngân sách mới",
+  "budget_total_amount": "Tổng số tiền",
+  "budget_total_allocated": "Tổng đã phân bổ",
+  "budget_remain": "Còn lại",
+  "budget_spent": "Đã chi",
+  "budget_warning_text": "Bạn đã chi quá mức {times} lần",
+  "budget_legend_1": "Số tiền đã phân bổ",
+  "budget_legend_2": "Số tiền đã chi",
+  "budget_legend_3": "Chi quá mức"
+}

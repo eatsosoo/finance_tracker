@@ -1,3 +1,4 @@
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/advanced_expandable.dart';
@@ -54,7 +55,7 @@ class BudgetItemCard extends StatelessWidget {
         child: AdvancedExpandable(
           headerBuilder: (isExpanded) =>
               _buildHeaderContent(remain, item, isExpanded, over, percent, context),
-          expandedContent: _buildExpandedContent(over),
+          expandedContent: _buildExpandedContent(context, over),
           collapsedContent: over ? _buildCollapseContent() : null,
         ),
       ),
@@ -75,9 +76,9 @@ class BudgetItemCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInformation(remain, item.tag, isExpanded),
+          _buildInformation(context, remain, item.tag, isExpanded),
           const SizedBox(height: 16),
-          _buildSpent(spentColor, item.spent, item.limit),
+          _buildSpent(context, spentColor, item.spent, item.limit),
           const SizedBox(height: 8),
           _buildStack(percent, over),
         ],
@@ -85,17 +86,17 @@ class BudgetItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildExpandedContent(bool over) {
+  Widget _buildExpandedContent(BuildContext context, bool over) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildExpandedDetails(over)],
+        children: [_buildExpandedDetails(context, over)],
       ),
     );
   }
 
-  Widget _buildInformation(double remain, String tag, bool isExpanded) {
+  Widget _buildInformation(BuildContext context, double remain, String tag, bool isExpanded) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -112,7 +113,7 @@ class BudgetItemCard extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                'Remain: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
+                '${S.of(context)!.budget_remain}: ${remain < 0 ? '-' : ''}${formatCurrency(remain.abs())}',
                 style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
             ],
@@ -128,10 +129,10 @@ class BudgetItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildSpent(Color overColor, double spent, double limit) {
+  Widget _buildSpent(BuildContext context, Color overColor, double spent, double limit) {
     return Text.rich(
       TextSpan(
-        text: 'Spent: ',
+        text: '${S.of(context)!.budget_spent}: ',
 
         children: [
           TextSpan(
@@ -175,7 +176,7 @@ class BudgetItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildExpandedDetails(bool over) {
+  Widget _buildExpandedDetails(BuildContext context, bool over) {
     return Column(
       key: const ValueKey(
         'expanded',
@@ -188,14 +189,14 @@ class BudgetItemCard extends StatelessWidget {
               children: [
                 Icon(Icons.square, color: Colors.grey.shade300, size: 14),
                 const SizedBox(width: 8),
-                const Text('Amount assigned', style: TextStyle(fontSize: 12)),
+                Text(S.of(context)!.budget_legend_1, style: TextStyle(fontSize: 12)),
               ],
             ),
             Row(
               children: [
                 Icon(Icons.square, color: Colors.orangeAccent, size: 14),
                 const SizedBox(width: 8),
-                const Text('Amount spent', style: TextStyle(fontSize: 12)),
+                Text(S.of(context)!.budget_legend_2, style: TextStyle(fontSize: 12)),
               ],
             ),
             if (over)
@@ -203,7 +204,7 @@ class BudgetItemCard extends StatelessWidget {
                 children: [
                   Icon(Icons.square, color: Colors.red.shade100, size: 14),
                   const SizedBox(width: 8),
-                  const Text('Overspent', style: TextStyle(fontSize: 12)),
+                  Text(S.of(context)!.budget_legend_3, style: TextStyle(fontSize: 12)),
                 ],
               ),
           ],

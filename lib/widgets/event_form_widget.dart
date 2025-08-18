@@ -83,10 +83,10 @@ class _EventFormWidgetState extends State<EventFormWidget> {
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
           colorScheme: ColorScheme.dark(
-            primary: const Color(0xFFB9EEB5),
-            onPrimary: Colors.black,
-            surface: const Color(0xFF24242B),
-            onSurface: Colors.white,
+            // primary: const Color(0xFFB9EEB5),
+            // onPrimary: Colors.black,
+            // surface: const Color(0xFF24242B),
+            // onSurface: Colors.white,
           ),
         ),
         child: child!,

@@ -1,4 +1,5 @@
 // home_screen.dart
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
 import 'package:finance_tracker/widgets/event_form_widget.dart';
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Welcome'),
+      appBar: CustomAppBar(title: S.of(context)!.home_title('Jin')),
       body: Column(
         children: [
           TableCalendar(

@@ -1,8 +1,15 @@
+import 'package:finance_tracker/providers/locale_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-String getFormattedDate([DateTime? date]) {
+String getFormattedDate(BuildContext context, [DateTime? date]) {
+  final locale = Provider.of<LocaleProvider>(
+    context,
+    listen: false,
+  ).locale.languageCode;
   final now = date ?? DateTime.now();
-  return DateFormat('EEEE d MMMM').format(now);
+  return DateFormat('EEEE d MMMM', locale).format(now);
 }
 
 String timeAgo(DateTime date) {

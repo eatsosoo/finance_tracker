@@ -1,4 +1,5 @@
 // home_screen.dart
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
 import 'package:finance_tracker/widgets/budget_summary_card.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
@@ -135,7 +136,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Budgets',
+        title: S.of(context)!.budget_title,
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: SafeArea(
@@ -171,16 +172,19 @@ class _BudgetScreenState extends State<BudgetScreen> {
                     height: 40,
                   ),
                   const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'You have overspent $_overspentCount ${_overspentCount > 1 ? 'times' : 'time'}',
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
+
+                  if (_overspentCount > 0)
+                    Expanded(
+                      child: Text(
+                        S.of(context)!.budget_warning_text(_overspentCount),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
-                  ),
+
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: const BoxDecoration(
@@ -259,7 +263,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 16,)
+            const SizedBox(height: 16),
           ],
         ),
       ),
