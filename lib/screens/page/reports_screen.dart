@@ -1,4 +1,5 @@
 import 'package:finance_tracker/constants/colors.dart';
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/types/chart.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
@@ -90,9 +91,10 @@ class _ReportScreenState extends State<ReportScreen>
   @override
   Widget build(BuildContext context) {
     final surfaceColor = Theme.of(context).colorScheme.surface;
-
+    final s = S.of(context)!;
+    
     return Scaffold(
-      appBar: CustomAppBar(title: 'Reports'),
+      appBar: CustomAppBar(title: s.report_title),
       body: Column(
         children: [
           // ✅ Scrollable Button Bar
@@ -145,14 +147,14 @@ class _ReportScreenState extends State<ReportScreen>
                 horizontal: 6,
                 vertical: 6,
               ),
-              tabs: const [
+              tabs: [
                 Tab(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(LucideIcons.circleArrowOutDownLeft, size: 14,),
                       SizedBox(width: 8), // Khoảng cách giữa icon và text
-                      Text('Income'),
+                      Text(s.common_income),
                     ],
                   ),
                 ),
@@ -162,7 +164,7 @@ class _ReportScreenState extends State<ReportScreen>
                     children: [
                       Icon(LucideIcons.circleArrowOutUpRight, size: 14,),
                       SizedBox(width: 8),
-                      Text('Expenses'),
+                      Text(s.common_expense),
                     ],
                   ),
                 ),
@@ -198,8 +200,8 @@ class _ReportScreenState extends State<ReportScreen>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const SizedBox(width: 8),
-                          const Text(
-                            'History',
+                          Text(
+                            s.report_history,
                             style: TextStyle(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.left,
                           ),
@@ -227,8 +229,8 @@ class _ReportScreenState extends State<ReportScreen>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const SizedBox(width: 8),
-                          const Text(
-                            'History',
+                          Text(
+                            s.report_history,
                             style: TextStyle(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.left,
                           ),

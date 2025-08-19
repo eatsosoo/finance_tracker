@@ -98,6 +98,18 @@ class SEn extends S {
   String get common_delete => 'Delete';
 
   @override
+  String get common_add => 'Add';
+
+  @override
+  String get common_income => 'Income';
+
+  @override
+  String get common_expense => 'Expense';
+
+  @override
+  String get common_date => 'Date';
+
+  @override
   String get common_week => 'Week';
 
   @override
@@ -105,6 +117,15 @@ class SEn extends S {
 
   @override
   String get common_year => 'Year';
+
+  @override
+  String get common_account => 'Account';
+
+  @override
+  String get common_category => 'Category';
+
+  @override
+  String get common_note => 'Note';
 
   @override
   String get budget_title => 'Budgets';
@@ -140,4 +161,28 @@ class SEn extends S {
 
   @override
   String get budget_legend_3 => 'Overspent';
+
+  @override
+  String get report_title => 'Report';
+
+  @override
+  String get report_history => 'History';
+
+  @override
+  String get account_title => 'Account';
+
+  @override
+  String get account_average_income => 'Average Income';
+
+  @override
+  String get account_average_expense => 'Average Expense';
+
+  @override
+  String get account_your_saving => 'Your saving';
+
+  @override
+  String get account_chart_title => 'Data Metrics';
+
+  @override
+  String get account_chart_subtitle => 'Income-Expense Insight Analyzer';
 }

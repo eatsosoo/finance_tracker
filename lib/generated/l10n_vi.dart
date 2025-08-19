@@ -98,6 +98,18 @@ class SVi extends S {
   String get common_delete => 'Xóa';
 
   @override
+  String get common_add => 'Thêm';
+
+  @override
+  String get common_income => 'Thu nhập';
+
+  @override
+  String get common_expense => 'Chi phí';
+
+  @override
+  String get common_date => 'Ngày';
+
+  @override
   String get common_week => 'Tuần';
 
   @override
@@ -105,6 +117,15 @@ class SVi extends S {
 
   @override
   String get common_year => 'Năm';
+
+  @override
+  String get common_account => 'Tài khoản';
+
+  @override
+  String get common_category => 'Danh mục';
+
+  @override
+  String get common_note => 'Ghi chú';
 
   @override
   String get budget_title => 'Ngân sách';
@@ -140,4 +161,28 @@ class SVi extends S {
 
   @override
   String get budget_legend_3 => 'Chi quá mức';
+
+  @override
+  String get report_title => 'Thống kê';
+
+  @override
+  String get report_history => 'Lịch sử';
+
+  @override
+  String get account_title => 'Tài khoản';
+
+  @override
+  String get account_average_income => 'Thu nhập trung bình';
+
+  @override
+  String get account_average_expense => 'Chi tiêu trung bình';
+
+  @override
+  String get account_your_saving => 'Khoản tiết kiệm của bạn';
+
+  @override
+  String get account_chart_title => 'Chỉ số dữ liệu';
+
+  @override
+  String get account_chart_subtitle => 'Phân tích thu chi';
 }

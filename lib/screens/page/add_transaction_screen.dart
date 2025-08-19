@@ -1,3 +1,4 @@
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/widgets/animated_toggle.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
@@ -46,19 +47,6 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   late Map<String, List<Map<String, dynamic>>> tagOptions;
 
-  final List<ToggleItem> tabs = [
-    ToggleItem(
-      label: 'Income',
-      value: 'income',
-      icon: LucideIcons.circleArrowOutDownLeft,
-    ),
-    ToggleItem(
-      label: 'Expense',
-      value: 'expense',
-      icon: LucideIcons.circleArrowOutUpRight,
-    ),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -68,7 +56,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   void _selectAccount() {
     showBottomOptions(
       context: context,
-      title: 'Account select',
+      title: S.of(context)!.common_account,
       filterOptions: accountOptions,
       currentFilter: account,
       onSelected: (value) {
@@ -82,7 +70,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
     showBottomOptions(
       context: context,
-      title: 'Tag select',
+      title: S.of(context)!.common_category,
       filterOptions: options,
       currentFilter: category,
       onSelected: (value) {
@@ -190,6 +178,19 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     final isExpense = type == 'expense';
     final displayAmount =
         (isExpense ? '-' : '') + (amount.isEmpty ? '0' : amount) + '₫';
+    final s = S.of(context)!;
+    final List<ToggleItem> tabs = [
+      ToggleItem(
+        label: s.common_income,
+        value: 'income',
+        icon: LucideIcons.circleArrowOutDownLeft,
+      ),
+      ToggleItem(
+        label: s.common_expense,
+        value: 'expense',
+        icon: LucideIcons.circleArrowOutUpRight,
+      ),
+    ];
 
     return Container(
       decoration: BoxDecoration(
@@ -260,7 +261,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         ),
                         decoration: InputDecoration(
                           fillColor: Theme.of(context).colorScheme.background,
-                          hintText: 'Thêm ghi chú...',
+                          hintText: '${s.common_note}...',
                           hintStyle: TextStyle(color: Colors.grey.shade400),
                           border: InputBorder.none,
                           hoverColor: Theme.of(context).colorScheme.background,
@@ -280,7 +281,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       children: [
                         Expanded(
                           child: _buildSelectorButton(
-                            'Account',
+                            s.common_account,
                             account,
                             _selectAccount,
                             context,
@@ -289,7 +290,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         SizedBox(width: 8), // Khoảng cách giữa các nút
                         Expanded(
                           child: _buildSelectorButton(
-                            'Category',
+                            s.common_category,
                             category,
                             _selectCategory,
                             context,
@@ -298,7 +299,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         SizedBox(width: 8),
                         Expanded(
                           child: _buildSelectorButton(
-                            'Date',
+                            s.common_date,
                             DateFormat('dd/MM').format(date),
                             _selectDate,
                             context,
@@ -315,7 +316,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     Padding(
                       padding: const EdgeInsets.all(0),
                       child: CustomButton(
-                        text: 'Add transaction',
+                        text: s.common_add,
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor: Theme.of(
                           context,

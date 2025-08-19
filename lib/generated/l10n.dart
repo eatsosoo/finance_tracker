@@ -271,6 +271,30 @@ abstract class S {
   /// **'Delete'**
   String get common_delete;
 
+  /// No description provided for @common_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get common_add;
+
+  /// No description provided for @common_income.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get common_income;
+
+  /// No description provided for @common_expense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense'**
+  String get common_expense;
+
+  /// No description provided for @common_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get common_date;
+
   /// No description provided for @common_week.
   ///
   /// In en, this message translates to:
@@ -288,6 +312,24 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Year'**
   String get common_year;
+
+  /// No description provided for @common_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get common_account;
+
+  /// No description provided for @common_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get common_category;
+
+  /// No description provided for @common_note.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get common_note;
 
   /// No description provided for @budget_title.
   ///
@@ -354,6 +396,54 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Overspent'**
   String get budget_legend_3;
+
+  /// No description provided for @report_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get report_title;
+
+  /// No description provided for @report_history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get report_history;
+
+  /// No description provided for @account_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account_title;
+
+  /// No description provided for @account_average_income.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Income'**
+  String get account_average_income;
+
+  /// No description provided for @account_average_expense.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Expense'**
+  String get account_average_expense;
+
+  /// No description provided for @account_your_saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Your saving'**
+  String get account_your_saving;
+
+  /// No description provided for @account_chart_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Metrics'**
+  String get account_chart_title;
+
+  /// No description provided for @account_chart_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Income-Expense Insight Analyzer'**
+  String get account_chart_subtitle;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

@@ -32,9 +32,16 @@
     "common_save": "Save",
     "common_edit": "Edit",
     "common_delete": "Delete",
+    "common_add": "Add",
+    "common_income": "Income",
+    "common_expense": "Expense",
+    "common_date": "Date",
     "common_week": "Week",
     "common_month": "Month",
     "common_year": "Year",
+    "common_account": "Account",
+    "common_category": "Category",
+    "common_note": "Note",
   
     "budget_title": "Budgets",
     "budget_new": "New budgets",
@@ -46,6 +53,16 @@
     "budget_warning_text_2": "You have one overspent",
     "budget_legend_1": "Amount assigned",
     "budget_legend_2": "Amout spent",
-    "budget_legend_3": "Overspent"
+    "budget_legend_3": "Overspent",
+
+    "report_title": "Report",
+    "report_history": "History",
+
+    "account_title": "Account",
+    "account_average_income": "Average Income",
+    "account_average_expense": "Average Expense",
+    "account_your_saving": "Your saving",
+    "account_chart_title": "Data Metrics",
+    "account_chart_subtitle": "Income-Expense Insight Analyzer"
   }
   

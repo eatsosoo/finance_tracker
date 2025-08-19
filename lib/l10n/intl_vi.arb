@@ -1,5 +1,6 @@
 {
   "@@locale": "vi",
+
   "home_title": "Chào mừng {name}",
   "home_event": "Sự kiện",
   "home_no_events": "Không có sự kiện",
@@ -31,11 +32,16 @@
   "common_save": "Lưu",
   "common_edit": "Sửa",
   "common_delete": "Xóa",
+  "common_add": "Thêm",
   "common_expense": "Chi phí",
   "common_income": "Thu nhập",
+  "common_date": "Ngày",
   "common_week": "Tuần",
   "common_month": "Tháng",
   "common_year": "Năm",
+  "common_account": "Tài khoản",
+  "common_category": "Danh mục",
+  "common_note": "Ghi chú",
 
   "budget_title": "Ngân sách",
   "budget_new": "Ngân sách mới",
@@ -47,5 +53,17 @@
   "budget_warning_text_2": "Bạn đã chi tiêu quá mức",
   "budget_legend_1": "Số tiền đã phân bổ",
   "budget_legend_2": "Số tiền đã chi",
-  "budget_legend_3": "Chi quá mức"
+  "budget_legend_3": "Chi quá mức",
+
+  "report_title": "Thống kê",
+  "report_history": "Lịch sử",
+
+  "account_title": "Tài khoản",
+  "account_average_income": "Thu nhập trung bình",
+  "account_average_expense": "Chi tiêu trung bình",
+  "account_your_saving": "Khoản tiết kiệm của bạn",
+  "account_chart_title": "Chỉ số dữ liệu",
+  "account_chart_subtitle": "Phân tích thu chi",
+
+  "setting_"
 }

@@ -1,3 +1,4 @@
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/types/chart.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
@@ -63,17 +64,6 @@ class _AccountScreenState extends State<AccountScreen> {
     ChartData('Nov', 50000000),
   ];
 
-  final averageIncome = AverageCard(
-    title: 'Average Income',
-    amount: 50000000,
-    rate: 50,
-  );
-  final averageExpense = AverageCard(
-    title: 'Average Expense',
-    amount: 1000000,
-    rate: -10.5,
-  );
-
   List<ChartSampleData> generateChartData(Map<String, dynamic> jsonData) {
     final List<ChartSampleData> result = [];
 
@@ -106,8 +96,10 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context)!;
+
     return Scaffold(
-      appBar: CustomAppBar(title: 'Accounts'),
+      appBar: CustomAppBar(title: s.account_title),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     setState(() {
@@ -276,6 +268,17 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Widget _buildMetricBlock(BuildContext context) {
+    final averageIncome = AverageCard(
+      title: S.of(context)!.account_average_income,
+      amount: 50000000,
+      rate: 50,
+    );
+    final averageExpense = AverageCard(
+      title: S.of(context)!.account_average_expense,
+      amount: 1000000,
+      rate: -10.5,
+    );
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -292,13 +295,13 @@ class _AccountScreenState extends State<AccountScreen> {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Data Metrics',
+                      S.of(context)!.account_chart_title,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'Income-Expense Insight Analyzer',
+                      S.of(context)!.account_chart_subtitle,
                       style: TextStyle(fontSize: 12),
                     ),
                   ],
@@ -353,8 +356,8 @@ class _AccountScreenState extends State<AccountScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Your saving',
+              Text(
+                S.of(context)!.account_your_saving,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,

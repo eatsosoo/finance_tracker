@@ -46,13 +46,14 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
   @override
   Widget build(BuildContext context) {
     final int selectedIndex = widget.items.indexWhere((item) => item.value == _selected);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
       width: 220,
       height: 44,
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [boxShadowCommon()]
       ),
@@ -71,7 +72,7 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                   width: itemWidth,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: colorScheme.primary,
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
@@ -90,13 +91,13 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                             Icon(
                               item.icon,
                               size: 16,
-                              color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
+                              color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
                             ),
                             const SizedBox(width: 8),
                             Text(
                               item.label,
                               style: TextStyle(
-                                color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
+                                color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                               ),
