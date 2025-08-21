@@ -1,10 +1,12 @@
 // home_screen.dart
 import 'package:finance_tracker/generated/l10n.dart';
+import 'package:finance_tracker/providers/locale_provider.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:finance_tracker/widgets/custom_app_bar.dart';
 import 'package:finance_tracker/widgets/event_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -37,13 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final s = S.of(context)!;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final localeProvider = Provider.of<LocaleProvider>(context);
 
     return Scaffold(
       appBar: CustomAppBar(title: S.of(context)!.home_title('Jin')),
       body: Column(
         children: [
           TableCalendar(
-            locale: 'vi_VN',
+            locale: localeProvider.lang,
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
