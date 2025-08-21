@@ -6,7 +6,7 @@ import 'package:finance_tracker/screens/page/budget_screen.dart';
 import 'package:finance_tracker/screens/page/data_metric_screen.dart';
 import 'package:finance_tracker/screens/page/new_page_screen.dart';
 import 'package:finance_tracker/screens/page/notification_screen.dart';
-import 'package:finance_tracker/screens/page/profile_screen.dart';
+import 'package:finance_tracker/screens/page/setting_screen.dart';
 import 'package:finance_tracker/screens/page/reports_screen.dart';
 import 'package:finance_tracker/screens/page/add_transaction_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +26,8 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const NotificationScreen(),
     ),
     GoRoute(
-      path: '/profile',
-      builder: (context, state) => const ProfileScreen(),
+      path: '/settings',
+      builder: (context, state) => const SettingScreen(),
     ),
     ShellRoute(
       builder: (context, state, child) => MainLayout(child: child),

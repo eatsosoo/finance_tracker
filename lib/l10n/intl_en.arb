@@ -42,7 +42,10 @@
     "common_account": "Account",
     "common_category": "Category",
     "common_note": "Note",
-  
+    "common_active": "Active",
+    "common_inactive": "Inactive",  
+    "common_filters": "Filters",
+
     "budget_title": "Budgets",
     "budget_new": "New budgets",
     "budget_total_amount": "Total amount",
@@ -63,6 +66,20 @@
     "account_average_expense": "Average Expense",
     "account_your_saving": "Your saving",
     "account_chart_title": "Data Metrics",
-    "account_chart_subtitle": "Income-Expense Insight Analyzer"
+    "account_chart_subtitle": "Income-Expense Insight Analyzer",
+
+    "setting_title": "Setting",
+    "setting_language": "Language",
+    "setting_privacy": "Privacy",
+    "setting_light_mode": "Light mode",
+    "setting_dark_mode": "Dark mode",
+    "setting_system_mode": "System mode",
+    "setting_theme": "Theme",
+    "setting_profile": "Profile",
+
+    "notify_title": "Inbox",
+    "notify_unread": "Unread",
+    "notify_read": "Read",
+    "notify_all": "All"
   }
   

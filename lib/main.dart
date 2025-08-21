@@ -142,8 +142,8 @@ class MyApp extends StatelessWidget {
       title: 'Finance Tracker Personal',
       theme: lightTheme,
       darkTheme: darkTheme,
-      // themeMode: themeProvider.themeMode, // Tự đổi theo hệ thống (light/dark)
-      themeMode: ThemeMode.dark,
+      themeMode: themeProvider.themeMode,
+      // themeMode: ThemeMode.dark,
       routerConfig: appRouter,
       locale: localeProvider.locale,
       supportedLocales: S.supportedLocales,

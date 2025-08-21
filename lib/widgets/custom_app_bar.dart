@@ -123,7 +123,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 // Avatar
                 GestureDetector(
                   onTap: () {
-                    context.push('/profile');
+                    context.push('/settings');
                   },
                   child: Container(
                     decoration: BoxDecoration(

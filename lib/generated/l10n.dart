@@ -331,6 +331,24 @@ abstract class S {
   /// **'Note'**
   String get common_note;
 
+  /// No description provided for @common_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get common_active;
+
+  /// No description provided for @common_inactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get common_inactive;
+
+  /// No description provided for @common_filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get common_filters;
+
   /// No description provided for @budget_title.
   ///
   /// In en, this message translates to:
@@ -444,6 +462,78 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Income-Expense Insight Analyzer'**
   String get account_chart_subtitle;
+
+  /// No description provided for @setting_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting'**
+  String get setting_title;
+
+  /// No description provided for @setting_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get setting_language;
+
+  /// No description provided for @setting_privacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get setting_privacy;
+
+  /// No description provided for @setting_light_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light mode'**
+  String get setting_light_mode;
+
+  /// No description provided for @setting_dark_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get setting_dark_mode;
+
+  /// No description provided for @setting_system_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'System mode'**
+  String get setting_system_mode;
+
+  /// No description provided for @setting_theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get setting_theme;
+
+  /// No description provided for @setting_profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get setting_profile;
+
+  /// No description provided for @notify_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Inbox'**
+  String get notify_title;
+
+  /// No description provided for @notify_unread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread'**
+  String get notify_unread;
+
+  /// No description provided for @notify_read.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get notify_read;
+
+  /// No description provided for @notify_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get notify_all;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

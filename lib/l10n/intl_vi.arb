@@ -42,6 +42,9 @@
   "common_account": "Tài khoản",
   "common_category": "Danh mục",
   "common_note": "Ghi chú",
+  "common_active": "Kích hoạt",
+  "common_inactive": "Chưa kích hoạt",
+  "common_filters": "Bộ lọc",
 
   "budget_title": "Ngân sách",
   "budget_new": "Ngân sách mới",
@@ -65,5 +68,17 @@
   "account_chart_title": "Chỉ số dữ liệu",
   "account_chart_subtitle": "Phân tích thu chi",
 
-  "setting_"
+  "setting_title": "Thiết lập",
+  "setting_language": "Ngôn ngữ",
+  "setting_privacy": "Chính sách",
+  "setting_light_mode": "Chế độ sáng",
+  "setting_dark_mode": "Chế độ tối",
+  "setting_system_mode": "Theo hệ thống",
+  "setting_theme": "Chủ đề",
+  "setting_profile": "Hồ sơ",
+
+  "notify_title": "Thông báo",
+  "notify_unread": "Chưa đọc",
+  "notify_read": "Đã đọc",
+  "notify_all": "Tất cả"
 }

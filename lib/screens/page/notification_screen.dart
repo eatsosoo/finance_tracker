@@ -1,3 +1,4 @@
+import 'package:finance_tracker/generated/l10n.dart';
 import 'package:finance_tracker/utils/date_utils.dart';
 import 'package:finance_tracker/widgets/app_bottom_sheet.dart';
 import 'package:finance_tracker/widgets/leading_common.dart';
@@ -45,25 +46,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
     ),
   ];
 
-  final List<Map<String, dynamic>> filterOptions = [
-    {'icon': LucideIcons.mail, 'title': 'Unread and read', 'value': 'all'},
-    {'icon': LucideIcons.mailWarning, 'title': 'Unread', 'value': 'unread'},
-    {'icon': LucideIcons.mailCheck, 'title': 'Read', 'value': 'read'},
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context)!;
     final filtered = allNotifications.where((n) {
       if (filter == 'read') return n.isRead;
       if (filter == 'unread') return !n.isRead;
       return true;
     }).toList();
+    final List<Map<String, dynamic>> filterOptions = [
+      {'icon': LucideIcons.mail, 'title': s.notify_all, 'value': 'all'},
+      {'icon': LucideIcons.mailWarning, 'title': s.notify_unread, 'value': 'unread'},
+      {'icon': LucideIcons.mailCheck, 'title': s.notify_read, 'value': 'read'},
+    ];
 
     return Scaffold(
       // backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text(
-          'Inbox',
+          s.notify_title,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         centerTitle: true,
@@ -73,7 +74,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               LucideIcons.listFilter,
               color: Theme.of(context).colorScheme.onBackground,
             ),
-            onPressed: _showFilterOptions,
+            onPressed: () => _showFilterOptions(filterOptions, s.common_filters),
           ),
         ],
         elevation: 0,
@@ -146,10 +147,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  void _showFilterOptions() {
+  void _showFilterOptions(List<Map<String, dynamic>> filterOptions, String titleSheet) {
     showBottomOptions(
       context: context,
-      title: 'Filters',
+      title: titleSheet,
       filterOptions: filterOptions,
       currentFilter: filter,
       onSelected: (value) {

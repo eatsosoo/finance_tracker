@@ -128,6 +128,15 @@ class SEn extends S {
   String get common_note => 'Note';
 
   @override
+  String get common_active => 'Active';
+
+  @override
+  String get common_inactive => 'Inactive';
+
+  @override
+  String get common_filters => 'Filters';
+
+  @override
   String get budget_title => 'Budgets';
 
   @override
@@ -185,4 +194,40 @@ class SEn extends S {
 
   @override
   String get account_chart_subtitle => 'Income-Expense Insight Analyzer';
+
+  @override
+  String get setting_title => 'Setting';
+
+  @override
+  String get setting_language => 'Language';
+
+  @override
+  String get setting_privacy => 'Privacy';
+
+  @override
+  String get setting_light_mode => 'Light mode';
+
+  @override
+  String get setting_dark_mode => 'Dark mode';
+
+  @override
+  String get setting_system_mode => 'System mode';
+
+  @override
+  String get setting_theme => 'Theme';
+
+  @override
+  String get setting_profile => 'Profile';
+
+  @override
+  String get notify_title => 'Inbox';
+
+  @override
+  String get notify_unread => 'Unread';
+
+  @override
+  String get notify_read => 'Read';
+
+  @override
+  String get notify_all => 'All';
 }

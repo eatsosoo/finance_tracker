@@ -128,6 +128,15 @@ class SVi extends S {
   String get common_note => 'Ghi chú';
 
   @override
+  String get common_active => 'Kích hoạt';
+
+  @override
+  String get common_inactive => 'Chưa kích hoạt';
+
+  @override
+  String get common_filters => 'Bộ lọc';
+
+  @override
   String get budget_title => 'Ngân sách';
 
   @override
@@ -185,4 +194,40 @@ class SVi extends S {
 
   @override
   String get account_chart_subtitle => 'Phân tích thu chi';
+
+  @override
+  String get setting_title => 'Thiết lập';
+
+  @override
+  String get setting_language => 'Ngôn ngữ';
+
+  @override
+  String get setting_privacy => 'Chính sách';
+
+  @override
+  String get setting_light_mode => 'Chế độ sáng';
+
+  @override
+  String get setting_dark_mode => 'Chế độ tối';
+
+  @override
+  String get setting_system_mode => 'Theo hệ thống';
+
+  @override
+  String get setting_theme => 'Chủ đề';
+
+  @override
+  String get setting_profile => 'Hồ sơ';
+
+  @override
+  String get notify_title => 'Thông báo';
+
+  @override
+  String get notify_unread => 'Chưa đọc';
+
+  @override
+  String get notify_read => 'Đã đọc';
+
+  @override
+  String get notify_all => 'Tất cả';
 }

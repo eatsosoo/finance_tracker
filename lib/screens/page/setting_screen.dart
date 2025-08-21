@@ -1,3 +1,5 @@
+import 'package:finance_tracker/generated/l10n.dart';
+import 'package:finance_tracker/providers/locale_provider.dart';
 import 'package:finance_tracker/providers/theme_provider.dart';
 import 'package:finance_tracker/utils/color_utils.dart';
 import 'package:finance_tracker/utils/number_utils.dart';
@@ -9,35 +11,41 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class SettingScreen extends StatefulWidget {
+  const SettingScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _SettingScreenState extends State<SettingScreen> {
   String themeSelected = '0';
-  final List<Map<String, String>> themeOptions = [
-    {'title': 'Light', 'value': '0'},
-    {'title': 'Dark', 'value': '1'},
-    {'title': 'System', 'value': '2'},
-  ];
-
-
+  String languageSelected = '0';
 
   @override
   Widget build(BuildContext context) {
     final Color blockColor = Theme.of(context).colorScheme.surface;
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
+
+    final s = S.of(context)!;
+    final List<Map<String, String>> themeOptions = [
+      {'title': s.setting_light_mode, 'value': '0'},
+      {'title': s.setting_dark_mode, 'value': '1'},
+      {'title': s.setting_system_mode, 'value': '2'},
+    ];
+    final List<Map<String, String>> languageOptions = [
+      {'title': 'Việt Nam', 'value': '0'},
+      {'title': 'English', 'value': '1'},
+    ];
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         leading: LeadingCommon(),
         centerTitle: true,
-        title: const Text(
-          'Settings',
+        title: Text(
+          s.setting_title,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
@@ -54,33 +62,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Column(
               children: [
-                _buildProfileTile(
+                _buildSettingTile(
                   icon: LucideIcons.mail,
                   label: 'Email',
                   onTap: () {},
                 ),
                 _buildDivider(),
-                _buildProfileTile(
+                _buildSettingTile(
                   icon: LucideIcons.squareUser,
-                  label: 'Username',
+                  label: s.setting_profile,
                   onTap: () {},
                 ),
                 _buildDivider(),
-                _buildProfileTile(
-                  icon: LucideIcons.activity,
-                  label: 'Step data source',
-                  onTap: () {},
-                ),
-                _buildDivider(),
-                _buildProfileTile(
+                _buildSettingTile(
                   icon: LucideIcons.languages,
-                  label: 'Language',
-                  onTap: () {},
+                  label: s.setting_language,
+                  onTap: () => _selectLanguage(localeProvider, languageOptions),
                 ),
                 _buildDivider(),
-                _buildProfileTile(
+                _buildSettingTile(
                   icon: LucideIcons.shieldCheck,
-                  label: 'Privacy',
+                  label: s.setting_privacy,
                   onTap: () {},
                 ),
               ],
@@ -107,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Text(
-                  'Inactive',
+                  s.common_inactive,
                   style: TextStyle(
                     color: Colors.orange.shade600,
                     fontWeight: FontWeight.w600,
@@ -202,22 +204,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Column(
               children: [
-                _buildProfileTile(
-                  icon: LucideIcons.box,
-                  label: 'App Icon',
-                  onTap: () {},
-                ),
-                _buildDivider(),
-                _buildProfileTile(
-                  icon: LucideIcons.layoutGrid,
-                  label: 'Widget',
-                  onTap: () {},
-                ),
-                _buildDivider(),
-                _buildProfileTile(
+                _buildSettingTile(
                   icon: LucideIcons.sun,
-                  label: '${findTitleMapOptions(themeOptions, themeSelected)} Mode',
-                  onTap: () => _selectTheme(themeProvider),
+                  label: findTitleMapOptions(themeOptions, themeSelected),
+                  onTap: () => _selectTheme(themeProvider, themeOptions),
                 ),
               ],
             ),
@@ -234,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // endIndent: 16,
   );
 
-  Widget _buildProfileTile({
+  Widget _buildSettingTile({
     required IconData icon,
     required String label,
     VoidCallback? onTap,
@@ -252,17 +242,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _selectTheme(ThemeProvider theme) {
+  void _selectTheme(ThemeProvider theme, List<Map<String, String>> options) {
     showBottomOptions(
       context: context,
-      title: 'Theme select',
-      filterOptions: themeOptions,
+      title: 'Theme',
+      filterOptions: options,
       currentFilter: themeSelected,
       onSelected: (value) {
         setState(() {
           themeSelected = value;
         });
         theme.toggleTheme(value);
+      },
+    );
+  }
+
+  void _selectLanguage(LocaleProvider provider, List<Map<String, String>> options) {
+    showBottomOptions(
+      context: context,
+      title: 'Language',
+      filterOptions: options,
+      currentFilter: languageSelected,
+      onSelected: (value) {
+        setState(() {
+          languageSelected = value;
+        });
+        provider.toggleLanguage(value);
       },
     );
   }
