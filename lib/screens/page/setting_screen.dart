@@ -19,8 +19,23 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  String themeSelected = '0';
-  String languageSelected = '0';
+  String? themeSelected;
+  String? languageSelected;
+
+  @override
+void initState() {
+  super.initState();
+  // Delay để đảm bảo context đã sẵn sàng
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+
+    setState(() {
+      themeSelected = themeProvider.themeText;
+      languageSelected = localeProvider.lang;
+    });
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +45,13 @@ class _SettingScreenState extends State<SettingScreen> {
 
     final s = S.of(context)!;
     final List<Map<String, String>> themeOptions = [
-      {'title': s.setting_light_mode, 'value': '0'},
-      {'title': s.setting_dark_mode, 'value': '1'},
-      {'title': s.setting_system_mode, 'value': '2'},
+      {'title': s.setting_light_mode, 'value': 'light'},
+      {'title': s.setting_dark_mode, 'value': 'dark'},
+      {'title': s.setting_system_mode, 'value': 'system'},
     ];
     final List<Map<String, String>> languageOptions = [
-      {'title': 'Việt Nam', 'value': '0'},
-      {'title': 'English', 'value': '1'},
+      {'title': 'Việt Nam', 'value': 'vi'},
+      {'title': 'English', 'value': 'en'},
     ];
 
     return Scaffold(
@@ -206,7 +221,7 @@ class _SettingScreenState extends State<SettingScreen> {
               children: [
                 _buildSettingTile(
                   icon: LucideIcons.sun,
-                  label: findTitleMapOptions(themeOptions, themeSelected),
+                  label: findTitleMapOptions(themeOptions, themeSelected ?? ''),
                   onTap: () => _selectTheme(themeProvider, themeOptions),
                 ),
               ],
@@ -245,9 +260,9 @@ class _SettingScreenState extends State<SettingScreen> {
   void _selectTheme(ThemeProvider theme, List<Map<String, String>> options) {
     showBottomOptions(
       context: context,
-      title: 'Theme',
+      title: S.of(context)!.setting_theme,
       filterOptions: options,
-      currentFilter: themeSelected,
+      currentFilter: themeSelected!,
       onSelected: (value) {
         setState(() {
           themeSelected = value;
@@ -260,9 +275,9 @@ class _SettingScreenState extends State<SettingScreen> {
   void _selectLanguage(LocaleProvider provider, List<Map<String, String>> options) {
     showBottomOptions(
       context: context,
-      title: 'Language',
+      title: S.of(context)!.setting_language,
       filterOptions: options,
-      currentFilter: languageSelected,
+      currentFilter: languageSelected!,
       onSelected: (value) {
         setState(() {
           languageSelected = value;

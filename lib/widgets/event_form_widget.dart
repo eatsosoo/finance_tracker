@@ -107,22 +107,16 @@ class _EventFormWidgetState extends State<EventFormWidget> {
   @override
   Widget build(BuildContext context) {
     final s = S.of(context)!;
-    final textFieldStyle = TextStyle(color: Colors.white);
+    final colorScheme = Theme.of(context).colorScheme;
     final labelStyle = TextStyle(
-      color: Colors.white,
       fontWeight: FontWeight.bold,
     );
     final subLabelStyle = TextStyle(
-      color: Colors.white,
+      color: colorScheme.onSurface,
       fontWeight: FontWeight.bold,
       fontSize: 12,
     );
-    final boxDecoration = BoxDecoration(
-      color: const Color(0xFF23232B),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: const Color(0xFF44444D)),
-    );
-
+    
     return Container(
       // padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -257,17 +251,22 @@ class _EventFormWidgetState extends State<EventFormWidget> {
             Text(s.home_event_form_notes, style: labelStyle),
             const SizedBox(height: 8),
             Container(
-              decoration: boxDecoration,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: TextField(
                 controller: _notesController,
-                style: textFieldStyle,
                 maxLines: 4,
                 minLines: 4,
+                style: const TextStyle(fontSize: 14),
                 decoration: InputDecoration(
                   hintText: '',
-                  border: InputBorder.none,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide.none
+                  ),
                   contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
+                    horizontal: 12,
                     vertical: 12,
                   ),
                 ),

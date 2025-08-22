@@ -50,9 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
-            availableCalendarFormats: {
-              CalendarFormat.month: s.common_month,
-            },
+            availableCalendarFormats: {CalendarFormat.month: s.common_month},
             calendarFormat: CalendarFormat.month,
             rowHeight: 44,
             calendarStyle: CalendarStyle(
@@ -68,7 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: colorScheme.secondary,
                 shape: BoxShape.circle,
               ),
-              defaultTextStyle: TextStyle(fontWeight: FontWeight.bold),
+              defaultTextStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.secondary,
+              ),
               weekendTextStyle: TextStyle(fontWeight: FontWeight.bold),
               outsideTextStyle: TextStyle(color: colorScheme.onSurface),
               todayTextStyle: TextStyle(
@@ -81,10 +82,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: BoxShape.circle,
               ),
             ),
+            daysOfWeekHeight: 44,
             daysOfWeekStyle: DaysOfWeekStyle(
+              decoration: BoxDecoration(
+                
+              ),
               dowTextFormatter: (date, locale) {
-                // Lấy chữ cái đầu
-                return DateFormat.E(locale).format(date).substring(0, 1);
+                if (locale == 'en') {
+                  return DateFormat.E(locale).format(date).substring(0, 2);
+                } else if (locale == 'vi') {
+                  final weekday = date.weekday;
+                  return weekday == DateTime.sunday
+                      ? 'CN'
+                      : 'T${(weekday + 1).toString()}';
+                } else {
+                  return DateFormat.E(locale).format(date);
+                }
               },
               weekdayStyle: TextStyle(
                 color: colorScheme.primary,
@@ -94,6 +107,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: colorScheme.primary,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            headerVisible: true,
+            headerStyle: HeaderStyle(
+              titleTextStyle: const TextStyle(fontWeight: FontWeight.bold),
+              titleTextFormatter: (date, locale) {
+                // Custom format yyyy-MM
+                return "${date.year}-${date.month.toString().padLeft(2, '0')}";
+              },
             ),
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);
@@ -120,7 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const SizedBox(width: 16),
               ElevatedButton(
-                onPressed: () => _showBottomSheet(_selectedDay ?? _focusedDay, colorScheme),
+                onPressed: () =>
+                    _showBottomSheet(_selectedDay ?? _focusedDay, colorScheme),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -133,7 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          Expanded(child: _buildViewEventsTab(context, _focusedDay, colorScheme)),
+          Expanded(
+            child: _buildViewEventsTab(context, _focusedDay, colorScheme),
+          ),
           const SizedBox(height: 16),
         ],
       ),
@@ -143,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showBottomSheet(DateTime selectedDay, ColorScheme colorScheme) {
     AppBottomSheet.show(
       backgroundColor: colorScheme.background,
-      title: 'New event',
+      title: S.of(context)!.home_new_event,
       context: context,
       child:
           // _buildAddEventTab(selectedDay),
@@ -189,7 +213,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildViewEventsTab(BuildContext context, DateTime day, ColorScheme colorScheme) {
+  Widget _buildViewEventsTab(
+    BuildContext context,
+    DateTime day,
+    ColorScheme colorScheme,
+  ) {
     final dayEvents = events[day] ?? [];
     if (dayEvents.isEmpty) {
       return Center(child: Text(S.of(context)!.home_no_events));

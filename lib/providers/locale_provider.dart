@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LocaleProvider with ChangeNotifier {
-  Locale _locale = const Locale('vi');
-  String _lang = 'vi';
+  Locale _locale = const Locale('en');
+  String _lang = 'en';
 
   Locale get locale => _locale;
   String get lang => _lang;
@@ -14,9 +14,9 @@ class LocaleProvider with ChangeNotifier {
 
   void toggleLanguage(String mode) {
     switch (mode) {
-      case '0':
-        _locale = const Locale('vi');
-        _lang = 'vi';
+      case 'vi':
+        _locale = Locale(mode);
+        _lang = mode;
         break;
       default:
         _locale = const Locale('en');
